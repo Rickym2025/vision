@@ -1,0 +1,20 @@
+# Vision UGC - AI Virtual Influencer Agency
+
+Vision UGC is a B2B SaaS platform and virtual influencer factory that generates high-converting User Generated Content (UGC) video ads for e-commerce brands and marketing agencies using photorealistic virtual presenters.
+
+## Core Information
+- **Landing Page:** https://vision.rmstudio.app
+- **Developer/Founder:** Riccardo Modena (RM Studio)
+- **Value Proposition:** Reduces video production costs by 90%, delivers within 24 hours, eliminates physical shipping and human model fees.
+
+## Virtual Influencer Stable (Scuderia)
+- **Camilla (Yoga):** Optimized for English-speaking wellness, stretching, and lifestyle campaigns.
+- **Camilla (Swatch):** Optimized for Italian-speaking product reviews, unboxing, and fashion campaigns.
+- **Zoe (Beauty):** Specialized in skincare, cosmetics, and beauty reviews.
+- **Janet (Tech):** Specialized in consumer electronics, gadgets, and mobile app reviews.
+- **Mathis (Fit Food):** Specialized in sports nutrition, supplements, and fitness recipes.
+
+## Pricing (Pay-As-You-Go)
+- **Starter Pack (€50):** 1 Video UGC (10-15s, 480p), 1 background/outfit combination, voice included.
+- **UGC Pro Bundle (€120):** 3 Video UGCs (10-15s, 720p), 3 different marketing hooks, unlimited templates.
+- **Agency Maxi Pack (€340):** 10 Video UGCs (10-15s, 1080p), custom scripts, priority render.
