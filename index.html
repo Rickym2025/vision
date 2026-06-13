@@ -472,6 +472,20 @@
         0%, 100% { opacity: 1; }
         50% { opacity: 0.5; }
       }
+
+      .glass {
+        background: rgba(15, 5, 30, 0.90); /* Più opaco per mantenere la leggibilità */
+        backdrop-filter: blur(4px); /* Ridotto a 4px per azzerare il carico sulla GPU */
+        border: 1px solid rgba(255,255,255,0.07);
+      }
+
+      /* Forza la decodifica del video tramite la scheda video (GPU) anziché la CPU */
+      .gpu-video {
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        perspective: 1000px;
+      }  
     </style>
 </head>
 
@@ -480,7 +494,7 @@
   <!-- LAYER BACKGROUND VIDEO -->
   <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
       <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-15">
-          <source src="/public/video/background.mp4" type="video/mp4">
+          <source class="gpu-video" src="/public/video/background.mp4" type="video/mp4">
       </video>
       <div class="absolute inset-0 bg-gradient-to-b from-ink/95 via-ink/60 to-ink"></div>
   </div>
@@ -587,7 +601,7 @@
             </svg>
           </div>
           <!-- Aggiunto autoplay esplicito nell'HTML -->
-          <video id="vid1" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>  
+          <video id="vid1" class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>  
           <div class="vid-label">Camilla · Yoga (ENG)</div>
         </div>
 
@@ -611,7 +625,7 @@
             </svg>
           </div>
           <!-- Aggiunto autoplay esplicito nell'HTML -->
-          <video id="vid2" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+          <video id="vid2" class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Camilla · Swatch (ITA)</div>
         </div>
 
@@ -1113,20 +1127,19 @@
         userHasInteracted = true;
         document.removeEventListener('click', registerInteraction);
         document.removeEventListener('touchstart', registerInteraction);
-        document.removeEventListener('scroll', registerInteraction);
     };
+    // Lo scroll è stato rimosso poiché i browser bloccano l'audio se si esegue solo lo scorrimento
     document.addEventListener('click', registerInteraction);
     document.addEventListener('touchstart', registerInteraction);
-    document.addEventListener('scroll', registerInteraction);
 
     function setupVideoAudio(videoEl, hintEl) {
-      // Forza l'avvio del video mutato in background
       videoEl.muted = true;
       videoEl.play().catch(() => {});
     
+      // Gestione HOVER (Entrata del mouse)
       videoEl.parentElement.addEventListener('mouseenter', () => {
         if (userHasInteracted) {
-            videoEl.muted = false; // Toglie il muto se l'utente ha interagito
+            videoEl.muted = false; // Sblocca l'audio se l'utente ha cliccato/toccato lo schermo
         }
         if (hintEl && !videoEl.muted) {
             // Icona volume attivo
@@ -1134,16 +1147,29 @@
         }
       });
     
+      // Gestione HOVER (Uscita del mouse)
       videoEl.parentElement.addEventListener('mouseleave', () => {
-        videoEl.muted = true; // Silezia nuovamente all'allontanamento del mouse
+        videoEl.muted = true;
         if (hintEl) {
             // Icona volume mutato
             hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
         }
       });
+
+      // GESTIONE CLICK SULLO SMARTPHONE (Sblocca istantaneamente l'audio del video cliccato e di tutti gli altri)
+      videoEl.parentElement.addEventListener('click', () => {
+        userHasInteracted = true;
+        videoEl.muted = !videoEl.muted; // Alterna muto/attivo al click
+        if (videoEl.muted) {
+            if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+        } else {
+            videoEl.play().catch(() => {});
+            if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
+        }
+      });
     }
 
-    // Applica ai due video hero
+    // Inizializzazione dei due video
     const vid1 = document.getElementById('vid1');
     const vid2 = document.getElementById('vid2');
     if (vid1) setupVideoAudio(vid1, document.getElementById('hint1'));
