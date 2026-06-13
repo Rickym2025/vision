@@ -15,7 +15,7 @@
   <title>Vision UGC — Video Ads AI con Creator Virtuali in 24 ore</title>
   <meta name="description" content="Genera video UGC ad alta conversione con influencer virtuali iper-realistici. Nessun attore, nessuna spedizione. Consegna in 24 ore.">
 
-  <link rel="icon" href="https://rmstudio.app/public/logo.ico" sizes="any">
+  <link rel="icon" href="/public/logo.ico" type="image/x-icon">
 
   <!-- Plus Jakarta Sans (display) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -339,8 +339,8 @@
 
   <!-- LAYER BACKGROUND VIDEO FLUIDO -->
   <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-      <video autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover opacity-15">
-          <source src="/video/background.mp4" type="video/mp4">
+      <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-15">
+          <source src="/public/video/background.mp4" type="video/mp4">
       </video>
       <div class="absolute inset-0 bg-gradient-to-b from-ink/95 via-ink/60 to-ink"></div>
   </div>
@@ -428,13 +428,13 @@
         <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
         <div class="vid-card" style="aspect-ratio:9/16;">
-          <video src="/video/v1.mp4" loop muted playsinline preload="metadata"
+          <video src="/public/video/v1.mp4" loop muted playsinline preload="metadata"
                  onmouseenter="this.play()" onmouseleave="this.pause()" onclick="this.paused?this.play():this.pause()"></video>
           <div class="vid-label">Camila · Lifestyle</div>
         </div>
 
         <div class="vid-card" style="aspect-ratio:9/16;margin-top:32px;">
-          <video src="/video/v5_ita.mp4" loop muted playsinline preload="metadata"
+          <video src="/public/video/v5_ita.mp4" loop muted playsinline preload="metadata"
                  onmouseenter="this.play()" onmouseleave="this.pause()" onclick="this.paused?this.play():this.pause()"></video>
           <div class="vid-label">Sara · Fashion</div>
         </div>
