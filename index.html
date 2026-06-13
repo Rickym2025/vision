@@ -1,800 +1,887 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-	<!-- Google Analytics 4 (Consent Mode v2 Compliant) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8BWGPFL8XE"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	  gtag('config', 'G-8BWGPFL8XE');
-	</script>
-	
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlowUGC | Video Ads AI ad alta conversione per E-Commerce</title>
-    <meta name="description" content="Generazione istantanea di video UGC ad alte prestazioni con influencer virtuali per e-commerce e brand. Consegna in 24 ore senza attori reali.">
-    
-    <link rel="icon" href="favicon.ico?v=2" sizes="any" type="image/x-icon">
-    <link rel="apple-touch-icon" href="favicon.png?v=2">
-    
-    <!-- Tailwind CSS (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Configurazione Colori Tailwind (Tema Glow Violet) -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            400: '#a78bfa', // Violet 400
-                            500: '#8b5cf6', // Violet 500
-                            600: '#7c3aed', // Violet 600
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['system-ui', '-apple-system', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8BWGPFL8XE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8BWGPFL8XE');
+  </script>
 
-    <style>
-        body { background-color: #050505; color: #f8fafc; overflow-x: hidden; scroll-behavior: smooth; font-size: 18px; }
-        .glass-panel { background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glow-text { text-shadow: 0 0 30px rgba(139, 92, 246, 0.5); }
-        .blob { position: absolute; filter: blur(80px); z-index: -1; opacity: 0.35; animation: float 10s ease-in-out infinite; }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, -30px) scale(1.1); }
-        }
-        /* Visual Hook: Leggero sfarfallio dello sfondo nei primi 3 secondi */
-        @keyframes hook-flicker {
-            0%, 100% { opacity: 0.95; }
-            50% { opacity: 0.85; }
-        }
-        .visual-hook-active { animation: hook-flicker 3s ease-in-out; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision UGC — Video Ads AI con Creator Virtuali in 24 ore</title>
+  <meta name="description" content="Genera video UGC ad alta conversione con influencer virtuali iper-realistici. Nessun attore, nessuna spedizione. Consegna in 24 ore.">
 
-	<!-- Schema Markup Strutturato (Google SEO & Rich Snippets) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "GlowUGC",
-      "operatingSystem": "All",
-      "applicationCategory": "BusinessApplication",
-      "description": "Generazione automatica di video UGC ad alto impatto con creator virtuali per e-commerce e campagne pubblicitarie social.",
-      "offers": {
-        "@type": "Offer",
-        "price": "50.00",
-        "priceCurrency": "EUR"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Riccardo Modena",
-        "url": "https://www.linkedin.com/in/riccardo-modena-13918a61/"
+  <link rel="icon" href="favicon.ico" sizes="any">
+
+  <!-- Syne (display) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            v: {
+              50:  '#faf5ff',
+              400: '#c084fc',
+              500: '#a855f7',
+              600: '#9333ea',
+              700: '#7c3aed',
+            },
+            fx: '#e040fb',
+            ink: '#050008',
+          }
+        }
       }
     }
-    </script>
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050008;
+      color: #f1f0f5;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #050008; }
+    ::-webkit-scrollbar-thumb { background: #7c3aed44; border-radius: 2px; }
+
+    /* ── Noise grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ── Glassmorphism panel ── */
+    .glass {
+      background: rgba(15, 5, 30, 0.75);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* ── Gradient text ── */
+    .grad-text {
+      background: linear-gradient(135deg, #c084fc 0%, #e040fb 60%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Ambient blob ── */
+    .blob {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Video card hover ── */
+    .vid-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(160,85,247,0.2);
+      background: #0a0010;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .vid-card:hover {
+      border-color: rgba(160,85,247,0.7);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 24px 60px rgba(124,58,237,0.3);
+    }
+    .vid-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .vid-label {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(5,0,8,0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(160,85,247,0.3);
+      color: #c084fc;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── CTA button ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #7c3aed, #e040fb);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      border-radius: 9999px;
+      transition: transform 0.25s, box-shadow 0.25s, opacity 0.25s;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.4);
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 40px rgba(224,64,251,0.45);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      font-weight: 600;
+      border-radius: 9999px;
+      transition: background 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(160,85,247,0.5);
+      color: white;
+    }
+
+    /* ── Comparison table ── */
+    .compare-row { border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .compare-row:last-child { border-bottom: none; }
+
+    /* ── Pricing card ── */
+    .price-card {
+      border-radius: 28px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .price-card.featured {
+      background: linear-gradient(160deg, #1a0a2e 0%, #0d0018 100%);
+      border: 2px solid #7c3aed;
+      box-shadow: 0 0 60px rgba(124,58,237,0.2);
+      position: relative;
+    }
+    .price-card.standard {
+      background: rgba(15,5,30,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ── Orbit (copiato da rmstudio, accent viola) ── */
+    @keyframes orbit-rotation {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes counter-rotation {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+    @keyframes pulse-ring-v {
+      0%, 100% { opacity: 0.15; transform: scale(0.95); }
+      50%       { opacity: 0.35; transform: scale(1.05); }
+    }
+    .orbit-ring {
+      position: relative;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      border: 1px solid rgba(160,85,247,0.12);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 30px rgba(124,58,237,0.08);
+      animation: orbit-rotation 40s linear infinite;
+    }
+    .orbit-wrapper {
+      position: absolute;
+      width: 58px; height: 58px;
+      transform: translate(-50%, -50%);
+    }
+    .orbit-item {
+      position: relative; width: 100%; height: 100%;
+      animation: counter-rotation 40s linear infinite;
+      transform-origin: center;
+    }
+    .orbit-link {
+      display: flex; width: 100%; height: 100%;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-sizing: border-box;
+      transition: 0.3s;
+      align-items: center; justify-content: center;
+      overflow: hidden; text-decoration: none;
+    }
+    .orbit-link:hover {
+      border-color: #a855f7;
+      box-shadow: 0 0 14px rgba(168,85,247,0.5);
+    }
+    .orbit-img { width: 100%; height: 100%; object-fit: contain; }
+    .orbit-img.cover { object-fit: cover; }
+    .orbit-img.rounded { border-radius: 9999px; }
+    .orbit-center-photo {
+      position: absolute;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      border: 3px solid #7c3aed;
+      padding: 3px;
+      background: #000;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.8), 0 0 30px rgba(124,58,237,0.2);
+      z-index: 10;
+      box-sizing: border-box;
+    }
+    .orbit-center-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; border-radius: 50%;
+    }
+    .orbit-tooltip {
+      position: absolute;
+      bottom: 80px; left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      background: #0a0010;
+      border: 1px solid rgba(255,255,255,0.07);
+      color: #94a3b8;
+      font-size: 11px;
+      border-radius: 10px;
+      padding: 12px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+      text-align: center; z-index: 100;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      line-height: 1.4;
+    }
+    .orbit-tooltip b { color: white; display: block; margin-bottom: 4px; }
+    .orbit-item:hover .orbit-tooltip { opacity: 1; }
+    .pulse-ring-element {
+      position: absolute;
+      width: 310px; height: 310px;
+      background: rgba(124,58,237,0.06);
+      filter: blur(48px);
+      border-radius: 9999px;
+      animation: pulse-ring-v 4s cubic-bezier(0.4,0,0.6,1) infinite;
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .orbit-ring, .orbit-item, .pulse-ring-element, .blob { animation: none !important; }
+    }
+
+    /* ── Nav active dot ── */
+    .nav-dot {
+      display: inline-block; width: 5px; height: 5px;
+      border-radius: 50%; background: #a855f7;
+      margin-right: 6px; vertical-align: middle;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    a:hover .nav-dot { opacity: 1; }
+
+    /* ── Section fade-in ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Vision UGC",
+    "operatingSystem": "All",
+    "applicationCategory": "BusinessApplication",
+    "description": "Generazione automatica di video UGC ad alto impatto con creator virtuali per e-commerce e campagne social.",
+    "offers": { "@type": "Offer", "price": "50.00", "priceCurrency": "EUR" },
+    "author": {
+      "@type": "Person",
+      "name": "Riccardo Modena",
+      "url": "https://www.linkedin.com/in/riccardo-modena-13918a61/"
+    }
+  }
+  </script>
 </head>
-<body class="antialiased selection:bg-brand-500/30 visual-hook-active">
 
-    <!-- BG VIDEO (z-[-2]) -->
-    <video autoplay loop muted playsinline preload="auto" class="fixed inset-0 w-screen h-screen object-cover z-[-2] opacity-35 brightness-[0.4] pointer-events-none">
-        <source src="background.mp4" type="video/mp4">
-    </video>
-    
-    <!-- BLOBS ANIMATI (z-[-1]) -->
-    <div class="fixed inset-0 z-[-1] pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,#050505_90%)]">
-        <div class="blob bg-brand-600/15 w-[500px] h-[500px] rounded-full absolute top-[-100px] left-[-100px]"></div>
-        <div class="blob bg-fuchsia-600/10 w-[600px] h-[600px] rounded-full absolute bottom-[-200px] right-[-100px]" style="animation-delay: -5s;"></div>
-    </div>
+<body>
 
-    <!-- Navbar -->
-    <nav class="fixed top-0 inset-x-0 z-50 glass-panel border-b-0 border-white/5 px-6 py-4">
-        <div class="max-w-7xl w-full mx-auto flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3 text-xl font-bold tracking-wide">
-                <img src="logo.png" alt="Logo" class="h-16 w-auto object-contain">
-                <span>Glow<span class="text-brand-500 italic">UGC</span></span>
-            </a>
-            
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#video-ads" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Video Ads</a>
-                <a href="#confronto" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Vantaggi</a>
-                <a href="#testimonial" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Testimonial</a>
-                <a href="#prezzi" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Prezzi</a>
-                <a href="#ecosistema" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Ecosistema</a>
-            </div>
+  <!-- ─── AMBIENT BACKGROUND ─── -->
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
+    <div class="blob" style="width:600px;height:600px;background:rgba(124,58,237,0.12);top:-150px;left:-150px;"></div>
+    <div class="blob" style="width:500px;height:500px;background:rgba(224,64,251,0.08);bottom:-100px;right:-100px;animation-delay:-6s;"></div>
+    <div class="blob" style="width:400px;height:400px;background:rgba(99,102,241,0.07);top:40%;left:50%;transform:translateX(-50%);animation-delay:-3s;"></div>
+  </div>
 
-            <div class="flex items-center gap-4">
-                <a href="#prezzi" class="bg-brand-500 hover:bg-brand-400 text-black px-6 py-2.5 rounded-full text-sm font-extrabold transition-all shadow-[0_0_15px_rgba(139,92,246,0.3)]">Inizia Ora</a>
-            </div>
-        </div>
+  <!-- ─── NAV ─── -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;padding:0 24px;">
+    <nav class="glass max-w-6xl mx-auto mt-4 rounded-2xl px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5">
+        <img src="logo_vision.png" alt="Vision UGC" style="height:32px;width:auto;object-fit:contain;">
+        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:17px;letter-spacing:0.02em;">Vision <span class="grad-text">UGC</span></span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8" style="font-size:13px;font-weight:500;">
+        <a href="#esempi" class="text-white/50 hover:text-white transition-colors"><span class="nav-dot"></span>Esempi</a>
+        <a href="#vantaggi" class="text-white/50 hover:text-white transition-colors"><span class="nav-dot"></span>Vantaggi</a>
+        <a href="#prezzi" class="text-white/50 hover:text-white transition-colors"><span class="nav-dot"></span>Prezzi</a>
+        <a href="#ecosistema" class="text-white/50 hover:text-white transition-colors"><span class="nav-dot"></span>Studio</a>
+      </div>
+
+      <a href="#prezzi" class="btn-primary px-5 py-2.5" style="font-size:13px;">
+        Inizia Ora
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </a>
     </nav>
+  </header>
 
-    <!-- Hero Section (Neuro-Layout) -->
-    <section class="pt-36 pb-20 px-6 min-h-[95vh] flex items-center">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center w-full">
-            
-            <!-- TESTO E CTA GRUPPATE -->
-            <div class="lg:col-span-7 space-y-8 text-left">
-                <div>
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-bold uppercase tracking-widest mb-6">
-                        AI Advertising Agency
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                        Moltiplica le vendite<br>
-                        del tuo E-Commerce.<br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-fuchsia-300 glow-text animate-pulse">Video UGC pronti in 24 Ore.</span>
-                    </h1>
-                </div>
-                
-                <p class="text-slate-300 text-lg leading-relaxed max-w-xl font-light">
-                    Niente spedizioni fisiche, niente attori fantasma, nessuna trattativa. Trasformiamo le semplici foto del tuo prodotto in video UGC ad altissima conversione con i nostri <b>creator virtuali iper-realistici</b>. Creati su misura per catturare l'attenzione e vendere.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-                    <!-- Regola 2: Pulsante di acquisto x2 rispetto al secondario -->
-                    <a href="#prezzi" class="inline-flex items-center justify-center gap-3 bg-brand-500 hover:bg-brand-400 text-black font-extrabold px-12 py-6 rounded-full transition-all transform hover:scale-[1.03] shadow-[0_0_30px_rgba(139,92,246,0.4)] text-lg sm:text-xl w-full sm:w-auto">
-                        <span>Sblocca i tuoi Video UGC</span>
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                    </a>
-                    <a href="#video-ads" class="inline-flex items-center justify-center text-center border border-white/20 hover:bg-white/10 text-white font-bold px-6 py-4 rounded-full text-base transition-colors w-full sm:w-auto">
-                        Guarda Esempi 🎬
-                    </a>
-                </div>
-                
-                <div class="pt-4 flex items-center gap-3 text-xs text-slate-500">
-                    <span>🔥 Consegna in 24 ore</span> • <span>💎 Nessuna spedizione richiesta</span> • <span>🎯 Revisioni incluse</span>
-                </div>
-            </div>
 
-            <!-- ANTEPRIME VIDEO (z-10) -->
-            <div id="video-ads" class="lg:col-span-5 relative w-full max-w-sm mx-auto mt-8 lg:mt-0">
-                <div class="absolute inset-0 bg-brand-500/10 blur-3xl rounded-full"></div>
-                
-                <div class="relative glass-panel rounded-[2.5rem] p-6 border border-white/10 shadow-2xl space-y-6">
-                    <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div>
-                            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Esempi UGC Generati</span>
-                        </div>
-                        <span class="text-xs text-slate-500">Formato Reels (9:16)</span>
-                    </div>
+  <!-- ─── HERO ─── -->
+  <section style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:130px 24px 80px;">
+    <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;" class="hero-grid">
 
-                    <!-- Griglia Video HTML5 statici riprodotti dalla cartella public -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="relative rounded-2xl overflow-hidden aspect-[9/16] border border-white/10 bg-black group">
-                            <video src="videos/camila_yoga.mp4" loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onmouseover="this.play()" onmouseout="this.pause()"></video>
-                            <div class="absolute bottom-2 left-2 bg-black/60 px-2 py-0.5 rounded text-[10px] text-brand-400 font-bold">Camila - Yoga</div>
-                        </div>
-                        <div class="relative rounded-2xl overflow-hidden aspect-[9/16] border border-white/10 bg-black group">
-                            <video src="videos/marcus_tech.mp4" loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onmouseover="this.play()" onmouseout="this.pause()"></video>
-                            <div class="absolute bottom-2 left-2 bg-black/60 px-2 py-0.5 rounded text-[10px] text-brand-400 font-bold">Marcus - Tech</div>
-                        </div>
-                    </div>
-                    <p class="text-[10px] text-slate-500 text-center">Passa il mouse sopra il video per riprodurlo</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- TABELLA COMPARATIVA NEUROMARKETING (AI VS CREATOR UMANI) -->
-    <section id="confronto" class="py-24 px-6 border-t border-white/5 bg-gradient-to-b from-black to-[#0a0a0c]">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-                    La Scienza del Risparmio
-                </div>
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-                    Riduci i costi del <span class="text-brand-500">90%</span>
-                </h2>
-                <p class="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
-                    La neuroscienza del web dimostra che il cervello odia perdere risorse. Ecco quanto stai perdendo oggi affidandoti a metodi tradizionali.
-                </p>
-            </div>
-
-            <!-- Tabella di confronto -->
-            <div class="glass-panel rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
-                <div class="grid grid-cols-3 bg-white/5 border-b border-white/10 p-5 text-sm font-bold tracking-wider uppercase text-slate-400">
-                    <div>Caratteristica</div>
-                    <div class="text-brand-400">GlowUGC AI</div>
-                    <div>Studi & Attori Umani</div>
-                </div>
-                <div class="divide-y divide-white/5 text-sm sm:text-base">
-                    <div class="grid grid-cols-3 p-5">
-                        <div class="font-bold text-white">Costo per video</div>
-                        <div class="text-brand-400 font-bold">€50</div>
-                        <div class="text-slate-500">€500+ <span class="text-xs text-red-400">(fino a 10 volte superiore)</span></div>
-                    </div>
-                    <div class="grid grid-cols-3 p-5">
-                        <div class="font-bold text-white">Tempi di consegna</div>
-                        <div class="text-brand-400 font-bold">In 24 ore</div>
-                        <div class="text-slate-500">14-21 Giorni lavorativi</div>
-                    </div>
-                    <div class="grid grid-cols-3 p-5">
-                        <div class="font-bold text-white">Spedizione Prodotto</div>
-                        <div class="text-brand-400 font-bold">Non richiesta <span class="text-xs text-slate-400">(basta una foto)</span></div>
-                        <div class="text-slate-500">Obbligatoria <span class="text-xs text-red-400">(spese di spedizione cariche a te)</span></div>
-                    </div>
-                    <div class="grid grid-cols-3 p-5">
-                        <div class="font-bold text-white">Modifiche & Revisioni</div>
-                        <div class="text-brand-400 font-bold">Istantanee e incluse</div>
-                        <div class="text-slate-500">Richiedono nuovi scatti a pagamento</div>
-                    </div>
-                    <div class="grid grid-cols-3 p-5">
-                        <div class="font-bold text-white">Adattabilità Lingue</div>
-                        <div class="text-brand-400 font-bold">Parla 10 lingue native</div>
-                        <div class="text-slate-500">Richiede traduttori o attori diversi</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIAL REALI -->
-    <section id="testimonial" class="py-24 px-6 border-t border-white/5 bg-black/50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Chi ci ha già scelto</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">I risultati dei brand e delle agenzie e-commerce che utilizzano i nostri creator virtuali.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-panel p-8 rounded-2xl hover:border-brand-500/50 transition-colors">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="text-3xl">👗</div>
-                        <div>
-                            <div class="font-bold text-white text-sm">Elena S.</div>
-                            <div class="text-xs text-slate-500">E-Commerce Fashion Manager</div>
-                        </div>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed italic">"Generavamo circa 3 video Ads al mese a causa dei costi degli attori. Con GlowUGC ne creiamo 10 a settimana e testiamo decine di ganci diversi, il nostro ROAS su Meta è raddoppiato!"</p>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl hover:border-brand-500/50 transition-colors">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="text-3xl">🕶️</div>
-                        <div>
-                            <div class="font-bold text-white text-sm">Marco F.</div>
-                            <div class="text-xs text-slate-500">Co-founder Brand Accessori</div>
-                        </div>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed italic">"Evitare la spedizione fisica dei prodotti in giro per l'Europa è stata una svolta. Forniamo le foto industriali in HD e l'IA genera video dove i modelli indossano gli occhiali in modo perfetto."</p>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl hover:border-brand-500/50 transition-colors">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="text-3xl">🚀</div>
-                        <div>
-                            <div class="font-bold text-white text-sm">Luca M.</div>
-                            <div class="text-xs text-slate-500">Media Buyer Agency</div>
-                        </div>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed italic">"I video non sanno affatto di finto. Il movimento labiale è perfettamente agganciato e le voci in italiano (specialmente quella di Sara) superano qualsiasi asettico sintetizzatore."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PREZZI CON REGOLE DI NEUROMARKETING (Tondi, Barrati in rosso, Nuovo prezzo in verde) -->
-    <section id="prezzi" class="py-24 px-6 border-t border-white/5 bg-gradient-to-b from-[#0a0a0c] to-black">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4">
-                    Listino Pay-As-You-Go
-                </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-4">Investi sul ROI delle tue inserzioni</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto text-lg">Nessun abbonamento mensile bloccante. Compra un pacchetto crediti video e lo utilizzi quando vuoi.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 items-stretch">
-                
-                <!-- STARTER PACK -->
-                <div class="glass-panel p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-slate-400 font-bold uppercase tracking-widest text-sm mb-2">Starter Pack</h3>
-                        <p class="text-xs text-slate-500 mb-4">Ideale per testare la qualità dei nostri video.</p>
-                        
-                        <!-- Neuromarketing: Prezzo pieno sbarrato in rosso, nuovo prezzo in verde smeraldo -->
-                        <div class="my-6 flex items-baseline gap-3">
-                            <span class="text-red-500 line-through text-lg font-bold">€ 80</span>
-                            <span class="text-4xl font-black text-green-400">€ 50</span>
-                        </div>
-
-                        <ul class="space-y-4 text-sm text-slate-300 mb-8">
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> 1 Video UGC (10-15 secondi)</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> 1 Sfondo e Outfit personalizzato</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> Traccia audio ElevenLabs inclusa</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> Risoluzione standard (480p)</li>
-                        </ul>
-                    </div>
-                    <!-- Bottone secondario di ricarica -->
-                    <a href="https://buy.stripe.com/your-stripe-starter-link?client_reference_id=glowugc_starter" class="block text-center w-full border border-white/20 text-white hover:bg-white/10 py-3.5 rounded-xl font-bold transition-all mt-auto text-sm">
-                        Acquista Starter
-                    </a>
-                </div>
-
-                <!-- BUNDLE PRO (MIGLIOR SCELTA - GLOWING NEON BORDER & MASTER CTA) -->
-                <div class="bg-gradient-to-b from-[#160f30] to-black/95 backdrop-blur-xl border-2 border-brand-500 p-8 rounded-3xl shadow-[0_0_50px_rgba(139,92,246,0.25)] relative transform md:-translate-y-4 flex flex-col justify-between">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-500 text-black text-[10px] font-black uppercase tracking-widest px-6 py-1.5 rounded-full shadow-lg">
-                        Consigliato
-                    </div>
-                    <div>
-                        <h3 class="text-brand-400 font-bold uppercase tracking-widest text-sm mb-2">UGC Pro Bundle</h3>
-                        <p class="text-xs text-slate-300 mb-4">Ottimizza le tue campagne pubblicitarie testando più varianti.</p>
-                        
-                        <div class="my-6 flex items-baseline gap-3">
-                            <span class="text-red-500 line-through text-lg font-bold">€ 180</span>
-                            <span class="text-4xl font-black text-green-400">€ 120</span>
-                        </div>
-
-                        <ul class="space-y-4 text-sm text-slate-300 mb-8">
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> 3 Video UGC (10-15 secondi)</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> 3 Ganci psicologici differenti (Hook)</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> Alta Risoluzione sbloccata (720p)</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> Inserimento del Logo del tuo brand</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> Accesso a tutti i modelli di vestiti e sfondi</li>
-                        </ul>
-                    </div>
-                    <!-- Regola 2: Pulsante di acquisto primario con spessore x2 rispetto al secondario -->
-                    <a href="https://buy.stripe.com/your-stripe-pro-link?client_reference_id=glowugc_pro" class="block text-center w-full bg-brand-500 hover:bg-brand-400 text-black py-5 rounded-xl font-black transition-transform active:scale-95 shadow-lg shadow-brand-500/25 text-lg mt-auto">
-                        Ottieni Pro Bundle
-                    </a>
-                </div>
-
-                <!-- AGENCY / MAXI PACK -->
-                <div class="glass-panel p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-slate-400 font-bold uppercase tracking-widest text-sm mb-2">Agency Maxi Pack</h3>
-                        <p class="text-xs text-slate-500 mb-6">Progettato per e-commerce e agenzie di marketing.</p>
-                        
-                        <div class="my-6 flex items-baseline gap-3">
-                            <span class="text-red-500 line-through text-lg font-bold">€ 500</span>
-                            <span class="text-4xl font-black text-green-400">€ 340</span>
-                        </div>
-
-                        <ul class="space-y-4 text-sm text-slate-300 mb-8">
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> 10 Video UGC ad alte prestazioni</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> Pieno controllo sulle varianti di scrittura</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> Massima risoluzione di calcolo (1080p)</li>
-                            <li class="flex gap-3"><span class="text-brand-400 font-bold">✓</span> Supporto prioritario ed elaborazione rapida</li>
-                        </ul>
-                    </div>
-                    <a href="https://buy.stripe.com/your-stripe-maxi-link?client_reference_id=glowugc_max" class="block text-center w-full bg-white/10 text-white hover:bg-white/20 py-3.5 rounded-xl font-bold transition-all text-sm mt-auto">
-                        Sblocca Maxi Pack
-                    </a>
-                </div>
-
-            </div>
-            
-            <div class="mt-8 text-center">
-                <p class="text-sm text-slate-500">I crediti acquistati non scadono mai. Se hai dubbi sulla fattibilità, chiedi a Giulia <button onclick="toggleHtChat()" class="text-brand-400 underline hover:text-brand-300">cliccando sull'icona della chat</button>.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEZIONE E-E-A-T: AUTOREVOLEZZA E WIDGET ORBITALE RM STUDIO (Regola 8: Google Ranked Design) -->
-    <section id="ecosistema" class="border-t border-white/10 bg-[#020202]/80 py-24 px-6 relative">
-        
-        <!-- Stili del Widget Orbitale di RM Studio -->
-        <style>
-            @keyframes orbit-rotation {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-            @keyframes counter-rotation {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(-360deg); }
-            }
-            @keyframes pulse-ring-optimized {
-                0%, 100% { opacity: 0.2; transform: scale(0.95); }
-                50% { opacity: 0.4; transform: scale(1.05); }
-            }
-            .orbit-area:hover .orbit-ring,
-            .orbit-area:hover .orbit-item {
-                animation-play-state: paused;
-            }
-            .orbit-ring {
-                position: relative;
-                width: 320px;
-                height: 320px;
-                border-radius: 50%;
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
-                animation: orbit-rotation 40s linear infinite;
-            }
-            .orbit-wrapper {
-                position: absolute;
-                width: 64px;
-                height: 64px;
-                transform: translate(-50%, -50%);
-            }
-            .orbit-item {
-                position: relative;
-                width: 100%;
-                height: 100%;
-                animation: counter-rotation 40s linear infinite;
-                transform-origin: center;
-            }
-            .orbit-link {
-                display: flex;
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                border: 1px solid rgba(255,255,255,0.1);
-                box-sizing: border-box;
-                transition: 0.3s;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-                text-decoration: none;
-            }
-            .orbit-link:hover {
-                border-color: #8b5cf6;
-                box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
-            }
-            .orbit-img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-            .orbit-img.cover {
-                object-fit: cover;
-            }
-            .orbit-img.rounded {
-                border-radius: 50%;
-            }
-            .orbit-center-photo {
-                position: absolute;
-                width: 144px;
-                height: 144px;
-                border-radius: 50%;
-                border: 4px solid #8b5cf6;
-                padding: 4px;
-                background: #000;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-                z-index: 15;
-                box-sizing: border-box;
-            }
-            .orbit-center-photo img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 50%;
-            }
-            .orbit-tooltip {
-                position: absolute;
-                bottom: 80px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 200px;
-                background: #0a0a0c;
-                border: 1px solid rgba(255,255,255,0.08);
-                color: #cbd5e1;
-                font-size: 13px;
-                border-radius: 8px;
-                padding: 12px;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.2s;
-                text-align: center;
-                z-index: 50;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                line-height: 1.4;
-            }
-            .orbit-tooltip b {
-                color: white;
-                display: block;
-                margin-bottom: 4px;
-            }
-            .orbit-item:hover .orbit-tooltip {
-                opacity: 1;
-            }
-            .pulse-ring-element {
-                position: absolute;
-                width: 288px;
-                height: 288px;
-                background-color: rgba(139, 92, 246, 0.05);
-                filter: blur(48px);
-                border-radius: 9999px;
-                will-change: transform, opacity;
-                animation: pulse-ring-optimized 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            }
-        </style>
-
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
-            
-            <!-- COLONNA SINISTRA: L'Area Orbitale RM Studio -->
-            <div class="lg:col-span-5 flex justify-center items-center relative min-h-[440px] orbit-area" id="orbit-template-container">
-                <!-- Verrà iniettato dinamicamente via JS fetch -->
-            </div>
-
-            <!-- COLONNA DESTRA: Profilo Autorevolezza RM Studio (Regola 4: Dimostrazione expertise) -->
-            <div class="lg:col-span-7 space-y-6 text-left">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-bold uppercase tracking-widest">
-                    Esperienza & Autorevolezza
-                </div>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
-                    Ingegneria Software firmata <span class="text-brand-500">RM Studio</span>
-                </h2>
-                
-                <p class="text-slate-300 text-lg leading-relaxed font-light">
-                    Sviluppato da <b>Riccardo Modena</b>, GlowUGC fa parte di un ecosistema integrato di solutions software nate per ottimizzare i flussi commerciali B2B. Sfruttiamo server dedicati ad altissime prestazioni per azzerare i colli di bottiglia creativi del tuo e-commerce.
-                </p>
-                
-                <!-- Regola 5: Link di citazione accademica o di settore per l'IA -->
-                <p class="text-slate-300 text-lg leading-relaxed font-light">
-                    Come dimostrato dalle ricerche condotte dallo <a href="https://hci.stanford.edu/" target="_blank" rel="noopener" class="text-brand-400 underline hover:text-brand-300">Stanford Human-Computer Interaction Group sull'efficacia degli agenti artificiali visivi</a>, l'adozione di volti fotorealistici ad alta coerenza incrementa la fiducia del consumatore e migliora le metriche di interazione pubblicitaria fino al 41%.
-                </p>
-
-                <div class="pt-4 flex flex-wrap gap-4">
-                    <a href="https://www.linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="bg-white/5 hover:bg-white/10 text-white font-bold px-6 py-3 rounded-full text-sm transition-all border border-white/10 flex items-center gap-2">
-                        <span>Segui Riccardo Modena su LinkedIn</span>
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    </a>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <!-- FORM DI REGISTRAZIONE SEMPLICE (Regola 9: No form lunghi) -->
-    <section id="registrazione-sezione" class="py-24 px-6 border-t border-white/5 relative">
-        <div class="max-w-3xl mx-auto glass-panel p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden">
-            <h2 class="text-3xl font-bold mb-2 text-center">Richiedi l'Analisi del tuo Prodotto</h2>
-            <p class="text-slate-400 mb-8 text-center">Inviaci il link del tuo prodotto Amazon o Shopify. Genereremo una prima proposta di inquadratura adatta.</p>
-            
-            <form id="form-registrazione" class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10" onsubmit="handleContactSubmit(e)">
-                <input type="hidden" name="access_key" value="9013a8d5-0901-42a0-b9e6-4c45553f960d">
-                <input type="hidden" name="subject" value="Nuovo Lead da GlowUGC Landing">
-                
-                <div>
-                    <label class="block text-sm text-slate-400 mb-2 uppercase tracking-widest font-bold">Nome Azienda *</label>
-                    <input type="text" name="name" required class="w-full bg-black/50 border border-white/10 text-white rounded-xl px-4 py-3 outline-none focus:border-brand-500 transition-colors" placeholder="es. Brand Orologi">
-                </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-2 uppercase tracking-widest font-bold">Email Aziendale *</label>
-                    <input type="email" name="email" required class="w-full bg-black/50 border border-white/10 text-white rounded-xl px-4 py-3 outline-none focus:border-brand-500 transition-colors" placeholder="es. marketing@brand.it">
-                </div>
-                <div class="md:col-span-2">
-                    <label class="block text-sm text-slate-400 mb-2 uppercase tracking-widest font-bold">Link Prodotto (Amazon o sito web) *</label>
-                    <input type="url" name="website" required class="w-full bg-black/50 border border-white/10 text-white rounded-xl px-4 py-3 outline-none focus:border-brand-500 transition-colors" placeholder="es. https://www.amazon.it/dp/...">
-                </div>
-                
-                <div class="md:col-span-2 mt-2">
-                    <button type="submit" id="btn-registrati" class="w-full bg-brand-500 text-black font-extrabold py-4 rounded-xl hover:bg-brand-400 transition-transform active:scale-95 text-lg">Invia Richiesta</button>
-                </div>
-                <div id="reg-msg" class="md:col-span-2 text-center text-sm font-bold hidden"></div>
-            </form>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-white/10 bg-black py-16 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
-            
-            <div class="max-w-xs">
-                <div class="flex items-center justify-center md:justify-start gap-3 text-white font-black text-2xl mb-4">
-                    <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center font-bold text-black text-sm shadow-[0_0_12px_rgba(139,92,246,0.5)]">G</div>
-                    <span>Glow<span class="text-brand-500 italic">UGC</span></span>
-                </div>
-                <p class="text-slate-500 text-sm leading-relaxed">Tecnologia proprietaria RM Studio. Sviluppiamo soluzioni per far crescere l'e-commerce.</p>
-                <p class="text-slate-600 text-xs mt-6">
-                    © 2026 RM Studio.<br>
-                    <a href="public/privacy.html" target="_blank" class="underline hover:text-slate-400 mt-1 inline-block">Privacy Policy</a>
-                    <span class="mx-2 text-slate-700">|</span>
-                    <a href="https://rmstudio.app/termini.html" target="_blank" class="underline hover:text-slate-400 mt-1 inline-block">Termini e Condizioni</a>
-                </p>
-            </div>
-
-            <div class="flex flex-col items-center md:items-start gap-4">
-                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-2 font-mono">Social Hub</h4>
-                <div class="flex gap-4">
-                    <a href="https://www.instagram.com/riccardo_mode_/" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500/50 transition-all font-mono text-xs">IG</a>
-                    <a href="https://www.facebook.com/riccardo.modena.792" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500/50 transition-all font-mono text-xs">FB</a>
-                    <a href="https://www.linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500/50 transition-all font-mono text-xs">IN</a>
-                    <a href="https://www.tiktok.com/@mr3d.riccardo" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500/50 transition-all font-mono text-xs">TK</a>
-                </div>
-            </div>
-
-            <div class="flex flex-col items-center gap-3">
-                <h4 class="text-white font-bold text-sm uppercase tracking-widest font-mono">Supporto</h4>
-                <a href="#registrazione-sezione" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all text-center">Richiedi Informazioni</a>
-            </div>
-
-        </div>
-    </footer>
-
-    <!-- Chatbot Container (Regola: Posizionato a SINISTRA per evitare la sovrapposizione del pollice destro) -->
-    <div id="chatbot-container"></div>
-    <script>
-    const WEBHOOK_CHATBOT = 'https://n8n.rmstudio.app/webhook/glowugc-chatbot';
-    let chatSessionId = localStorage.getItem('glow_chat_session') || ('glow_' + Math.random().toString(36).substring(7));
-    localStorage.setItem('glow_chat_session', chatSessionId);
-    let chatIsOpen = window.innerWidth > 900;
-
-    function injectChatbot() {
-        const container = document.getElementById('chatbot-container');
-        container.innerHTML = `
-        <style>
-        :root {
-            --cta-color: #8b5cf6;
-            --surface: rgba(10, 10, 12, 0.95);
-            --surface2: rgba(20, 20, 24, 0.95);
-            --text: #f8fafc;
-            --violet: #8b5cf6;
-            --black: #050505;
-            --border: rgba(255, 255, 255, 0.1);
-            --green: #4ade80;
-        }
-        #ht-bubble { position:fixed; bottom:30px; left:30px; width:65px; height:65px;
-            border-radius:50%; background:var(--cta-color); box-shadow:0 10px 25px rgba(139,92,246,.4);
-            cursor:pointer; z-index:9999; display:flex; align-items:center; justify-content:center;
-            border:2px solid #161616; transition:transform .3s; }
-        #ht-bubble:hover { transform:scale(1.1); }
-        #ht-window { position:fixed; bottom:110px; left:30px; width:360px; height:550px;
-            background:var(--surface); backdrop-filter: blur(16px); border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,.8);
-            z-index:9999; display:none; flex-direction:column; overflow:hidden;
-            font-family:system-ui, -apple-system, sans-serif; border:1px solid var(--border); }
-        .ht-header { background:var(--surface2); border-bottom:1px solid var(--border); color:var(--text);
-            padding:16px 20px; font-weight:700; display:flex; justify-content:space-between; align-items:center; }
-        .ht-messages { flex:1; padding:20px; overflow-y:auto; background:var(--black);
-            display:flex; flex-direction:column; gap:14px; scroll-behavior:smooth; }
-        .ht-msg { padding:14px 18px; border-radius:18px; font-size:15px; max-width:88%; line-height:1.5; }
-        .ht-msg.bot  { background:var(--surface2); color:var(--text); border:1px solid var(--border);
-            align-self:flex-start; border-bottom-left-radius:4px; }
-        .ht-msg.user { background:var(--violet); color:white; font-weight:500;
-            align-self:flex-end; border-bottom-right-radius:4px; }
-        .ht-msg b { font-weight:700; color:var(--violet); }
-        .ht-msg.user b { color:white; }
-        .ht-chips { display:flex; flex-wrap:wrap; gap:8px; padding:0 20px 20px; background:var(--black); }
-        .ht-chip { background:var(--surface2); border:1px solid var(--border); color:var(--violet);
-            padding:8px 14px; border-radius:20px; font-size:13px; cursor:pointer; transition:.2s; font-weight:500; }
-        .ht-chip:hover { background:var(--violet); color:white; border-color:var(--violet); }
-        .ht-input-area { padding:16px; border-top:1px solid var(--border); display:flex; gap:10px; background:var(--surface2); }
-        .ht-input-area input { flex:1; border:1px solid var(--border); border-radius:8px; padding:10px 14px;
-            outline:none; font-size:15px; color:var(--text); background:var(--black); font-family:inherit; }
-        .ht-input-area input:focus { border-color:var(--violet); }
-        .ht-input-area button { background:var(--violet); border:none; border-radius:8px; color:white;
-            cursor:pointer; font-weight:700; font-size:14px; padding:0 16px; transition:.2s; }
-        .ht-input-area button:hover { transform:translateY(-2px); }
-        .typing-dot { width:6px; height:6px; background:var(--violet); border-radius:50%;
-            display:inline-block; animation:httyping 1.4s infinite ease-in-out; margin-right:3px; }
-        .typing-dot:nth-child(2) { animation-delay:.2s; }
-        .typing-dot:nth-child(3) { animation-delay:.4s; }
-        @keyframes httyping { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-5px)} }
-        @media(max-width:450px) {
-            #ht-window { width:calc(100% - 40px); height:500px; left:20px; bottom:90px; }
-            #ht-bubble { bottom:20px; left:20px; }
-        }
-        </style>
-
-        <div id="ht-bubble" title="Parla con Giulia">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
+      <!-- Left -->
+      <div style="display:flex;flex-direction:column;gap:28px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);padding:6px 16px;border-radius:9999px;width:fit-content;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;display:inline-block;animation:pulse 2s ease-in-out infinite;"></span>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Creator Virtuali · Consegna 24h</span>
         </div>
 
-        <div id="ht-window">
-            <div class="ht-header">
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <div style="width:36px;height:36px;background:rgba(139,92,246,.1);border:1px solid var(--violet);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--violet);font-size:16px;font-weight:700;">E</div>
-                    <div style="display:flex;flex-direction:column;">
-                        <span style="font-size:16px;line-height:1.2;">Giulia AI</span>
-                        <span style="font-size:11px;color:var(--green);font-weight:normal;">● Online adesso</span>
-                    </div>
-                </div>
-                <button id="ht-close-btn" style="background:none;border:none;color:var(--text);opacity:0.5;font-size:28px;cursor:pointer;line-height:1;">&times;</button>
-            </div>
-            <div id="ht-messages" class="ht-messages">
-                <div class="ht-msg bot">
-                    Ciao! Sono <b>Giulia</b>. ✨<br><br>
-                    Posso aiutarti a capire come <b>generare video UGC per le tue inserzioni</b> o come integrare le API nel tuo store. Cosa desideri sapere?
-                </div>
-            </div>
-            <div id="ht-chips-container" class="ht-chips">
-                <div class="ht-chip" onclick="sendHtMsg('Come funziona il cambio sfondo?')">Come funziona lo sfondo?</div>
-                <div class="ht-chip" onclick="sendHtMsg('Quanto costa un video di prova?')">Quanto costa?</div>
-                <div class="ht-chip" onclick="sendHtMsg('È possibile integrare le API?')">Integrazione API?</div>
-            </div>
-            <div class="ht-input-area">
-                <input type="text" id="ht-input" placeholder="Scrivi il tuo dubbio..." onkeypress="if(event.key==='Enter') sendHtMsg()">
-                <button onclick="sendHtMsg()">Invia</button>
-            </div>
+        <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;letter-spacing:-0.02em;">
+          Il tuo prodotto.<br>
+          Il volto giusto.<br>
+          <span class="grad-text">Vendite reali.</span>
+        </h1>
+
+        <p style="font-size:1.05rem;color:rgba(241,240,245,0.65);line-height:1.7;font-weight:300;max-width:480px;">
+          Generiamo video UGC con presenter virtuali iper-realistici a partire da una semplice foto del tuo prodotto. Nessuna spedizione. Nessun attore. Nessuna attesa.
+        </p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+          <a href="#prezzi" class="btn-primary px-8 py-4" style="font-size:16px;">
+            Sblocca i tuoi Video
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </a>
+          <a href="#esempi" class="btn-ghost px-6 py-4" style="font-size:14px;">
+            Guarda esempi
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/></svg>
+          </a>
         </div>
-        `;
 
-        document.getElementById('ht-bubble').addEventListener('click', toggleHtChat);
-        document.getElementById('ht-close-btn').addEventListener('click', toggleHtChat);
+        <div style="display:flex;flex-wrap:wrap;gap:20px;padding-top:8px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4);">
+            <svg width="15" height="15" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            Consegna in 24 ore
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4);">
+            <svg width="15" height="15" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            Nessuna spedizione
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4);">
+            <svg width="15" height="15" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            Revisioni incluse
+          </div>
+        </div>
+      </div>
 
-        document.getElementById('ht-window').style.display = chatIsOpen ? 'flex' : 'none';
+      <!-- Right: Video previews -->
+      <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;">
+        <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+        <div class="vid-card" style="aspect-ratio:9/16;">
+          <video src="video/v1.mp4" loop muted playsinline preload="metadata"
+                 onmouseenter="this.play()" onmouseleave="this.pause()" onclick="this.paused?this.play():this.pause()"></video>
+          <div class="vid-label">Camila · Lifestyle</div>
+        </div>
+
+        <div class="vid-card" style="aspect-ratio:9/16;margin-top:32px;">
+          <video src="video/v5_ita.mp4" loop muted playsinline preload="metadata"
+                 onmouseenter="this.play()" onmouseleave="this.pause()" onclick="this.paused?this.play():this.pause()"></video>
+          <div class="vid-label">Sara · Fashion</div>
+        </div>
+
+        <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
+          Passa il mouse per riprodurre
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── SOCIAL PROOF STRIP ─── -->
+  <div style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);padding:20px 24px;background:rgba(10,0,20,0.5);">
+    <div style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:32px 48px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:#c084fc;">+250</span>
+        <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">Video generati ogni mese</span>
+      </div>
+      <div style="width:1px;height:32px;background:rgba(255,255,255,0.06);"></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:#c084fc;">10+</span>
+        <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">Lingue native disponibili</span>
+      </div>
+      <div style="width:1px;height:32px;background:rgba(255,255,255,0.06);"></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:#c084fc;">90%</span>
+        <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">Riduzione costi vs attori</span>
+      </div>
+      <div style="width:1px;height:32px;background:rgba(255,255,255,0.06);"></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:#c084fc;">24h</span>
+        <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">Consegna garantita</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─── CONFRONTO ─── -->
+  <section id="vantaggi" style="position:relative;z-index:1;padding:100px 24px;">
+    <div class="reveal" style="max-width:860px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:60px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;margin-bottom:20px;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Il confronto che ti cambia idea</span>
+        </div>
+        <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
+          Smetti di sprecare budget.<br><span class="grad-text">Inizia a scalare.</span>
+        </h2>
+      </div>
+
+      <div class="glass" style="border-radius:24px;overflow:hidden;">
+        <!-- Header -->
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:16px 28px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.05);">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Caratteristica</span>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a855f7;text-align:center;">Vision UGC</span>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-align:center;">Attori reali</span>
+        </div>
+
+        <!-- Rows -->
+        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+          <span style="font-size:15px;font-weight:500;">Costo per video</span>
+          <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">€ 50</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;"><s>€ 500+</s></span>
+        </div>
+        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+          <span style="font-size:15px;font-weight:500;">Tempi di consegna</span>
+          <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">24 ore</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">14–21 giorni</span>
+        </div>
+        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+          <span style="font-size:15px;font-weight:500;">Spedizione prodotto</span>
+          <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Non serve</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">Obbligatoria</span>
+        </div>
+        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+          <span style="font-size:15px;font-weight:500;">Lingue disponibili</span>
+          <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">10+ native</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">1 per attore</span>
+        </div>
+        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+          <span style="font-size:15px;font-weight:500;">Revisioni</span>
+          <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Incluse</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">A pagamento</span>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+          <span style="font-size:15px;font-weight:500;">Scalabilità</span>
+          <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Illimitata</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">Dipende dal set</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── TESTIMONIAL ─── -->
+  <section style="position:relative;z-index:1;padding:0 24px 100px;">
+    <div class="reveal" style="max-width:1060px;margin:0 auto;">
+      <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.6rem,3.5vw,2.5rem);text-align:center;margin-bottom:48px;letter-spacing:-0.02em;">
+        Chi ha già scelto Vision
+      </h2>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+        <div class="glass" style="padding:32px;border-radius:20px;display:flex;flex-direction:column;gap:16px;">
+          <div style="font-size:28px;">👗</div>
+          <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;font-style:italic;">"Con i creator virtuali pubblichiamo 10 video a settimana invece di 3 al mese. Il ROAS su Meta è raddoppiato in 60 giorni."</p>
+          <div>
+            <div style="font-size:14px;font-weight:600;">Elena S.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.35);">E-Commerce Fashion Manager</div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding:32px;border-radius:20px;display:flex;flex-direction:column;gap:16px;border-color:rgba(124,58,237,0.3);">
+          <div style="font-size:28px;">🕶️</div>
+          <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;font-style:italic;">"Mandiamo le foto HD e il modello indossa gli occhiali in modo perfetto. Zero spedizioni in giro per l'Europa."</p>
+          <div>
+            <div style="font-size:14px;font-weight:600;">Marco F.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.35);">Co-founder Brand Accessori</div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding:32px;border-radius:20px;display:flex;flex-direction:column;gap:16px;">
+          <div style="font-size:28px;">🚀</div>
+          <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;font-style:italic;">"Il lip sync è perfetto, le voci italiane sono naturali. I clienti non si accorgono che è AI."</p>
+          <div>
+            <div style="font-size:14px;font-weight:600;">Luca M.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.35);">Media Buyer Agency</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── PREZZI ─── -->
+  <section id="prezzi" style="position:relative;z-index:1;padding:0 24px 100px;">
+    <div class="reveal" style="max-width:1060px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:56px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;margin-bottom:20px;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Pay-as-you-go · Nessun abbonamento</span>
+        </div>
+        <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
+          Investi sul ROI.<br><span class="grad-text">Non sul contratto.</span>
+        </h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;align-items:start;">
+
+        <!-- Starter -->
+        <div class="price-card standard">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;">Starter Pack</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:20px;">Per testare la qualità prima di scalare.</div>
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
+              <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 80</span>
+              <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 50</span>
+            </div>
+          </div>
+          <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              1 Video UGC (10–15 secondi)
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              1 Sfondo e outfit personalizzato
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Traccia audio ElevenLabs inclusa
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Risoluzione standard 480p
+            </li>
+          </ul>
+          <a href="https://buy.stripe.com/your-starter-link" class="btn-ghost" style="width:100%;padding:14px;font-size:14px;border-radius:14px;justify-content:center;">
+            Acquista Starter
+          </a>
+        </div>
+
+        <!-- Pro Bundle (featured) -->
+        <div class="price-card featured">
+          <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7c3aed,#e040fb);color:white;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 18px;border-radius:9999px;white-space:nowrap;">
+            Più scelto
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#a855f7;margin-bottom:8px;">UGC Pro Bundle</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Ottimizza le campagne testando più varianti hook.</div>
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
+              <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 180</span>
+              <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 120</span>
+            </div>
+          </div>
+          <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
+              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              3 Video UGC (10–15 secondi)
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
+              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              3 Ganci psicologici differenti
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
+              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Alta risoluzione 720p sbloccata
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
+              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Logo del brand inserito nel video
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
+              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Tutti i modelli e sfondi disponibili
+            </li>
+          </ul>
+          <a href="https://buy.stripe.com/your-pro-link" class="btn-primary" style="width:100%;padding:18px;font-size:16px;border-radius:14px;justify-content:center;">
+            Ottieni Pro Bundle
+          </a>
+        </div>
+
+        <!-- Agency -->
+        <div class="price-card standard">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;">Agency Maxi Pack</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:20px;">Per e-commerce e agenzie che scalano.</div>
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
+              <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 500</span>
+              <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 340</span>
+            </div>
+          </div>
+          <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              10 Video UGC ad alte prestazioni
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Controllo totale su script e hook
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Massima risoluzione 1080p
+            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Supporto prioritario dedicato
+            </li>
+          </ul>
+          <a href="https://buy.stripe.com/your-maxi-link" class="btn-ghost" style="width:100%;padding:14px;font-size:14px;border-radius:14px;justify-content:center;">
+            Sblocca Maxi Pack
+          </a>
+        </div>
+
+      </div>
+
+      <p style="text-align:center;font-size:13px;color:rgba(255,255,255,0.25);margin-top:24px;">
+        I crediti acquistati non scadono mai. Hai dubbi? Scrivici tramite la chat.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ─── ECOSISTEMA RM STUDIO ─── -->
+  <section id="ecosistema" style="position:relative;z-index:1;padding:0 24px 100px;border-top:1px solid rgba(255,255,255,0.04);">
+    <div class="reveal" style="max-width:1060px;margin:0 auto;padding-top:80px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;" class="eco-grid">
+
+        <!-- Orbit container -->
+        <div id="orbit-container" style="display:flex;justify-content:center;align-items:center;position:relative;min-height:380px;">
+          <!-- iniettato via fetch -->
+        </div>
+
+        <!-- Testo -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;width:fit-content;">
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Powered by RM Studio</span>
+          </div>
+          <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.6rem,3vw,2.5rem);letter-spacing:-0.02em;">
+            Parte di un ecosistema<br><span class="grad-text">di 9 prodotti AI.</span>
+          </h2>
+          <p style="font-size:15px;color:rgba(255,255,255,0.55);line-height:1.75;font-weight:300;">
+            Vision UGC è sviluppato da <strong style="color:rgba(255,255,255,0.85);font-weight:600;">Riccardo Modena</strong> di RM Studio, un lab di ingegneria software che progetta soluzioni AI verticali per automatizzare i processi commerciali B2B.
+          </p>
+          <p style="font-size:14px;color:rgba(255,255,255,0.4);line-height:1.75;font-weight:300;">
+            Come dimostrato dallo <a href="https://hci.stanford.edu/" target="_blank" rel="noopener" style="color:#a855f7;text-decoration:underline;text-underline-offset:3px;">Stanford HCI Group</a>, l'uso di volti virtuali fotorealistici incrementa la fiducia del consumatore e migliora le metriche di interazione fino al 41%.
+          </p>
+          <a href="https://rmstudio.app" target="_blank" rel="noopener" class="btn-ghost" style="width:fit-content;padding:12px 24px;font-size:13px;">
+            Scopri l'ecosistema RM Studio
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/riccardo-modena-13918a61/" target="_blank" rel="noopener" class="btn-ghost" style="width:fit-content;padding:12px 24px;font-size:13px;">
+            Segui su LinkedIn
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── FORM RICHIESTA ─── -->
+  <section style="position:relative;z-index:1;padding:0 24px 100px;">
+    <div class="reveal" style="max-width:640px;margin:0 auto;">
+      <div class="glass" style="border-radius:28px;padding:48px 40px;">
+        <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2rem);text-align:center;margin-bottom:8px;letter-spacing:-0.02em;">
+          Richiedi l'analisi del tuo prodotto
+        </h2>
+        <p style="text-align:center;font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:32px;line-height:1.6;">
+          Inviaci il link del tuo prodotto. Generiamo una prima proposta gratuita di inquadratura e script.
+        </p>
+
+        <form id="contact-form" style="display:flex;flex-direction:column;gap:16px;">
+          <input type="hidden" name="access_key" value="9013a8d5-0901-42a0-b9e6-4c45553f960d">
+          <input type="hidden" name="subject" value="Nuovo Lead da Vision UGC">
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" class="form-grid">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Nome azienda *</label>
+              <input type="text" name="name" required placeholder="Brand Italia Srl"
+                style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:14px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
+                onfocus="this.style.borderColor='rgba(168,85,247,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Email *</label>
+              <input type="email" name="email" required placeholder="marketing@brand.it"
+                style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:14px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
+                onfocus="this.style.borderColor='rgba(168,85,247,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Link prodotto (Amazon / Shopify) *</label>
+            <input type="url" name="website" required placeholder="https://www.amazon.it/dp/..."
+              style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:14px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
+              onfocus="this.style.borderColor='rgba(168,85,247,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn-primary" style="width:100%;padding:18px;font-size:16px;border-radius:14px;margin-top:8px;border:none;cursor:pointer;">
+            Invia Richiesta
+          </button>
+          <p id="form-msg" style="text-align:center;font-size:13px;font-weight:600;display:none;"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── FOOTER ─── -->
+  <footer style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.05);padding:48px 24px;background:rgba(0,0,5,0.8);">
+    <div style="max-width:1060px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;">
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="logo_vision.png" alt="Vision UGC" style="height:24px;width:auto;object-fit:contain;">
+          <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;">Vision <span class="grad-text">UGC</span></span>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.25);max-width:260px;line-height:1.6;">
+          Tecnologia proprietaria RM Studio.<br>
+          © <span id="yr"></span> Riccardo Modena · RM Studio
+        </p>
+        <div style="display:flex;gap:16px;margin-top:4px;">
+          <a href="https://rmstudio.app/public/privacy.html" target="_blank"
+             style="font-size:11px;color:rgba(255,255,255,0.25);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;"
+             onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">
+            Privacy Policy
+          </a>
+          <span style="font-size:11px;color:rgba(255,255,255,0.1);">|</span>
+          <a href="https://rmstudio.app/public/termini.html" target="_blank"
+             style="font-size:11px;color:rgba(255,255,255,0.25);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;"
+             onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">
+            Termini e Condizioni
+          </a>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <a href="https://www.instagram.com/riccardo_mode_/" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">IG</a>
+        <a href="https://www.facebook.com/riccardo.modena.792" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">FB</a>
+        <a href="https://www.linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">IN</a>
+        <a href="https://www.tiktok.com/@mr3d.riccardo" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">TK</a>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ─── SCRIPTS ─── -->
+  <script>
+    // Anno corrente
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Responsive grid (hero + eco)
+    function applyResponsive() {
+      const w = window.innerWidth;
+      document.querySelectorAll('.hero-grid, .eco-grid').forEach(el => {
+        el.style.gridTemplateColumns = w < 768 ? '1fr' : '1fr 1fr';
+      });
+      document.querySelectorAll('.form-grid').forEach(el => {
+        el.style.gridTemplateColumns = w < 560 ? '1fr' : '1fr 1fr';
+      });
     }
+    applyResponsive();
+    window.addEventListener('resize', applyResponsive);
 
-    function toggleHtChat() {
-        const win  = document.getElementById('ht-window');
-        chatIsOpen = !chatIsOpen;
-        win.style.display = chatIsOpen ? 'flex' : 'none';
-    }
+    // Orbit injection da rmstudio.app
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('https://rmstudio.app/public/orbit-template.html?v=' + Date.now())
+        .then(r => { if (!r.ok) throw new Error('orbit fetch failed'); return r.text(); })
+        .then(html => {
+          const c = document.getElementById('orbit-container');
+          if (c) c.innerHTML = html;
+        })
+        .catch(err => console.warn('Orbit non caricata:', err));
+    });
 
-    async function sendHtMsg(textOverride) {
-        const input = document.getElementById('ht-input');
-        const text  = (textOverride || input.value).trim();
-        if (!text) return;
+    // Form submit
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const msg = document.getElementById('form-msg');
+      btn.textContent = 'Invio in corso...';
+      btn.style.opacity = '0.6';
+      btn.disabled = true;
 
-        input.value = '';
-        addHtMsg(text, 'user');
-
-        const chips = document.getElementById('ht-chips-container');
-        if (chips) chips.style.display = 'none';
-
-        const loadingId = 'loading-' + Date.now();
-        addHtMsg('<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>', 'bot', loadingId);
-
-        try {
-            const res = await fetch(WEBHOOK_CHATBOT, {
-                method:  'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body:    JSON.stringify({ message: text, sessionId: chatSessionId, strutturaId: 'glowugc' }),
-                signal:  AbortSignal.timeout(15000)
-            });
-
-            const raw = await res.text();
-            let reply = 'Sto elaborando la risposta per te...';
-            if (raw && raw.trim() !== '') {
-                try {
-                    const data = JSON.parse(raw);
-                    reply = data.output || data.response || data.text || reply;
-                } catch (_) { reply = raw; }
-            }
-
-            const loadEl = document.getElementById(loadingId);
-            if (loadEl) loadEl.remove();
-            addHtMsg(reply, 'bot');
-
-        } catch (err) {
-            const loadEl = document.getElementById(loadingId);
-            if (loadEl) loadEl.remove();
-            addHtMsg('Scusami, i server sono momentaneamente molto carichi. Riprova tra un istante!', 'bot');
-        }
-    }
-
-    function addHtMsg(text, sender, id) {
-        const div = document.createElement('div');
-        div.className = `ht-msg ${sender}`;
-        if (id) div.id = id;
-        div.innerHTML = text
-            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-            .replace(/\n/g, '<br>');
-        const box = document.getElementById('ht-messages');
-        box.appendChild(div);
-        box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' });
-    }
-
-    document.addEventListener('DOMContentLoaded', injectChatbot);
-    </script>
-
-    <!-- Script di iniezione asincrona dell'orbita centralizzata -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch("https://www.rmstudio.app/orbit-template?v=1")
-                .then((res) => {
-                    if (!res.ok) throw new Error("Errore caricamento widget");
-                    return res.text();
-                })
-                .then((html) => {
-                    const container = document.getElementById("orbit-template-container");
-                    if (container) container.innerHTML = html;
-                })
-                .catch((err) => console.error("Impossibile caricare l'ecosistema orbitale:", err));
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: new FormData(e.target)
         });
-    </script>
+        if (res.ok) {
+          msg.textContent = '✓ Messaggio inviato! Ti risponderò entro 24 ore.';
+          msg.style.color = '#4ade80';
+          e.target.reset();
+        } else {
+          throw new Error();
+        }
+      } catch {
+        msg.textContent = '✗ Errore. Riprova tra poco.';
+        msg.style.color = '#f87171';
+      } finally {
+        msg.style.display = 'block';
+        btn.textContent = 'Invia Richiesta';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+      }
+    });
+  </script>
 
-    <script src="https://rmstudio.app/cookie-banner.js" defer></script>
+  <script src="https://rmstudio.app/cookie-banner.js" defer></script>
 </body>
 </html>
