@@ -1107,30 +1107,39 @@
       }
     });
 
-    // ─── FIX 2: VIDEO AUDIO su hover ───
-    // Problema originale: onmouseenter chiamava .play() su video già in play → errore browser
-    // Soluzione: gestiamo con addEventListener e controlliamo lo stato prima di chiamare play()
+    // ─── FIX VIDEO AUDIO SU HOVER TRASPARENTE ───
+    let userHasInteracted = false;
+    const registerInteraction = () => {
+        userHasInteracted = true;
+        document.removeEventListener('click', registerInteraction);
+        document.removeEventListener('touchstart', registerInteraction);
+        document.removeEventListener('scroll', registerInteraction);
+    };
+    document.addEventListener('click', registerInteraction);
+    document.addEventListener('touchstart', registerInteraction);
+    document.addEventListener('scroll', registerInteraction);
+
     function setupVideoAudio(videoEl, hintEl) {
+      // Forza l'avvio del video mutato in background
       videoEl.muted = true;
-      videoEl.pause();
+      videoEl.play().catch(() => {});
     
       videoEl.parentElement.addEventListener('mouseenter', () => {
-        videoEl.muted = false;
-        videoEl.play().catch(() => { videoEl.muted = true; videoEl.play(); });
-        if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
+        if (userHasInteracted) {
+            videoEl.muted = false; // Toglie il muto se l'utente ha interagito
+        }
+        if (hintEl && !videoEl.muted) {
+            // Icona volume attivo
+            hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
+        }
       });
     
       videoEl.parentElement.addEventListener('mouseleave', () => {
-        videoEl.pause();
-        videoEl.currentTime = 0;
-        videoEl.muted = true;
-        if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
-      });
-    }
-
-      videoEl.parentElement.addEventListener('mouseleave', () => {
-        videoEl.muted = true;
-        if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+        videoEl.muted = true; // Silezia nuovamente all'allontanamento del mouse
+        if (hintEl) {
+            // Icona volume mutato
+            hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+        }
       });
     }
 
