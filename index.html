@@ -587,7 +587,7 @@
               <line x1="17" y1="9" x2="23" y2="15"/>
             </svg>
           </div>
-          <video id="vid1" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto"></video>
+          <video id="vid1" src="/public/video/v1.mp4" loop muted playsinline preload="auto"></video>
           <div class="vid-label">Camilla · Yoga (ENG)</div>
         </div>
 
@@ -610,7 +610,7 @@
               <line x1="17" y1="9" x2="23" y2="15"/>
             </svg>
           </div>
-          <video id="vid2" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto"></video>
+          <video id="vid2" src="/public/video/v5_ita.mp4" loop muted playsinline preload="auto"></video>
           <div class="vid-label">Camilla · Swatch (ITA)</div>
         </div>
 
@@ -1110,17 +1110,22 @@
     // Problema originale: onmouseenter chiamava .play() su video già in play → errore browser
     // Soluzione: gestiamo con addEventListener e controlliamo lo stato prima di chiamare play()
     function setupVideoAudio(videoEl, hintEl) {
-      videoEl.muted = true; // sicuri che parta mutato
-
+      videoEl.muted = true;
+      videoEl.pause();
+    
       videoEl.parentElement.addEventListener('mouseenter', () => {
         videoEl.muted = false;
-        // se il video è in pausa (es. bloccato dal browser), lo riavviamo
-        if (videoEl.paused) {
-          videoEl.play().catch(() => { videoEl.muted = true; });
-        }
-        // aggiorna icona hint → speaker on
+        videoEl.play().catch(() => { videoEl.muted = true; videoEl.play(); });
         if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
       });
+    
+      videoEl.parentElement.addEventListener('mouseleave', () => {
+        videoEl.pause();
+        videoEl.currentTime = 0;
+        videoEl.muted = true;
+        if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+      });
+    }
 
       videoEl.parentElement.addEventListener('mouseleave', () => {
         videoEl.muted = true;
