@@ -10,7 +10,7 @@
       "name": "Vision UGC",
       "operatingSystem": "All",
       "applicationCategory": "BusinessApplication",
-      "description": "La prima Fabbrica di Influencer Virtuali H24 per e-commerce e agenzie di marketing. Generazione automatica di video UGC ad alto impatto con connettività nativa in 24 ore.",
+      "description": "Fabbrica di Influencer Virtuali H24 per e-commerce e campagne social. Consegna garantita in 24 ore.",
       "offers": { 
         "@type": "AggregateOffer",
         "priceCurrency": "EUR",
@@ -82,7 +82,7 @@
         background: #050008;
         color: #f1f0f5;
         overflow-x: hidden;
-        font-size: 16px; /* Ottimizzazione caratteri minimi per Google */
+        font-size: 16px; /* Caratteri minimi Google mobile friendly */
       }
 
       ::-webkit-scrollbar { width: 4px; }
@@ -395,6 +395,11 @@
           font-family: 'Inter', sans-serif;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
+      /* Classe di forza-chiusura per aggirare la specificità delle media query in Desktop */
+      #vision-chat-window.hidden-chat {
+          display: none !important;
+      }
+
       /* Configurazione Desktop (Aperto e a Destra) */
       @media (min-width: 768px) {
           #vision-chat-bubble { right: 24px; left: auto; }
@@ -446,8 +451,8 @@
   </div>
 
   <!-- ─── NAV ─── -->
-  <header style="position:fixed;top:0;left:0;right:0;z-index:50;padding:0 24px;">
-    <nav class="glass max-w-6xl mx-auto mt-4 rounded-2xl px-6 py-4 flex items-center justify-between">
+  <header class="fixed top-0 left-0 w-full p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5">
+    <nav class="glass max-w-6xl mx-auto rounded-2xl px-6 py-4 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5">
         <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:32px;width:auto;object-fit:contain;">
         <span style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:17px;letter-spacing:0.02em;">Vision <span class="grad-text">UGC</span></span>
@@ -535,9 +540,9 @@
             <p class="text-[11px] text-zinc-300 leading-snug">My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga</p>
           </div>
 
-          <!-- Riproduzione automatica e un-mute al passaggio del mouse -->
+          <!-- Riproduzione automatica e un-mute al passaggio del mouse con intercettazione errore -->
           <video src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="this.muted=false;" onmouseleave="this.muted=true;"></video>
+                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
           <div class="vid-label">Camilla · Yoga (ENG)</div>
         </div>
 
@@ -556,9 +561,9 @@
             <p class="text-[11px] text-zinc-300 leading-snug">Oggi recensiamo insieme la nuova collezione Swatch! Guardate che colori pazzeschi! 😍⌚ #swatch #unboxing</p>
           </div>
 
-          <!-- Riproduzione automatica e un-mute al passaggio del mouse -->
+          <!-- Riproduzione automatica e un-mute al passaggio del mouse con intercettazione errore -->
           <video src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="this.muted=false;" onmouseleave="this.muted=true;"></video>
+                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
           <div class="vid-label">Camilla · Swatch (ITA)</div>
         </div>
 
@@ -683,7 +688,7 @@
             <p class="text-[11px] text-zinc-300 leading-snug">Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine</p>
           </div>
           <video src="/public/video/v2.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="this.muted=false;" onmouseleave="this.muted=true;"></video>
+                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
           <div class="vid-label">Zoe · Beauty</div>
         </div>
 
@@ -700,7 +705,7 @@
             <p class="text-[11px] text-zinc-300 leading-snug">L&apos;applicazione definitiva che mi ha salvato la produttività quest&apos;anno 📱💻 #tech #app</p>
           </div>
           <video src="/public/video/v3.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="this.muted=false;" onmouseleave="this.muted=true;"></video>
+                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
           <div class="vid-label">Janet · Tech</div>
         </div>
 
@@ -717,7 +722,7 @@
             <p class="text-[11px] text-zinc-300 leading-snug">La colazione proteica e rapida prima di andare in palestra 💪🥞 #fitness #food</p>
           </div>
           <video src="/public/video/v4.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="this.muted=false;" onmouseleave="this.muted=true;"></video>
+                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
           <div class="vid-label">Mathis · Fit Food</div>
         </div>
 
@@ -985,7 +990,7 @@
   <footer style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.05);padding:64px 24px;background:rgba(0,0,5,0.8);">
     <div style="max-width:1060px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:48px;">
       
-      <!-- Colonna 1: Logo e Copyright (Distribuita uniformemente) -->
+      <!-- Colonna 1: Logo e Copyright (Distribuita in modo uniforme) -->
       <div style="flex: 1; min-width: 250px; text-align: left;">
         <div style="display:flex;align-items:center;gap:10px;">
           <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:32px;width:auto;object-fit:contain;">
@@ -1011,8 +1016,8 @@
         </div>
       </div>
 
-      <!-- Colonna 3: Supporto (Allineata a destra) -->
-      <div style="flex: 1; min-width: 200px; display:flex; flex-direction:column; gap:12px; align-items:flex-end; text-align:right;" class="md:items-end">
+      <!-- Colonna 3: Supporto (Allineata a destra su desktop, centrata su mobile) -->
+      <div style="flex: 1; min-width: 200px; display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center;" class="md:items-end md:text-right">
         <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;">Supporto</h4>
         <a href="#contatti" class="btn-ghost" style="padding:10px 24px;font-size:12px;font-weight:700;border-radius:9999px;">Contattaci Ora</a>
       </div>
@@ -1135,12 +1140,16 @@
 
         bubble.addEventListener('click', () => {
             isOpen = !isOpen;
-            win.style.display = isOpen ? 'flex' : 'none';
+            if (isOpen) {
+                win.classList.remove('hidden-chat');
+            } else {
+                win.classList.add('hidden-chat');
+            }
         });
 
         closeBtn.addEventListener('click', () => {
             isOpen = false;
-            win.style.display = 'none';
+            win.classList.add('hidden-chat');
         });
 
         // Previene la propagazione dello scroll allo sfondo della pagina
@@ -1194,6 +1203,21 @@
         submitBtn.addEventListener('click', (e) => { e.preventDefault(); sendMsg(); });
         input.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendMsg(); } });
 
+        // Funzione per togliere il muto con gestione di sicurezza del browser
+        window.playAudio = function(video) {
+            video.muted = false;
+            video.play().catch(err => {
+                // Se il browser blocca l'audio per via delle policy, continua a riprodurre mutato
+                video.muted = true;
+                video.play();
+            });
+        };
+
+        // Funzione per rimettere il muto
+        window.muteAudio = function(video) {
+            video.muted = true;
+        };
+
         function addMsg(text, sender, id) {
             const div = document.createElement('div');
             div.style.padding = '10px 14px';
@@ -1222,7 +1246,7 @@
 
             let formattedText = String(text);
             formattedText = formattedText.replace(/\n/g, '<br>');
-            formattedText = formattedText.replace(/\*\*(.*?)\*\//g, '<strong>$1</strong>');
+            formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             formattedText = formattedText.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="text-decoration: underline; font-weight: bold;">$1</a>');
 
             div.innerHTML = formattedText;
