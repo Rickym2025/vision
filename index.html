@@ -1131,22 +1131,26 @@
     document.addEventListener('click', registerInteraction);
     document.addEventListener('touchstart', registerInteraction);
 
+    // ─── NUOVO CODICE AUDIO SU HOVER FLUIDO E DIRETTO ───
     function setupVideoAudio(videoEl, hintEl) {
       // Il video gira già in autoplay silenzioso grazie al tag HTML
       videoEl.muted = true;
     
-      // HOVER ENTRATA: Toglie solo il muto all'audio
+      // HOVER ENTRATA: Prova a togliere il muto direttamente al passaggio del mouse
       videoEl.parentElement.addEventListener('mouseenter', () => {
-        if (userHasInteracted) {
-            videoEl.muted = false; // Sblocca l'audio all'istante
+        try {
+            videoEl.muted = false; // Prova a togliere il muto al volo
+        } catch (err) {
+            videoEl.muted = true;
         }
+        
+        // Se l'audio si è attivato con successo, mostra l'icona corretta
         if (hintEl && !videoEl.muted) {
-            // Mostra icona altoparlante attivo
             hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
         }
       });
     
-      // HOVER USCITA: Rimette il muto all'audio senza stoppare o resettare il video
+      // HOVER USCITA: Rimette il muto all'audio
       videoEl.parentElement.addEventListener('mouseleave', () => {
         videoEl.muted = true;
         if (hintEl) {
@@ -1155,13 +1159,13 @@
         }
       });
 
-      // CLICK SULLO SMARTPHONE: Sblocca l'audio del video e sblocca l'autorizzazione di Chrome
+      // CLICK SULLO SMARTPHONE: Attiva/disattiva il muto
       videoEl.parentElement.addEventListener('click', () => {
-        userHasInteracted = true;
         videoEl.muted = !videoEl.muted;
         if (videoEl.muted) {
             if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
         } else {
+            videoEl.play().catch(() => {});
             if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
         }
       });
