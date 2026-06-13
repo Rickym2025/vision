@@ -4,7 +4,7 @@ This document mirrors the exact technical configuration and service connections 
 
 ## 1. Directory Structure (Vercel Host `/`)
 ```text
-vision-ugc/
+vision/
 ├── public/
 │   ├── favicon.ico
 │   └── video/
