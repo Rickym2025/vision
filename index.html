@@ -3,7 +3,7 @@
 <head>
 
     <!-- Schema Strutturato Ottimizzato per AI, Google Universal Cart & AP2 -->
-    <script type="application/ld-json">
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -32,7 +32,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'G-NYQF5ZW7EG');
     </script>
     
@@ -82,7 +81,7 @@
         background: #050008;
         color: #f1f0f5;
         overflow-x: hidden;
-        font-size: 16px; /* Caratteri minimi Google mobile friendly */
+        font-size: 16px;
       }
 
       ::-webkit-scrollbar { width: 4px; }
@@ -120,11 +119,11 @@
         z-index: 0;
       }
 
-      /* ── MOCKUP SMARTPHONE AVANZATO (STILE TIKTOK/IG) ── */
+      /* ── MOCKUP SMARTPHONE ── */
       .phone-container {
         position: relative;
         width: 100%;
-        border: 10px solid #1c0e2b; /* Cornice spessa telefono */
+        border: 10px solid #1c0e2b;
         border-radius: 36px;
         overflow: hidden;
         background: #000;
@@ -137,7 +136,6 @@
         border-color: #7c3aed;
       }
 
-      /* Notch fotocamera superiore */
       .phone-notch {
         position: absolute;
         top: 6px;
@@ -150,7 +148,6 @@
         z-index: 30;
       }
 
-      /* Overlay Social destro (Like, Commenti, Share) */
       .phone-social-sidebar {
         position: absolute;
         right: 12px;
@@ -175,7 +172,6 @@
         backdrop-filter: blur(4px);
       }
 
-      /* Dettagli Influencer inferiori (Username e Caption) */
       .phone-influencer-details {
         position: absolute;
         left: 14px;
@@ -192,7 +188,7 @@
         gap: 10px;
         background: linear-gradient(135deg, #7c3aed, #e040fb);
         color: white;
-        font-family: '"Plus Jakarta Sans"', sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-weight: 700;
         border-radius: 9999px;
         transition: transform 0.25s, box-shadow 0.25s, opacity 0.25s;
@@ -359,7 +355,34 @@
         transform: none;
       }
 
-      /* ─── STILI DEL CHATBOT WIDGET DI VISION ─── */
+      /* ── VIDEO AUDIO INDICATOR ── */
+      .phone-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Audio hover hint icon */
+      .audio-hint {
+        position: absolute;
+        top: 28px;
+        right: 14px;
+        z-index: 25;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.55);
+        border: 1px solid rgba(255,255,255,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+      .audio-hint svg { display: block; }
+
+      /* ─── STILI CHATBOT ─── */
       #vision-chat-bubble {
           position: fixed;
           bottom: 24px;
@@ -376,48 +399,45 @@
           border: 1px solid rgba(255,255,255,0.1);
           transition: transform 0.2s;
       }
-      #vision-chat-bubble:hover {
-          transform: scale(1.05);
-      }
+      #vision-chat-bubble:hover { transform: scale(1.05); }
+
       #vision-chat-window {
           position: fixed;
           bottom: 100px;
           width: 360px;
-          height: 500px;
+          max-height: 500px;
           background: #0a0010;
           border: 1px solid rgba(124,58,237,0.2);
           border-radius: 20px;
           box-shadow: 0 20px 50px rgba(0,0,0,0.8);
           z-index: 999999;
-          display: flex;
+          display: none; /* FIX: sempre chiuso di default, JS gestisce apertura */
           flex-direction: column;
           overflow: hidden;
           font-family: 'Inter', sans-serif;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
-      /* Classe di forza-chiusura per aggirare la specificità delle media query in Desktop */
-      #vision-chat-window.hidden-chat {
-          display: none !important;
+
+      /* FIX: quando aperto, usa flex */
+      #vision-chat-window.chat-open {
+          display: flex !important;
       }
 
-      /* Configurazione Desktop (Aperto e a Destra) */
       @media (min-width: 768px) {
           #vision-chat-bubble { right: 24px; left: auto; }
-          #vision-chat-window { right: 24px; left: auto; display: flex; }
+          #vision-chat-window { right: 24px; left: auto; }
       }
-      /* Configurazione Cellulari (Chiuso e a Sinistra) */
       @media (max-width: 767px) {
           #vision-chat-bubble { left: 20px; right: auto; }
-          #vision-chat-window { left: 20px; right: auto; display: none; }
+          #vision-chat-window { left: 20px; right: auto; width: calc(100vw - 40px); }
       }
 
-      /* Targa del video centrata ed elevata per evitare il taglio degli angoli curvi della scocca */
       .vid-label {
         position: absolute;
-        bottom: 24px; /* Alzata sopra l'angolo curvo dello smartphone */
+        bottom: 24px;
         left: 50%;
-        transform: translateX(-50%); /* Centrata in orizzontale */
-        white-space: nowrap; /* Impedisce che vada a capo */
+        transform: translateX(-50%);
+        white-space: nowrap;
         background: rgba(5,0,8,0.85);
         backdrop-filter: blur(8px);
         border: 1px solid rgba(160,85,247,0.3);
@@ -429,13 +449,35 @@
         padding: 6px 14px;
         border-radius: 20px;
         z-index: 25;
-      }  
-  </style>
+      }
+
+      /* Typing dots animation */
+      @keyframes blink {
+        0%, 80%, 100% { opacity: 0; }
+        40% { opacity: 1; }
+      }
+      .dot {
+        display: inline-block;
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: #a855f7;
+        margin: 0 2px;
+        animation: blink 1.4s infinite;
+      }
+      .dot:nth-child(2) { animation-delay: 0.2s; }
+      .dot:nth-child(3) { animation-delay: 0.4s; }
+
+      /* Pulse animation hero badge */
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+    </style>
 </head>
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- LAYER BACKGROUND VIDEO FLUIDO -->
+  <!-- LAYER BACKGROUND VIDEO -->
   <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
       <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-15">
           <source src="/public/video/background.mp4" type="video/mp4">
@@ -443,19 +485,19 @@
       <div class="absolute inset-0 bg-gradient-to-b from-ink/95 via-ink/60 to-ink"></div>
   </div>
 
-  <!-- ─── AMBIENT BACKGROUND ─── -->
+  <!-- AMBIENT BACKGROUND -->
   <div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
     <div class="blob" style="width:600px;height:600px;background:rgba(124,58,237,0.12);top:-150px;left:-150px;"></div>
-    <div class="blob" style="width:500px;height:500px;background:rgba(224,64,251,0.08);bottom:-100px;right:-100px;animation-delay:-6s;"></div>
-    <div class="blob" style="width:400px;height:400px;background:rgba(99,102,241,0.07);top:40%;left:50%;transform:translateX(-50%);animation-delay:-3s;"></div>
+    <div class="blob" style="width:500px;height:500px;background:rgba(224,64,251,0.08);bottom:-100px;right:-100px;"></div>
+    <div class="blob" style="width:400px;height:400px;background:rgba(99,102,241,0.07);top:40%;left:50%;transform:translateX(-50%);"></div>
   </div>
 
-  <!-- ─── NAV ─── -->
+  <!-- NAV -->
   <header class="fixed top-0 left-0 w-full p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5">
     <nav class="glass max-w-6xl mx-auto rounded-2xl px-6 py-4 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5">
         <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:32px;width:auto;object-fit:contain;">
-        <span style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:17px;letter-spacing:0.02em;">Vision <span class="grad-text">UGC</span></span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:17px;letter-spacing:0.02em;">Vision <span class="grad-text">UGC</span></span>
       </a>
 
       <div class="hidden md:flex items-center gap-8" style="font-size:13px;font-weight:500;">
@@ -473,24 +515,24 @@
   </header>
 
 
-  <!-- ─── HERO ─── -->
+  <!-- HERO — FIX: rimossa la sezione wrapper con position:relative z-index:1, ora esplicito -->
   <section style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:130px 24px 80px;">
-    <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;" class="hero-grid">
+    <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;gap:64px;align-items:center;" class="hero-grid">
 
-      <!-- Left (Persuasione e Neuro-Copywriting - Caratteri Generosi a 18px) -->
+      <!-- Left -->
       <div style="display:flex;flex-direction:column;gap:28px;">
         <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);padding:6px 16px;border-radius:9999px;width:fit-content;">
           <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;display:inline-block;animation:pulse 2s ease-in-out infinite;"></span>
           <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">La Fabbrica degli Influencer H24 · Consegna 24h</span>
         </div>
 
-        <h1 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;letter-spacing:-0.02em;">
+        <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;letter-spacing:-0.02em;">
           La tua scuderia di<br>
           Influencer Virtuali.<br>
           <span class="grad-text">Per vendite reali.</span>
         </h1>
 
-        <p class="text-[18px] md:text-[20px] text-zinc-300 font-light leading-relaxed max-w-lg">
+        <p style="font-size:clamp(16px,2vw,20px);color:#d4d0dd;font-weight:300;line-height:1.65;max-width:480px;">
           Nessuna agenzia di modelle, nessuna spedizione fisica e zero ritardi. Generiamo video UGC di grande impatto con i presentatori virtuali della nostra scuderia pronti da lanciare in 24 ore.
         </p>
 
@@ -521,107 +563,109 @@
         </div>
       </div>
 
-      <!-- Right: Smartphone mockups with Social Interface Overlays & Audio on Hover -->
+      <!-- Right: Smartphone mockups -->
       <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
         <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
-        <!-- Smartphone 1: Camilla (Yoga / Fitness - English) -->
+        <!-- Smartphone 1: Camilla Yoga -->
         <div class="phone-container" style="aspect-ratio:9/16;">
           <div class="phone-notch"></div>
-          
-          <!-- Social Icons Overlay (TikTok style) -->
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
             <div class="social-btn">💬</div>
             <div class="social-btn">🔗</div>
           </div>
           <div class="phone-influencer-details">
-            <p class="text-xs font-bold text-white mb-1">@camilla_yoga_eng</p>
-            <p class="text-[11px] text-zinc-300 leading-snug">My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga</p>
+            <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@camilla_yoga_eng</p>
+            <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga</p>
           </div>
-
-          <!-- Riproduzione automatica e un-mute al passaggio del mouse con intercettazione errore -->
-          <video src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
+          <!-- FIX audio hint icon -->
+          <div class="audio-hint" id="hint1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </div>
+          <video id="vid1" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto"></video>
           <div class="vid-label">Camilla · Yoga (ENG)</div>
         </div>
 
-        <!-- Smartphone 2: Camilla (Swatch / Fashion - Italian) -->
+        <!-- Smartphone 2: Camilla Swatch -->
         <div class="phone-container" style="aspect-ratio:9/16;margin-top:32px;">
           <div class="phone-notch"></div>
-          
-          <!-- Social Icons Overlay (TikTok style) -->
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
             <div class="social-btn">💬</div>
             <div class="social-btn">🔗</div>
           </div>
           <div class="phone-influencer-details">
-            <p class="text-xs font-bold text-white mb-1">@camilla_swatch_ita</p>
-            <p class="text-[11px] text-zinc-300 leading-snug">Oggi recensiamo insieme la nuova collezione Swatch! Guardate che colori pazzeschi! 😍⌚ #swatch #unboxing</p>
+            <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@camilla_swatch_ita</p>
+            <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">Oggi recensiamo insieme la nuova collezione Swatch! Guardate che colori pazzeschi! 😍⌚ #swatch #unboxing</p>
           </div>
-
-          <!-- Riproduzione automatica e un-mute al passaggio del mouse con intercettazione errore -->
-          <video src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
+          <div class="audio-hint" id="hint2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </div>
+          <video id="vid2" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto"></video>
           <div class="vid-label">Camilla · Swatch (ITA)</div>
         </div>
 
         <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
-          Passa il mouse per riprodurre l&apos;audio 🔊
+          Passa il mouse per riprodurre l'audio 🔊
         </p>
       </div>
     </div>
   </section>
 
 
-  <!-- ─── SOCIAL PROOF STRIP ─── -->
+  <!-- SOCIAL PROOF STRIP -->
   <div style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);padding:20px 24px;background:rgba(10,0,20,0.5);">
     <div style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:32px 48px;">
       <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:22px;font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;color:#c084fc;">+250</span>
+        <span style="font-size:22px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#c084fc;">+250</span>
         <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">Video generati ogni mese</span>
       </div>
       <div style="width:1px;height:32px;background:rgba(255,255,255,0.06);"></div>
       <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:22px;font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;color:#c084fc;">10+</span>
+        <span style="font-size:22px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#c084fc;">10+</span>
         <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">Lingue native disponibili</span>
       </div>
       <div style="width:1px;height:32px;background:rgba(255,255,255,0.06);"></div>
       <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:22px;font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;color:#c084fc;">90%</span>
+        <span style="font-size:22px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#c084fc;">90%</span>
         <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">La scelta delle agenzie</span>
       </div>
       <div style="width:1px;height:32px;background:rgba(255,255,255,0.06);"></div>
       <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:22px;font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;color:#c084fc;">24h</span>
+        <span style="font-size:22px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#c084fc;">24h</span>
         <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">Consegna garantita</span>
       </div>
     </div>
   </div>
 
 
-  <!-- ─── CONFRONTO ─── -->
+  <!-- CONFRONTO -->
   <section id="vantaggi" style="position:relative;z-index:1;padding:100px 24px;">
     <div class="reveal" style="max-width:860px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:60px;">
         <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;margin-bottom:20px;">
           <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Il confronto che ti cambia idea</span>
         </div>
-        <h2 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
           Smetti di sprecare budget.<br><span class="grad-text">Inizia a scalare.</span>
         </h2>
       </div>
 
       <div class="glass" style="border-radius:24px;overflow:hidden;">
-        <!-- Header -->
         <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:16px 28px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.05);">
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Caratteristica</span>
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a855f7;text-align:center;">Vision UGC</span>
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-align:center;">Attori reali</span>
         </div>
-
-        <!-- Rows -->
         <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
           <span style="font-size:15px;font-weight:500;">Costo per video</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">€ 50</span>
@@ -657,25 +701,24 @@
   </section>
 
 
-  <!-- ─── LA SCUDERIA DI INFLUENCER VIRTUALI (GALLERIA ESEMPI) ─── -->
+  <!-- LA SCUDERIA -->
   <section id="scuderia" style="position:relative;z-index:1;padding:40px 24px 100px;">
     <div class="reveal" style="max-width:1100px;margin:0 auto;">
-      
       <div style="text-align:center;margin-bottom:56px;">
         <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;margin-bottom:20px;">
           <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Campagne di Successo</span>
         </div>
-        <h2 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
           La nostra scuderia di<br><span class="grad-text">Influencer Virtuali</span>
         </h2>
-        <p class="text-[16px] md:text-[18px] text-zinc-400 mt-4 max-w-2xl mx-auto leading-relaxed">
+        <p style="font-size:clamp(15px,2vw,18px);color:#a1a1aa;margin-top:16px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.65;">
           Ogni avatar della nostra agenzia è addestrato e ottimizzato su mercati verticali differenti (Beauty, Tech, App, Food) per connettersi in modo emotivo con le esigenze specifiche del tuo pubblico.
         </p>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
         
-        <!-- Influencer 3: Zoe (Beauty & Skincare) -->
+        <!-- Zoe -->
         <div class="phone-container" style="aspect-ratio:9/16;">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
@@ -684,15 +727,14 @@
             <div class="social-btn">🔗</div>
           </div>
           <div class="phone-influencer-details">
-            <p class="text-xs font-bold text-white mb-1">@zoe_beauty_reviews</p>
-            <p class="text-[11px] text-zinc-300 leading-snug">Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine</p>
+            <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@zoe_beauty_reviews</p>
+            <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine</p>
           </div>
-          <video src="/public/video/v2.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
+          <video src="/public/video/v2.mp4" autoplay loop muted playsinline preload="auto"></video>
           <div class="vid-label">Zoe · Beauty</div>
         </div>
 
-        <!-- Influencer 4: Janet (Tech / App Reviews) -->
+        <!-- Janet -->
         <div class="phone-container" style="aspect-ratio:9/16;">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
@@ -701,15 +743,14 @@
             <div class="social-btn">🔗</div>
           </div>
           <div class="phone-influencer-details">
-            <p class="text-xs font-bold text-white mb-1">@janet_tech_reviews</p>
-            <p class="text-[11px] text-zinc-300 leading-snug">L&apos;applicazione definitiva che mi ha salvato la produttività quest&apos;anno 📱💻 #tech #app</p>
+            <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@janet_tech_reviews</p>
+            <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">L'applicazione definitiva che mi ha salvato la produttività quest'anno 📱💻 #tech #app</p>
           </div>
-          <video src="/public/video/v3.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
+          <video src="/public/video/v3.mp4" autoplay loop muted playsinline preload="auto"></video>
           <div class="vid-label">Janet · Tech</div>
         </div>
 
-        <!-- Influencer 5: Mathis (Food / Integratori) -->
+        <!-- Mathis -->
         <div class="phone-container" style="aspect-ratio:9/16;">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
@@ -718,49 +759,45 @@
             <div class="social-btn">🔗</div>
           </div>
           <div class="phone-influencer-details">
-            <p class="text-xs font-bold text-white mb-1">@mathis_fit_food</p>
-            <p class="text-[11px] text-zinc-300 leading-snug">La colazione proteica e rapida prima di andare in palestra 💪🥞 #fitness #food</p>
+            <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@mathis_fit_food</p>
+            <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">La colazione proteica e rapida prima di andare in palestra 💪🥞 #fitness #food</p>
           </div>
-          <video src="/public/video/v4.mp4" autoplay loop muted playsinline preload="auto"
-                 onmouseenter="playAudio(this)" onmouseleave="muteAudio(this)"></video>
+          <video src="/public/video/v4.mp4" autoplay loop muted playsinline preload="auto"></video>
           <div class="vid-label">Mathis · Fit Food</div>
         </div>
 
       </div>
-
     </div>
   </section>
 
 
-  <!-- ─── TESTIMONIAL ─── -->
+  <!-- TESTIMONIAL -->
   <section style="position:relative;z-index:1;padding:0 24px 100px;">
     <div class="reveal" style="max-width:1060px;margin:0 auto;">
-      <h2 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(1.6rem,3.5vw,2.5rem);text-align:center;margin-bottom:48px;letter-spacing:-0.02em;">
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.6rem,3.5vw,2.5rem);text-align:center;margin-bottom:48px;letter-spacing:-0.02em;">
         Chi ha già scelto Vision
       </h2>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
         <div class="glass" style="padding:32px;border-radius:20px;display:flex;flex-direction:column;gap:16px;">
           <div style="font-size:28px;">👗</div>
-          <p class="text-[16px] text-zinc-300 leading-relaxed font-light italic">"Con i creator virtuali pubblichiamo 10 video a settimana invece di 3 al mese. Il ROAS su Meta è raddoppiato in 60 giorni."</p>
+          <p style="font-size:16px;color:#d4d0dd;line-height:1.65;font-style:italic;margin:0;">"Con i creator virtuali pubblichiamo 10 video a settimana invece di 3 al mese. Il ROAS su Meta è raddoppiato in 60 giorni."</p>
           <div>
             <div style="font-size:14px;font-weight:600;">Elena S.</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.35);">E-Commerce Fashion Manager</div>
           </div>
         </div>
-
         <div class="glass" style="padding:32px;border-radius:20px;display:flex;flex-direction:column;gap:16px;border-color:rgba(124,58,237,0.3);">
           <div style="font-size:28px;">🕶️</div>
-          <p class="text-[16px] text-zinc-300 leading-relaxed font-light italic">"Mandiamo le foto HD e il modello indossa gli occhiali in modo perfetto. Zero spedizioni in giro per l'Europa."</p>
+          <p style="font-size:16px;color:#d4d0dd;line-height:1.65;font-style:italic;margin:0;">"Mandiamo le foto HD e il modello indossa gli occhiali in modo perfetto. Zero spedizioni in giro per l'Europa."</p>
           <div>
             <div style="font-size:14px;font-weight:600;">Marco F.</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.35);">Co-founder Brand Accessori</div>
           </div>
         </div>
-
         <div class="glass" style="padding:32px;border-radius:20px;display:flex;flex-direction:column;gap:16px;">
           <div style="font-size:28px;">🚀</div>
-          <p class="text-[16px] text-zinc-300 leading-relaxed font-light italic">"Il lip sync è perfetto, le voci italiane sono naturali. I clienti non si accorgono che è AI."</p>
+          <p style="font-size:16px;color:#d4d0dd;line-height:1.65;font-style:italic;margin:0;">"Il lip sync è perfetto, le voci italiane sono naturali. I clienti non si accorgono che è AI."</p>
           <div>
             <div style="font-size:14px;font-weight:600;">Luca M.</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.35);">Media Buyer Agency</div>
@@ -771,14 +808,14 @@
   </section>
 
 
-  <!-- ─── PREZZI ─── -->
+  <!-- PREZZI -->
   <section id="prezzi" style="position:relative;z-index:1;padding:0 24px 100px;">
     <div class="reveal" style="max-width:1060px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:56px;">
         <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;margin-bottom:20px;">
           <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Pay-as-you-go · Nessun abbonamento</span>
         </div>
-        <h2 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
           Investi sul ROI.<br><span class="grad-text">Non sul contratto.</span>
         </h2>
       </div>
@@ -792,70 +829,37 @@
             <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:20px;">Per testare la qualità prima di scalare.</div>
             <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
               <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 80</span>
-              <span style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 50</span>
+              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 50</span>
             </div>
           </div>
           <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              1 Video UGC (10–15 secondi)
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              1 Sfondo e outfit personalizzato
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Traccia audio ElevenLabs inclusa
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Risoluzione standard 480p
-            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Video UGC (10–15 secondi)</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Sfondo e outfit personalizzato</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Traccia audio ElevenLabs inclusa</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Risoluzione standard 480p</li>
           </ul>
-          <a href="https://buy.stripe.com/your-starter-link" class="btn-ghost" style="width:100%;padding:14px;font-size:14px;border-radius:14px;justify-content:center;">
-            Acquista Starter
-          </a>
+          <a href="https://buy.stripe.com/your-starter-link" class="btn-ghost" style="width:100%;padding:14px;font-size:14px;border-radius:14px;justify-content:center;">Acquista Starter</a>
         </div>
 
         <!-- Pro Bundle (featured) -->
         <div class="price-card featured">
-          <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7c3aed,#e040fb);color:white;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 18px;border-radius:9999px;white-space:nowrap;">
-            Più scelto
-          </div>
+          <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7c3aed,#e040fb);color:white;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 18px;border-radius:9999px;white-space:nowrap;">Più scelto</div>
           <div>
             <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#a855f7;margin-bottom:8px;">UGC Pro Bundle</div>
             <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Ottimizza le campagne testando più varianti hook.</div>
             <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
               <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 180</span>
-              <span style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 120</span>
+              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 120</span>
             </div>
           </div>
           <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
-              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              3 Video UGC (10–15 secondi)
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
-              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              3 Ganci psicologici differenti
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
-              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Alta risoluzione 720p sbloccata
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
-              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Logo del brand inserito nel video
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);">
-              <svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Tutti i modelli e sfondi disponibili
-            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>3 Video UGC (10–15 secondi)</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>3 Ganci psicologici differenti</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Alta risoluzione 720p sbloccata</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Logo del brand inserito nel video</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Tutti i modelli e sfondi disponibili</li>
           </ul>
-          <a href="https://buy.stripe.com/your-pro-link" class="btn-primary" style="width:100%;padding:18px;font-size:16px;border-radius:14px;justify-content:center;">
-            Ottieni Pro Bundle
-          </a>
+          <a href="https://buy.stripe.com/your-pro-link" class="btn-primary" style="width:100%;padding:18px;font-size:16px;border-radius:14px;justify-content:center;">Ottieni Pro Bundle</a>
         </div>
 
         <!-- Agency -->
@@ -865,30 +869,16 @@
             <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:20px;">Per e-commerce e agenzie che scalano.</div>
             <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
               <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 500</span>
-              <span style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 340</span>
+              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 340</span>
             </div>
           </div>
           <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              10 Video UGC ad alte prestazioni
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Controllo totale su script e hook
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Massima risoluzione 1080p
-            </li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-              <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Supporto prioritario dedicato
-            </li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>10 Video UGC ad alte prestazioni</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Controllo totale su script e hook</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Massima risoluzione 1080p</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Supporto prioritario dedicato</li>
           </ul>
-          <a href="https://buy.stripe.com/your-maxi-link" class="btn-ghost" style="width:100%;padding:14px;font-size:14px;border-radius:14px;justify-content:center;">
-            Sblocca Maxi Pack
-          </a>
+          <a href="https://buy.stripe.com/your-maxi-link" class="btn-ghost" style="width:100%;padding:14px;font-size:14px;border-radius:14px;justify-content:center;">Sblocca Maxi Pack</a>
         </div>
 
       </div>
@@ -900,28 +890,24 @@
   </section>
 
 
-  <!-- ─── ECOSISTEMA RM STUDIO ─── -->
+  <!-- ECOSISTEMA RM STUDIO -->
   <section id="ecosistema" style="position:relative;z-index:1;padding:0 24px 100px;border-top:1px solid rgba(255,255,255,0.04);">
     <div class="reveal" style="max-width:1060px;margin:0 auto;padding-top:80px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;" class="eco-grid">
+      <div style="display:grid;gap:64px;align-items:center;" class="eco-grid">
 
-        <!-- Orbit container -->
-        <div id="orbit-container" style="display:flex;justify-content:center;align-items:center;position:relative;min-height:380px;">
-          <!-- iniettato via fetch -->
-        </div>
+        <div id="orbit-container" style="display:flex;justify-content:center;align-items:center;position:relative;min-height:380px;"></div>
 
-        <!-- Testo -->
         <div style="display:flex;flex-direction:column;gap:20px;">
           <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;width:fit-content;">
             <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Powered by RM Studio</span>
           </div>
-          <h2 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(1.6rem,3vw,2.5rem);letter-spacing:-0.02em;">
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.6rem,3vw,2.5rem);letter-spacing:-0.02em;">
             Parte di un ecosistema<br><span class="grad-text">di 9 prodotti AI.</span>
           </h2>
-          <p class="text-[16px] md:text-[18px] text-zinc-300 font-light leading-relaxed">
+          <p style="font-size:clamp(15px,2vw,18px);color:#d4d0dd;font-weight:300;line-height:1.65;">
             Vision UGC è sviluppato da <strong style="color:rgba(255,255,255,0.85);font-weight:600;">Riccardo Modena</strong> di RM Studio, un lab di ingegneria software che progetta soluzioni AI verticali per automatizzare i processi commerciali B2B.
           </p>
-          <p class="text-[16px] md:text-[18px] text-zinc-400 font-light leading-relaxed">
+          <p style="font-size:clamp(15px,2vw,18px);color:#a1a1aa;font-weight:300;line-height:1.65;">
             Come dimostrato dallo <a href="https://hci.stanford.edu/" target="_blank" rel="noopener" style="color:#a855f7;text-decoration:underline;text-underline-offset:3px;">Stanford HCI Group</a>, l'uso di volti virtuali fotorealistici incrementa la fiducia del consumatore e migliora le metriche di interazione fino al 41%.
           </p>
           <a href="https://rmstudio.app" target="_blank" rel="noopener" class="btn-ghost" style="width:fit-content;padding:12px 24px;font-size:13px;">
@@ -939,11 +925,11 @@
   </section>
 
 
-  <!-- ─── FORM RICHIESTA ─── -->
+  <!-- FORM RICHIESTA -->
   <section id="contatti" style="position:relative;z-index:1;padding:0 24px 100px;">
     <div class="reveal" style="max-width:640px;margin:0 auto;">
       <div class="glass" style="border-radius:28px;padding:48px 40px;">
-        <h2 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2rem);text-align:center;margin-bottom:8px;letter-spacing:-0.02em;">
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2rem);text-align:center;margin-bottom:8px;letter-spacing:-0.02em;">
           Richiedi l'analisi del tuo prodotto
         </h2>
         <p style="text-align:center;font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:32px;line-height:1.6;">
@@ -954,7 +940,7 @@
           <input type="hidden" name="access_key" value="9013a8d5-0901-42a0-b9e6-4c45553f960d">
           <input type="hidden" name="subject" value="Nuovo Lead da Vision UGC">
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" class="form-grid">
+          <div style="display:grid;gap:12px;" class="form-grid">
             <div style="display:flex;flex-direction:column;gap:6px;">
               <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Nome azienda *</label>
               <input type="text" name="name" required placeholder="Brand Italia Srl"
@@ -986,28 +972,28 @@
   </section>
 
 
-  <!-- ─── FOOTER ─── -->
+  <!-- FOOTER -->
   <footer style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.05);padding:64px 24px;background:rgba(0,0,5,0.8);">
     <div style="max-width:1060px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:48px;">
       
-      <!-- Colonna 1: Logo e Copyright (Distribuita in modo uniforme) -->
-      <div style="flex: 1; min-width: 250px; text-align: left;">
+      <!-- Col 1: Logo -->
+      <div style="flex:1;min-width:240px;">
         <div style="display:flex;align-items:center;gap:10px;">
           <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:32px;width:auto;object-fit:contain;">
-          <span style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:17px;letter-spacing:0.02em;color:#ffffff;">Vision <span class="grad-text">UGC</span></span>
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:17px;letter-spacing:0.02em;">Vision <span class="grad-text">UGC</span></span>
         </div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.3);line-height:1.6;margin-top:12px;">Tecnologia proprietaria RM Studio. Semplifichiamo l&apos;automazione video e di marketing B2B.</p>
-        <p style="font-size:11px;color:rgba(255,255,255,0.2);margin-top:20px;">
-          © 2026 RM Studio. Tutti i diritti riservati.<br>
+        <p style="font-size:13px;color:rgba(255,255,255,0.3);line-height:1.6;margin-top:12px;">Tecnologia proprietaria RM Studio. Semplifichiamo l'automazione video e di marketing B2B.</p>
+        <p style="font-size:11px;color:rgba(255,255,255,0.2);margin-top:20px;line-height:1.6;">
+          © <span id="yr"></span> RM Studio. Tutti i diritti riservati.<br>
           <a href="https://rmstudio.app/public/privacy.html" target="_blank" style="text-decoration:underline;color:rgba(255,255,255,0.3);">Privacy Policy</a>
-          <span style="margin: 0 4px;">|</span>
+          <span style="margin:0 4px;">|</span>
           <a href="https://rmstudio.app/public/termini.html" target="_blank" style="text-decoration:underline;color:rgba(255,255,255,0.3);">Termini e Condizioni</a>
         </p>
       </div>
 
-      <!-- Colonna 2: Social Hub (Centrata) -->
-      <div style="flex: 1; min-width: 200px; display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center;">
-        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;">Social Hub</h4>
+      <!-- Col 2: Social Hub — FIX: allineamento coerente con col 3 -->
+      <div style="flex:1;min-width:180px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;margin:0;">Social Hub</h4>
         <div style="display:flex;gap:10px;">
           <a href="https://www.instagram.com/riccardo_mode_/" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">IG</a>
           <a href="https://www.facebook.com/riccardo.modena.792" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">FB</a>
@@ -1016,9 +1002,9 @@
         </div>
       </div>
 
-      <!-- Colonna 3: Supporto (Allineata a destra su desktop, centrata su mobile) -->
-      <div style="flex: 1; min-width: 200px; display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center;" class="md:items-end md:text-right">
-        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;">Supporto</h4>
+      <!-- Col 3: Supporto — FIX: align-items:center come col 2 per coerenza -->
+      <div style="flex:1;min-width:180px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;margin:0;">Supporto</h4>
         <a href="#contatti" class="btn-ghost" style="padding:10px 24px;font-size:12px;font-weight:700;border-radius:9999px;">Contattaci Ora</a>
       </div>
 
@@ -1026,7 +1012,7 @@
   </footer>
 
 
-  <!-- ─── CHATBOT WIDGET DI VISION ─── -->
+  <!-- CHATBOT WIDGET -->
   <div id="vision-chat-bubble">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -1034,34 +1020,28 @@
   </div>
 
   <div id="vision-chat-window">
-      <!-- Header -->
-      <div style="background:#140520;border-bottom:1px solid rgba(124,58,237,0.2);padding:16px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="background:#140520;border-bottom:1px solid rgba(124,58,237,0.2);padding:16px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
           <div style="display:flex;align-items:center;gap:10px;">
               <img src="https://rmstudio.app/public/loghi/logo_vision.png" style="width:28px;height:28px;object-fit:contain;" alt="">
               <span style="font-size:14px;font-weight:700;color:#ffffff;font-family:'Plus Jakarta Sans',sans-serif;">Camilla AI</span>
           </div>
-          <button id="vision-chat-close" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:24px;cursor:pointer;line-height:1;">&times;</button>
+          <button id="vision-chat-close" style="background:none;border:none;color:rgba(255,255,255,0.5);font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px;transition:color 0.2s;" onmouseenter="this.style.color='white'" onmouseleave="this.style.color='rgba(255,255,255,0.5)'">&times;</button>
       </div>
-      
-      <!-- Messages Area -->
       <div id="vision-chat-messages" style="flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain;">
-          <!-- Welcome Message -->
           <div style="padding:10px 14px;border-radius:12px;font-size:14px;max-width:85%;line-height:1.4;word-wrap:break-word;background:#12051c;color:#f3f4f6;align-self:flex-start;border-bottom-left-radius:2px;border:1px solid rgba(124,58,237,0.1);">
               Ciao! Sono Camilla, l'influencer virtuale di Vision. Vuoi scoprire come posso raddoppiare il ROAS del tuo e-commerce con video UGC generati in 24 ore? Chiedimi pure!
           </div>
       </div>
-
-      <!-- Input Area -->
-      <div style="padding:12px;border-top:1px solid rgba(124,58,237,0.15);display:flex;gap:8px;background:#140520;">
+      <div style="padding:12px;border-top:1px solid rgba(124,58,237,0.15);display:flex;gap:8px;background:#140520;flex-shrink:0;">
           <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." style="flex:1;border:1px solid rgba(124,58,237,0.2);border-radius:10px;padding:8px 12px;font-size:14px;color:#ffffff;background:#050008;outline:none;font-family:'Inter',sans-serif;">
           <button id="vision-chat-submit" style="background:linear-gradient(135deg,#7c3aed,#e040fb);color:#ffffff;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;padding:0 16px;display:flex;align-items:center;justify-content:center;">Invia</button>
       </div>
   </div>
 
 
-  <!-- ─── SCRIPTS ─── -->
+  <!-- SCRIPTS -->
   <script>
-    // Anno corrente
+    // FIX 1: anno corrente — l'elemento #yr esiste ora nel footer
     document.getElementById('yr').textContent = new Date().getFullYear();
 
     // Scroll reveal
@@ -1070,10 +1050,13 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Responsive grid (hero + eco)
+    // FIX: responsive grid — hero 2col, eco 2col
     function applyResponsive() {
       const w = window.innerWidth;
-      document.querySelectorAll('.hero-grid, .eco-grid').forEach(el => {
+      document.querySelectorAll('.hero-grid').forEach(el => {
+        el.style.gridTemplateColumns = w < 768 ? '1fr' : '1fr 1fr';
+      });
+      document.querySelectorAll('.eco-grid').forEach(el => {
         el.style.gridTemplateColumns = w < 768 ? '1fr' : '1fr 1fr';
       });
       document.querySelectorAll('.form-grid').forEach(el => {
@@ -1083,7 +1066,7 @@
     applyResponsive();
     window.addEventListener('resize', applyResponsive);
 
-    // Orbit injection da raw.githubusercontent con supporto CORS
+    // Orbit injection
     document.addEventListener('DOMContentLoaded', () => {
       fetch('https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html')
         .then(r => { if (!r.ok) throw new Error('orbit fetch failed'); return r.text(); })
@@ -1102,7 +1085,6 @@
       btn.textContent = 'Invio in corso...';
       btn.style.opacity = '0.6';
       btn.disabled = true;
-
       try {
         const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
@@ -1112,9 +1094,7 @@
           msg.textContent = '✓ Messaggio inviato! Ti risponderò entro 24 ore.';
           msg.style.color = '#4ade80';
           e.target.reset();
-        } else {
-          throw new Error();
-        }
+        } else { throw new Error(); }
       } catch {
         msg.textContent = '✗ Errore. Riprova tra poco.';
         msg.style.color = '#f87171';
@@ -1126,133 +1106,121 @@
       }
     });
 
-    // ─── CODICE INTERATTIVO CHATBOT DI VISION ───
+    // ─── FIX 2: VIDEO AUDIO su hover ───
+    // Problema originale: onmouseenter chiamava .play() su video già in play → errore browser
+    // Soluzione: gestiamo con addEventListener e controlliamo lo stato prima di chiamare play()
+    function setupVideoAudio(videoEl, hintEl) {
+      videoEl.muted = true; // sicuri che parta mutato
+
+      videoEl.parentElement.addEventListener('mouseenter', () => {
+        videoEl.muted = false;
+        // se il video è in pausa (es. bloccato dal browser), lo riavviamo
+        if (videoEl.paused) {
+          videoEl.play().catch(() => { videoEl.muted = true; });
+        }
+        // aggiorna icona hint → speaker on
+        if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
+      });
+
+      videoEl.parentElement.addEventListener('mouseleave', () => {
+        videoEl.muted = true;
+        if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+      });
+    }
+
+    // Applica ai due video hero
+    const vid1 = document.getElementById('vid1');
+    const vid2 = document.getElementById('vid2');
+    if (vid1) setupVideoAudio(vid1, document.getElementById('hint1'));
+    if (vid2) setupVideoAudio(vid2, document.getElementById('hint2'));
+
+    // ─── FIX 3: CHATBOT — logica open/close corretta ───
     (function() {
-        const bubble = document.getElementById('vision-chat-bubble');
-        const win = document.getElementById('vision-chat-window');
-        const closeBtn = document.getElementById('vision-chat-close');
-        const input = document.getElementById('vision-chat-input');
-        const submitBtn = document.getElementById('vision-chat-submit');
-        const messagesDiv = document.getElementById('vision-chat-messages');
+      const bubble  = document.getElementById('vision-chat-bubble');
+      const win     = document.getElementById('vision-chat-window');
+      const closeBtn = document.getElementById('vision-chat-close');
+      const input   = document.getElementById('vision-chat-input');
+      const submitBtn = document.getElementById('vision-chat-submit');
+      const messagesDiv = document.getElementById('vision-chat-messages');
 
-        // Imposta stato iniziale in base alla larghezza dello schermo (aperto su Desktop, chiuso su Mobile)
-        let isOpen = window.innerWidth >= 768;
+      // FIX: stato iniziale sempre chiuso — la classe chat-open controlla la visibilità
+      let isOpen = false;
 
-        bubble.addEventListener('click', () => {
-            isOpen = !isOpen;
-            if (isOpen) {
-                win.classList.remove('hidden-chat');
-            } else {
-                win.classList.add('hidden-chat');
-            }
-        });
+      function openChat()  { isOpen = true;  win.classList.add('chat-open'); }
+      function closeChat() { isOpen = false; win.classList.remove('chat-open'); }
 
-        closeBtn.addEventListener('click', () => {
-            isOpen = false;
-            win.classList.add('hidden-chat');
-        });
+      // Su desktop apri di default
+      if (window.innerWidth >= 768) openChat();
 
-        // Previene la propagazione dello scroll allo sfondo della pagina
-        win.addEventListener('wheel', (e) => { e.stopPropagation(); }, { passive: true });
-        win.addEventListener('touchmove', (e) => { e.stopPropagation(); }, { passive: true });
+      bubble.addEventListener('click', () => { isOpen ? closeChat() : openChat(); });
+      closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeChat(); });
 
-        // Recupera o genera un ID sessione univoco per la chat
-        let chatSessionId = localStorage.getItem('vision_chat_session') || ('session_' + Math.random().toString(36).substring(7));
-        localStorage.setItem('vision_chat_session', chatSessionId);
+      // Scroll interno non propaga alla pagina
+      win.addEventListener('wheel', (e) => { e.stopPropagation(); }, { passive: true });
+      win.addEventListener('touchmove', (e) => { e.stopPropagation(); }, { passive: true });
 
-        async function sendMsg() {
-            const text = input.value.trim();
-            if (!text) return;
+      let chatSessionId = localStorage.getItem('vision_chat_session') || ('session_' + Math.random().toString(36).substring(7));
+      localStorage.setItem('vision_chat_session', chatSessionId);
 
-            input.value = '';
-            addMsg(text, 'user');
+      async function sendMsg() {
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        addMsg(text, 'user');
 
-            // Segnale di caricamento AI (Typing bubble)
-            const loadingId = 'loading-' + Date.now();
-            addMsg('<span class="dot"></span><span class="dot"></span><span class="dot"></span>', 'bot', loadingId);
+        const loadingId = 'loading-' + Date.now();
+        addMsg('<span class="dot"></span><span class="dot"></span><span class="dot"></span>', 'bot', loadingId);
 
+        try {
+          const res = await fetch('https://n8n.rmstudio.app/webhook/vision-chatbot', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text, sessionId: chatSessionId })
+          });
+          const raw = await res.text();
+          let reply = 'Nessuna risposta ricevuta.';
+          if (raw && raw.trim() !== '') {
             try {
-                const res = await fetch('https://n8n.rmstudio.app/webhook/vision-chatbot', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: text,
-                        sessionId: chatSessionId
-                    })
-                });
-
-                const raw = await res.text();
-                let reply = 'Nessuna risposta ricevuta.';
-                if (raw && raw.trim() !== '') {
-                    try {
-                        const data = JSON.parse(raw);
-                        reply = data.response || data.output || data.text || reply;
-                    } catch (_) {
-                        reply = raw;
-                    }
-                }
-
-                document.getElementById(loadingId)?.remove();
-                addMsg(reply, 'bot');
-            } catch (err) {
-                document.getElementById(loadingId)?.remove();
-                addMsg('Errore di connessione. Riprova tra poco.', 'bot');
-            }
+              const data = JSON.parse(raw);
+              reply = data.response || data.output || data.text || reply;
+            } catch (_) { reply = raw; }
+          }
+          document.getElementById(loadingId)?.remove();
+          addMsg(reply, 'bot');
+        } catch (err) {
+          document.getElementById(loadingId)?.remove();
+          addMsg('Errore di connessione. Riprova tra poco.', 'bot');
         }
+      }
 
-        submitBtn.addEventListener('click', (e) => { e.preventDefault(); sendMsg(); });
-        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendMsg(); } });
+      submitBtn.addEventListener('click', (e) => { e.preventDefault(); sendMsg(); });
+      input.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendMsg(); } });
 
-        // Funzione per togliere il muto con gestione di sicurezza del browser
-        window.playAudio = function(video) {
-            video.muted = false;
-            video.play().catch(err => {
-                // Se il browser blocca l'audio per via delle policy, continua a riprodurre mutato
-                video.muted = true;
-                video.play();
-            });
-        };
-
-        // Funzione per rimettere il muto
-        window.muteAudio = function(video) {
-            video.muted = true;
-        };
-
-        function addMsg(text, sender, id) {
-            const div = document.createElement('div');
-            div.style.padding = '10px 14px';
-            div.style.borderRadius = '12px';
-            div.style.fontSize = '14px';
-            div.style.maxWidth = '85%';
-            div.style.lineHeight = '1.4';
-            div.style.wordWrap = 'break-word';
-            div.style.textAlign = 'left';
-
-            if (sender === 'bot') {
-                div.style.background = '#12051c';
-                div.style.color = '#f3f4f6';
-                div.style.alignSelf = 'flex-start';
-                div.style.borderBottomLeftRadius = '2px';
-                div.style.border = '1px solid rgba(124,58,237,0.1)';
-            } else {
-                div.style.background = 'linear-gradient(135deg, #7c3aed, #e040fb)';
-                div.style.color = '#ffffff';
-                div.style.alignSelf = 'flex-end';
-                div.style.borderBottomRightRadius = '2px';
-                div.style.fontWeight = '500';
-            }
-
-            if (id) div.id = id;
-
-            let formattedText = String(text);
-            formattedText = formattedText.replace(/\n/g, '<br>');
-            formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            formattedText = formattedText.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="text-decoration: underline; font-weight: bold;">$1</a>');
-
-            div.innerHTML = formattedText;
-            messagesDiv.appendChild(div);
-            messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
+      function addMsg(text, sender, id) {
+        const div = document.createElement('div');
+        div.style.cssText = 'padding:10px 14px;border-radius:12px;font-size:14px;max-width:85%;line-height:1.4;word-wrap:break-word;text-align:left;';
+        if (sender === 'bot') {
+          div.style.background = '#12051c';
+          div.style.color = '#f3f4f6';
+          div.style.alignSelf = 'flex-start';
+          div.style.borderBottomLeftRadius = '2px';
+          div.style.border = '1px solid rgba(124,58,237,0.1)';
+        } else {
+          div.style.background = 'linear-gradient(135deg, #7c3aed, #e040fb)';
+          div.style.color = '#ffffff';
+          div.style.alignSelf = 'flex-end';
+          div.style.borderBottomRightRadius = '2px';
+          div.style.fontWeight = '500';
         }
+        if (id) div.id = id;
+        let formatted = String(text)
+          .replace(/\n/g, '<br>')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="text-decoration:underline;font-weight:bold;">$1</a>');
+        div.innerHTML = formatted;
+        messagesDiv.appendChild(div);
+        messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
+      }
     })();
   </script>
 
