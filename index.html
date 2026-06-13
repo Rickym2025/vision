@@ -1,6 +1,30 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
+  <!-- Schema Strutturato Ottimizzato per AI, Google Universal Cart & AP2 -->
+  <script type="application/ld-json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Vision UGC",
+    "operatingSystem": "All",
+    "applicationCategory": "BusinessApplication",
+    "description": "Fabbrica di Influencer Virtuali H24 per Brand. Generazione automatica di video UGC ad alto impatto con creator virtuali per e-commerce e campagne social.",
+    "offers": { 
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": "50.00",
+      "highPrice": "340.00",
+      "offerCount": "3"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Riccardo Modena",
+      "url": "https://www.linkedin.com/in/riccardo-modena-13918a61/"
+    }
+  }
+  </script>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NYQF5ZW7EG"></script>
   <script>
@@ -13,8 +37,8 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vision UGC — Video Ads AI con Creator Virtuali in 24 ore</title>
-  <meta name="description" content="Genera video UGC ad alta conversione con influencer virtuali iper-realistici. Nessun attore, nessuna spedizione. Consegna in 24 ore.">
+  <title>Vision UGC — Fabbrica di Influencer Virtuali per Brand in 24 Ore</title>
+  <meta name="description" content="La prima fabbrica di Influencer Virtuali iper-realistici per e-commerce. Genera video UGC ad alta conversione senza attori reali o costose spedizioni.">
 
   <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
 
@@ -50,9 +74,7 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Inter', sans-serif;
       background: #050008;
@@ -60,12 +82,10 @@
       overflow-x: hidden;
     }
 
-    /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: #050008; }
     ::-webkit-scrollbar-thumb { background: #7c3aed44; border-radius: 2px; }
 
-    /* ── Noise grain overlay ── */
     body::before {
       content: '';
       position: fixed;
@@ -76,14 +96,12 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
 
-    /* ── Glassmorphism panel ── */
     .glass {
       background: rgba(15, 5, 30, 0.75);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,0.07);
     }
 
-    /* ── Gradient text ── */
     .grad-text {
       background: linear-gradient(135deg, #c084fc 0%, #e040fb 60%, #818cf8 100%);
       -webkit-background-clip: text;
@@ -91,7 +109,6 @@
       background-clip: text;
     }
 
-    /* ── Ambient blob ── */
     .blob {
       position: absolute;
       border-radius: 9999px;
@@ -100,44 +117,71 @@
       z-index: 0;
     }
 
-    /* ── Video card hover ── */
-    .vid-card {
+    /* ── MOCKUP SMARTPHONE AVANZATO (STILE TIKTOK/IG) ── */
+    .phone-container {
       position: relative;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid rgba(160,85,247,0.2);
-      background: #0a0010;
-      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-    .vid-card:hover {
-      border-color: rgba(160,85,247,0.7);
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 24px 60px rgba(124,58,237,0.3);
-    }
-    .vid-card video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+      border: 10px solid #1c0e2b; /* Cornice spessa telefono */
+      border-radius: 36px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 20px 50px rgba(124, 58, 237, 0.15);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .vid-label {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      background: rgba(5,0,8,0.75);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(160,85,247,0.3);
-      color: #c084fc;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 20px;
+    .phone-container:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(224, 64, 251, 0.35);
+      border-color: #7c3aed;
     }
 
-    /* ── CTA button ── */
+    /* Notch fotocamera superiore */
+    .phone-notch {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 16px;
+      background: #1c0e2b;
+      border-radius: 12px;
+      z-index: 30;
+    }
+
+    /* Overlay Social destro (Like, Commenti, Share) */
+    .phone-social-sidebar {
+      position: absolute;
+      right: 12px;
+      bottom: 90px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 20;
+      align-items: center;
+    }
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Dettagli Influencer inferiori (Username e Caption) */
+    .phone-influencer-details {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      right: 50px;
+      z-index: 20;
+      text-align: left;
+    }
+
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -176,11 +220,9 @@
       color: white;
     }
 
-    /* ── Comparison table ── */
     .compare-row { border-bottom: 1px solid rgba(255,255,255,0.04); }
     .compare-row:last-child { border-bottom: none; }
 
-    /* ── Pricing card ── */
     .price-card {
       border-radius: 28px;
       padding: 36px 32px;
@@ -199,7 +241,7 @@
       border: 1px solid rgba(255,255,255,0.06);
     }
 
-    /* ── Orbit (copiato da rmstudio, accent viola) ── */
+    /* ── Orbit ── */
     @keyframes orbit-rotation {
       0%   { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -245,8 +287,6 @@
       box-shadow: 0 0 14px rgba(168,85,247,0.5);
     }
     .orbit-img { width: 100%; height: 100%; object-fit: contain; }
-    .orbit-img.cover { object-fit: cover; }
-    .orbit-img.rounded { border-radius: 9999px; }
     .orbit-center-photo {
       position: absolute;
       width: 150px; height: 150px;
@@ -290,12 +330,10 @@
       animation: pulse-ring-v 4s cubic-bezier(0.4,0,0.6,1) infinite;
     }
 
-    /* ── Reduced motion ── */
     @media (prefers-reduced-motion: reduce) {
       .orbit-ring, .orbit-item, .pulse-ring-element, .blob { animation: none !important; }
     }
 
-    /* ── Nav active dot ── */
     .nav-dot {
       display: inline-block; width: 5px; height: 5px;
       border-radius: 50%; background: #a855f7;
@@ -305,7 +343,6 @@
     }
     a:hover .nav-dot { opacity: 1; }
 
-    /* ── Section fade-in ── */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -325,7 +362,7 @@
     "name": "Vision UGC",
     "operatingSystem": "All",
     "applicationCategory": "BusinessApplication",
-    "description": "Generazione automatica di video UGC ad alto impatto con creator virtuali per e-commerce e campagne social.",
+    "description": "Fabbrica di Influencer Virtuali H24 per e-commerce e campagne social. Consegna garantita in 24 ore.",
     "offers": { "@type": "Offer", "price": "50.00", "priceCurrency": "EUR" },
     "author": {
       "@type": "Person",
@@ -380,30 +417,30 @@
   <section style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:130px 24px 80px;">
     <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;" class="hero-grid">
 
-      <!-- Left -->
+      <!-- Left (Persuasione e Neuro-Copywriting) -->
       <div style="display:flex;flex-direction:column;gap:28px;">
         <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);padding:6px 16px;border-radius:9999px;width:fit-content;">
           <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;display:inline-block;animation:pulse 2s ease-in-out infinite;"></span>
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Creator Virtuali · Consegna 24h</span>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Fabbrica di Influencer H24 · Consegna 24h</span>
         </div>
 
-        <h1 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;letter-spacing:-0.02em;">
-          Il tuo prodotto.<br>
-          Il volto giusto.<br>
-          <span class="grad-text">Vendite reali.</span>
+        <h1 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;letter-spacing:-0.02em;">
+          La tua scuderia di<br>
+          Influencer Virtuali.<br>
+          <span class="grad-text">Per vendite reali.</span>
         </h1>
 
         <p style="font-size:1.05rem;color:rgba(241,240,245,0.65);line-height:1.7;font-weight:300;max-width:480px;">
-          Generiamo video UGC con presenter virtuali iper-realistici a partire da una semplice foto del tuo prodotto. Nessuna spedizione. Nessun attore. Nessuna attesa.
+          Nessuna agenzia di modelle, nessuna spedizione e zero ritardi. Generiamo video UGC iper-realistici con presentatori virtuali per il tuo e-commerce, pronti da lanciare in 24 ore.
         </p>
 
         <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
           <a href="#prezzi" class="btn-primary px-8 py-4" style="font-size:16px;">
-            Sblocca i tuoi Video
+            Sblocca la tua Scuderia
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
           </a>
           <a href="#esempi" class="btn-ghost px-6 py-4" style="font-size:14px;">
-            Guarda esempi
+            Guarda la scuderia
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/></svg>
           </a>
         </div>
@@ -411,37 +448,65 @@
         <div style="display:flex;flex-wrap:wrap;gap:20px;padding-top:8px;">
           <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4);">
             <svg width="15" height="15" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-            Consegna in 24 ore
+            Abbattimento costi del 90%
           </div>
           <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4);">
             <svg width="15" height="15" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-            Nessuna spedizione
+            UGC pronti in 24 Ore
           </div>
           <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4);">
             <svg width="15" height="15" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-            Revisioni incluse
+            Audio Attivo su Hover
           </div>
         </div>
       </div>
 
-      <!-- Right: Video previews -->
-      <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;">
+      <!-- Right: Smartphone mockups with Social Interface Overlays & Audio on Hover -->
+      <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
         <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
-        <div class="vid-card" style="aspect-ratio:9/16;">
+        <!-- Smartphone 1: Camila (Lifestyle) -->
+        <div class="phone-container" style="aspect-ratio:9/16;">
+          <div class="phone-notch"></div>
+          
+          <!-- Social Icons Overlay (TikTok style) -->
+          <div class="phone-social-sidebar">
+            <div class="social-btn">❤️</div>
+            <div class="social-btn">💬</div>
+            <div class="social-btn">🔗</div>
+          </div>
+          <div class="phone-influencer-details">
+            <p class="text-xs font-bold text-white mb-1">@camila_virtual</p>
+            <p class="text-[11px] text-zinc-300 leading-snug">Testando la nuova routine yoga di stamattina! 🧘‍♀️✨ #lifestyle #ugc</p>
+          </div>
+
           <video src="/public/video/v1.mp4" loop muted playsinline preload="metadata"
-                 onmouseenter="this.play()" onmouseleave="this.pause()" onclick="this.paused?this.play():this.pause()"></video>
+                 onmouseenter="this.muted=false; this.play();" onmouseleave="this.muted=true; this.pause();" onclick="this.paused?this.play():this.pause()"></video>
           <div class="vid-label">Camila · Lifestyle</div>
         </div>
 
-        <div class="vid-card" style="aspect-ratio:9/16;margin-top:32px;">
+        <!-- Smartphone 2: Sara (Fashion) -->
+        <div class="phone-container" style="aspect-ratio:9/16;margin-top:32px;">
+          <div class="phone-notch"></div>
+          
+          <!-- Social Icons Overlay (TikTok style) -->
+          <div class="phone-social-sidebar">
+            <div class="social-btn">❤️</div>
+            <div class="social-btn">💬</div>
+            <div class="social-btn">🔗</div>
+          </div>
+          <div class="phone-influencer-details">
+            <p class="text-xs font-bold text-white mb-1">@sara_fashion_ai</p>
+            <p class="text-[11px] text-zinc-300 leading-snug">Il mio look preferito per il weekend! Che ne pensate? 👗👜 #fashion #ootd</p>
+          </div>
+
           <video src="/public/video/v5_ita.mp4" loop muted playsinline preload="metadata"
-                 onmouseenter="this.play()" onmouseleave="this.pause()" onclick="this.paused?this.play():this.pause()"></video>
+                 onmouseenter="this.muted=false; this.play();" onmouseleave="this.muted=true; this.pause();" onclick="this.paused?this.play():this.pause()"></video>
           <div class="vid-label">Sara · Fashion</div>
         </div>
 
         <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
-          Passa il mouse per riprodurre
+          Passa il mouse per riprodurre audio 🔊
         </p>
       </div>
     </div>
@@ -463,7 +528,7 @@
       <div style="width:1px;height:32px;background:rgba(255,255,255,0.06);"></div>
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:22px;font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;color:#c084fc;">90%</span>
-        <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">Riduzione costi vs attori</span>
+        <span style="font-size:12px;color:rgba(255,255,255,0.4);max-width:80px;line-height:1.3;">La scelta delle agenzie</span>
       </div>
       <div style="width:1px;height:32px;background:rgba(255,255,255,0.06);"></div>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -526,6 +591,81 @@
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">Dipende dal set</span>
         </div>
       </div>
+    </div>
+  </section>
+
+
+  <!-- ─── LA SCUDERIA DI INFLUENCER VIRTUALI (NUOVA SEZIONE CAMPAGNE DI SUCCESSO) ─── -->
+  <section id="esempi" style="position:relative;z-index:1;padding:40px 24px 100px;">
+    <div class="reveal" style="max-width:1100px;margin:0 auto;">
+      
+      <div style="text-align:center;margin-bottom:56px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;margin-bottom:20px;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Campagne di Successo</span>
+        </div>
+        <h2 style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
+          La nostra scuderia di<br><span class="grad-text">Influencer Virtuali</span>
+        </h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.5);margin-top:12px;max-width:580px;margin-left:auto;margin-right:auto;">
+          Ogni avatar è addestrato su mercati verticali differenti (Beauty, Tech, App, Food) per intercettare i desideri conscci e inconsci del tuo pubblico [RM_STUDIO_MASTER_BRAIN.md].
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+        
+        <!-- Influencer 3: Zoe (Beauty & Skincare) -->
+        <div class="phone-container" style="aspect-ratio:9/16;">
+          <div class="phone-notch"></div>
+          <div class="phone-social-sidebar">
+            <div class="social-btn">❤️</div>
+            <div class="social-btn">💬</div>
+            <div class="social-btn">🔗</div>
+          </div>
+          <div class="phone-influencer-details">
+            <p class="text-xs font-bold text-white mb-1">@zoe_beauty_reviews</p>
+            <p class="text-[11px] text-zinc-300 leading-snug">Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine</p>
+          </div>
+          <video src="/public/video/v2.mp4" loop muted playsinline preload="metadata"
+                 onmouseenter="this.muted=false; this.play();" onmouseleave="this.muted=true; this.pause();" onclick="this.paused?this.play():this.pause()"></video>
+          <div class="vid-label">Zoe · Beauty</div>
+        </div>
+
+        <!-- Influencer 4: Janet (Tech / App Reviews) -->
+        <div class="phone-container" style="aspect-ratio:9/16;">
+          <div class="phone-notch"></div>
+          <div class="phone-social-sidebar">
+            <div class="social-btn">❤️</div>
+            <div class="social-btn">💬</div>
+            <div class="social-btn">🔗</div>
+          </div>
+          <div class="phone-influencer-details">
+            <p class="text-xs font-bold text-white mb-1">@janet_tech_reviews</p>
+            <p class="text-[11px] text-zinc-300 leading-snug">L&apos;applicazione definitiva che mi ha salvato la produttività quest&apos;anno 📱💻 #tech #app</p>
+          </div>
+          <video src="/public/video/v3.mp4" loop muted playsinline preload="metadata"
+                 onmouseenter="this.muted=false; this.play();" onmouseleave="this.muted=true; this.pause();" onclick="this.paused?this.play():this.pause()"></video>
+          <div class="vid-label">Janet · Tech</div>
+        </div>
+
+        <!-- Influencer 5: Mathis (Food / Integratori) -->
+        <div class="phone-container" style="aspect-ratio:9/16;">
+          <div class="phone-notch"></div>
+          <div class="phone-social-sidebar">
+            <div class="social-btn">❤️</div>
+            <div class="social-btn">💬</div>
+            <div class="social-btn">🔗</div>
+          </div>
+          <div class="phone-influencer-details">
+            <p class="text-xs font-bold text-white mb-1">@mathis_fit_food</p>
+            <p class="text-[11px] text-zinc-300 leading-snug">La colazione proteica e rapida prima di andare in palestra 💪🥞 #fitness #food</p>
+          </div>
+          <video src="/public/video/v4.mp4" loop muted playsinline preload="metadata"
+                 onmouseenter="this.muted=false; this.play();" onmouseleave="this.muted=true; this.pause();" onclick="this.paused?this.play():this.pause()"></video>
+          <div class="vid-label">Mathis · Fit Food</div>
+        </div>
+
+      </div>
+
     </div>
   </section>
 
