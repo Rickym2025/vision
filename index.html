@@ -563,7 +563,7 @@
         </div>
       </div>
 
-      <!-- Right: Smartphone mockups -->
+      <!-- Right: Smartphone mockups with Social Interface Overlays & Audio on Hover -->
       <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
         <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
@@ -579,7 +579,6 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@camilla_yoga_eng</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga</p>
           </div>
-          <!-- FIX audio hint icon -->
           <div class="audio-hint" id="hint1">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
@@ -587,7 +586,8 @@
               <line x1="17" y1="9" x2="23" y2="15"/>
             </svg>
           </div>
-          <video id="vid1" src="/public/video/v1.mp4" loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>  
+          <!-- Aggiunto autoplay esplicito nell'HTML -->
+          <video id="vid1" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>  
           <div class="vid-label">Camilla · Yoga (ENG)</div>
         </div>
 
@@ -610,7 +610,8 @@
               <line x1="17" y1="9" x2="23" y2="15"/>
             </svg>
           </div>
-          <video id="vid2" src="/public/video/v5_ita.mp4" loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+          <!-- Aggiunto autoplay esplicito nell'HTML -->
+          <video id="vid2" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Camilla · Swatch (ITA)</div>
         </div>
 
