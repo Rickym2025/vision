@@ -99,10 +99,12 @@
       }
 
       .glass {
-        background: rgba(15, 5, 30, 0.75);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255,255,255,0.07);
-      }
+          background: rgba(15, 5, 30, 0.90);
+          backdrop-filter: blur(4px);
+          border: 1px solid rgba(255,255,255,0.07);
+          transform: translateZ(0);
+          will-change: transform, backdrop-filter;
+        }
 
       .grad-text {
         background: linear-gradient(135deg, #c084fc 0%, #e040fb 60%, #818cf8 100%);
@@ -474,10 +476,12 @@
       }
 
       .glass {
-        background: rgba(15, 5, 30, 0.90); /* Più opaco per mantenere la leggibilità */
-        backdrop-filter: blur(4px); /* Ridotto a 4px per azzerare il carico sulla GPU */
-        border: 1px solid rgba(255,255,255,0.07);
-      }
+          background: rgba(15, 5, 30, 0.90);
+          backdrop-filter: blur(4px);
+          border: 1px solid rgba(255,255,255,0.07);
+          transform: translateZ(0);
+          will-change: transform, backdrop-filter;
+        }
 
       /* Forza la decodifica del video tramite la scheda video (GPU) anziché la CPU */
       .gpu-video {
@@ -493,9 +497,9 @@
 
   <!-- LAYER BACKGROUND VIDEO -->
   <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-      <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-15">
-          <source class="gpu-video" src="/public/video/background.mp4" type="video/mp4">
-      </video>
+      <video autoplay muted loop playsinline preload="metadata" class="gpu-video w-full h-full object-cover opacity-15">
+            <source src="/public/video/background.mp4" type="video/mp4">
+        </video>
       <div class="absolute inset-0 bg-gradient-to-b from-ink/95 via-ink/60 to-ink"></div>
   </div>
 
@@ -507,7 +511,7 @@
   </div>
 
   <!-- NAV -->
-  <header class="fixed top-0 left-0 w-full p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5">
+  <header class="fixed top-0 left-0 w-full p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5" style="transform: translateZ(0); will-change: transform;">
     <nav class="glass max-w-6xl mx-auto rounded-2xl px-6 py-4 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5">
         <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:32px;width:auto;object-fit:contain;">
