@@ -838,9 +838,9 @@
     applyResponsive();
     window.addEventListener('resize', applyResponsive);
 
-    // Orbit injection da rmstudio.app
+    // Orbit injection da raw.githubusercontent con supporto CORS
     document.addEventListener('DOMContentLoaded', () => {
-      fetch('https://rmstudio.app/public/orbit-template.html?v=' + Date.now())
+      fetch('https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html')
         .then(r => { if (!r.ok) throw new Error('orbit fetch failed'); return r.text(); })
         .then(html => {
           const c = document.getElementById('orbit-container');
