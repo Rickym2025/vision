@@ -405,6 +405,25 @@
           #vision-chat-bubble { left: 20px; right: auto; }
           #vision-chat-window { left: 20px; right: auto; display: none; }
       }
+
+      .vid-label {
+      position: absolute;
+      bottom: 22px; /* Alzata per evitare l'angolo curvo dello smartphone */
+      left: 50%;
+      transform: translateX(-50%); /* Centra perfettamente la targa in orizzontale */
+      white-space: nowrap; /* Impedisce al testo di andare a capo */
+      background: rgba(5,0,8,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(160,85,247,0.3);
+      color: #c084fc;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      z-index: 25;
+    }  
   </style>
 </head>
 
@@ -500,7 +519,7 @@
       <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
         <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
-        <!-- Smartphone 1: Camila (Yoga / Fitness - English) -->
+        <!-- Smartphone 1: Camilla (Yoga / Fitness - English) -->
         <div class="phone-container" style="aspect-ratio:9/16;">
           <div class="phone-notch"></div>
           
@@ -511,17 +530,17 @@
             <div class="social-btn">🔗</div>
           </div>
           <div class="phone-influencer-details">
-            <p class="text-xs font-bold text-white mb-1">@camila_yoga_eng</p>
+            <p class="text-xs font-bold text-white mb-1">@camilla_yoga_eng</p>
             <p class="text-[11px] text-zinc-300 leading-snug">My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga</p>
           </div>
 
-          <!-- Video Autoplay ed Audio su Hover sbloccato -->
-          <video src="/public/video/v1.mp4" loop muted playsinline preload="auto"
+          <!-- Aggiunto autoplay per l'avvio immediato nativo -->
+          <video src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto"
                  onmouseenter="this.muted=false;" onmouseleave="this.muted=true;"></video>
-          <div class="vid-label">Camila · Yoga (ENG)</div>
+          <div class="vid-label">Camilla · Yoga (ENG)</div>
         </div>
 
-        <!-- Smartphone 2: Camila (Swatch / Fashion - Italian) -->
+        <!-- Smartphone 2: Camilla (Swatch / Fashion - Italian) -->
         <div class="phone-container" style="aspect-ratio:9/16;margin-top:32px;">
           <div class="phone-notch"></div>
           
@@ -532,15 +551,20 @@
             <div class="social-btn">🔗</div>
           </div>
           <div class="phone-influencer-details">
-            <p class="text-xs font-bold text-white mb-1">@camila_swatch_ita</p>
+            <p class="text-xs font-bold text-white mb-1">@camilla_swatch_ita</p>
             <p class="text-[11px] text-zinc-300 leading-snug">Oggi recensiamo insieme la nuova collezione Swatch! Guardate che colori pazzeschi! 😍⌚ #swatch #unboxing</p>
           </div>
 
-          <!-- Video Autoplay ed Audio su Hover sbloccato -->
-          <video src="/public/video/v5_ita.mp4" loop muted playsinline preload="auto"
+          <!-- Aggiunto autoplay per l'avvio immediato nativo -->
+          <video src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto"
                  onmouseenter="this.muted=false;" onmouseleave="this.muted=true;"></video>
-          <div class="vid-label">Camila · Swatch (ITA)</div>
+          <div class="vid-label">Camilla · Swatch (ITA)</div>
         </div>
+
+        <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
+          Passa il mouse per riprodurre l&apos;audio 🔊
+        </p>
+      </div>
 
         <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
           Passa il mouse per riprodurre l&apos;audio 🔊
@@ -962,38 +986,39 @@
 
 
   <!-- ─── FOOTER ─── -->
-  <footer style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.05);padding:48px 24px;background:rgba(0,0,5,0.8);">
-    <div style="max-width:1060px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;">
-
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:24px;width:auto;object-fit:contain;">
-          <span style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:16px;">Vision <span class="grad-text">UGC</span></span>
+  <footer style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.05);padding:64px 24px;background:rgba(0,0,5,0.8);">
+    <div style="max-width:1060px;margin:0 auto;display:flex;flex-col md:flex-row justify-between items-center gap-12" class="form-grid">
+      
+      <!-- Colonna 1: Logo e Copyright -->
+      <div style="max-width:280px;text-align:center;" class="text-left md:text-left">
+        <div style="display:flex;align-items:center;gap:10px;justify-content:center;" class="md:justify-start">
+          <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:32px;width:auto;object-fit:contain;">
+          <span style="font-family:'"Plus Jakarta Sans"',sans-serif;font-weight:800;font-size:17px;letter-spacing:0.02em;color:#ffffff;">Vision <span class="grad-text">UGC</span></span>
         </div>
-        <p style="font-size:12px;color:rgba(255,255,255,0.25);max-width:260px;line-height:1.6;">
-          Tecnologia proprietaria RM Studio.<br>
-          © <span id="yr"></span> Riccardo Modena · RM Studio
+        <p style="font-size:13px;color:rgba(255,255,255,0.3);line-height:1.6;margin-top:12px;">Tecnologia proprietaria RM Studio. Semplifichiamo l&apos;automazione video e di marketing B2B.</p>
+        <p style="font-size:11px;color:rgba(255,255,255,0.2);margin-top:20px;">
+          © 2026 RM Studio. Tutti i diritti riservati.<br>
+          <a href="https://rmstudio.app/privacy.html" target="_blank" style="text-decoration:underline;color:rgba(255,255,255,0.3);">Privacy Policy</a>
+          <span style="margin: 0 4px;">|</span>
+          <a href="https://rmstudio.app/termini.html" target="_blank" style="text-decoration:underline;color:rgba(255,255,255,0.3);">Termini e Condizioni</a>
         </p>
-        <div style="display:flex;gap:16px;margin-top:4px;">
-          <a href="https://rmstudio.app/public/privacy.html" target="_blank"
-             style="font-size:11px;color:rgba(255,255,255,0.25);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;"
-             onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">
-            Privacy Policy
-          </a>
-          <span style="font-size:11px;color:rgba(255,255,255,0.1);">|</span>
-          <a href="https://rmstudio.app/public/termini.html" target="_blank"
-             style="font-size:11px;color:rgba(255,255,255,0.25);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;"
-             onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">
-            Termini e Condizioni
-          </a>
+      </div>
+
+      <!-- Colonna 2: Social Hub -->
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;">
+        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;">Social Hub</h4>
+        <div style="display:flex;gap:10px;">
+          <a href="https://www.instagram.com/riccardo_mode_/" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">IG</a>
+          <a href="https://www.facebook.com/riccardo.modena.792" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">FB</a>
+          <a href="https://www.linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">IN</a>
+          <a href="https://www.tiktok.com/@mr3d.riccardo" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">TK</a>
         </div>
       </div>
 
-      <div style="display:flex;gap:10px;">
-        <a href="https://www.instagram.com/riccardo_mode_/" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">IG</a>
-        <a href="https://www.facebook.com/riccardo.modena.792" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">FB</a>
-        <a href="https://www.linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">IN</a>
-        <a href="https://www.tiktok.com/@mr3d.riccardo" target="_blank" class="btn-ghost" style="width:40px;height:40px;padding:0;border-radius:12px;font-size:11px;font-weight:700;">TK</a>
+      <!-- Colonna 3: Supporto -->
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;">
+        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;">Supporto</h4>
+        <a href="#contatti" class="btn-ghost" style="padding:10px 24px;font-size:12px;font-weight:700;border-radius:9999px;">Contattaci Ora</a>
       </div>
 
     </div>
