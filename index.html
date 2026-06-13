@@ -114,7 +114,7 @@
       .blob {
         position: absolute;
         border-radius: 9999px;
-        filter: blur(90px);
+        filter: blur(70px);
         pointer-events: none;
         z-index: 0;
       }
@@ -745,7 +745,7 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@zoe_beauty_reviews</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine</p>
           </div>
-          <video src="/public/video/v2.mp4" autoplay loop muted playsinline preload="auto"></video>
+          <video class="gpu-video" src="/public/video/v2.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Zoe · Beauty</div>
         </div>
 
@@ -761,7 +761,7 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@janet_tech_reviews</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">L'applicazione definitiva che mi ha salvato la produttività quest'anno 📱💻 #tech #app</p>
           </div>
-          <video src="/public/video/v3.mp4" autoplay loop muted playsinline preload="auto"></video>
+          <video class="gpu-video" src="/public/video/v3.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Janet · Tech</div>
         </div>
 
@@ -777,7 +777,7 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@mathis_fit_food</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">La colazione proteica e rapida prima di andare in palestra 💪🥞 #fitness #food</p>
           </div>
-          <video src="/public/video/v4.mp4" autoplay loop muted playsinline preload="auto"></video>
+          <video class="gpu-video" src="/public/video/v4.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Mathis · Fit Food</div>
         </div>
 
@@ -1269,6 +1269,24 @@
         messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
       }
     })();
+        
+        // Riproduci i video solo se visibili nello schermo per risparmiare risorse GPU/CPU
+        const videoObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        // Applica l'observer a tutti i video della pagina
+        document.querySelectorAll('video').forEach(video => {
+          videoObserver.observe(video);
+        });
+      
   </script>
 
   <script src="https://rmstudio.app/public/cookie-banner.js" defer></script>
