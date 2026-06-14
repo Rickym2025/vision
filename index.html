@@ -412,14 +412,13 @@
           border-radius: 20px;
           box-shadow: 0 20px 50px rgba(0,0,0,0.8);
           z-index: 999999;
-          display: none; /* FIX: sempre chiuso di default, JS gestisce apertura */
+          display: none;
           flex-direction: column;
           overflow: hidden;
           font-family: 'Inter', sans-serif;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
-      /* FIX: quando aperto, usa flex */
       #vision-chat-window.chat-open {
           display: flex !important;
       }
@@ -452,7 +451,6 @@
         z-index: 25;
       }
 
-      /* Typing dots animation */
       @keyframes blink {
         0%, 80%, 100% { opacity: 0; }
         40% { opacity: 1; }
@@ -468,21 +466,11 @@
       .dot:nth-child(2) { animation-delay: 0.2s; }
       .dot:nth-child(3) { animation-delay: 0.4s; }
 
-      /* Pulse animation hero badge */
       @keyframes pulse {
         0%, 100% { opacity: 1; }
         50% { opacity: 0.5; }
       }
 
-      .glass {
-          background: rgba(15, 5, 30, 0.90);
-          backdrop-filter: blur(4px);
-          border: 1px solid rgba(255,255,255,0.07);
-          transform: translateZ(0);
-          will-change: transform, backdrop-filter;
-        }
-
-      /* Forza la decodifica del video tramite la scheda video (GPU) anziché la CPU */
       .gpu-video {
         transform: translateZ(0);
         will-change: transform;
@@ -495,14 +483,12 @@
           .step-line { display: none !important; }
         }
 
-      /* Testo mini decorativo nei mockup piccoli */
         .phone-details-mini {
           position: absolute;
           left: 8px; bottom: 8px; right: 32px;
           z-index: 20; text-align: left;
         }
         
-        /* Hint "TAP" visibile solo su mobile */
         .tap-hint {
           display: none;
           position: absolute;
@@ -519,19 +505,14 @@
         }
         @media (max-width: 767px) {
           .tap-hint { display: block; }
-          /* Su mobile i mockup hero sono già piccoli, nascondi l'audio hint */
           .audio-hint { display: none; }
         }
-        /* Fullscreen overlay — flex solo quando aperto */
-        #fs-overlay { display: none; }
-        #fs-overlay.open { display: flex !important; }  
-        
     </style>
 </head>
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- LAYER BACKGROUND VIDEO -->
+  <!-- LAYER BACKGROUND VIDEO (Mantenuto in background senza interferenze) -->
   <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
       <video autoplay muted loop playsinline preload="metadata" class="gpu-video w-full h-full object-cover opacity-15">
             <source src="/public/video/background.mp4" type="video/mp4">
@@ -546,12 +527,12 @@
     <div class="blob" style="width:400px;height:400px;background:rgba(99,102,241,0.07);top:40%;left:50%;transform:translateX(-50%);"></div>
   </div>
 
-  <!-- NAV (FIX MOBILE: padding fluida e pulsante compatto) -->
+  <!-- NAV (FIX MOBILE: No clip, no sovrapposizioni, classi fluide native) -->
   <header class="fixed top-0 left-0 w-full p-2 sm:p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5" style="transform: translateZ(0); will-change: transform;">
     <nav class="glass max-w-6xl mx-auto rounded-2xl px-3 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-2">
       <a href="#" class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-        <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:28px; width:auto; object-fit:contain;" class="sm:h-8">
-        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.02em;" class="sm:text-lg">Vision <span class="grad-text">UGC</span></span>
+        <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" class="h-7 sm:h-8 w-auto object-contain">
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;letter-spacing:0.02em;" class="text-sm sm:text-lg">Vision <span class="grad-text">UGC</span></span>
       </a>
 
       <div class="hidden md:flex items-center gap-8" style="font-size:13px;font-weight:500;">
@@ -629,7 +610,6 @@
             <div class="social-btn">💬</div>
             <div class="social-btn">🔗</div>
           </div>
-          <!-- Overlay testo decorativo (piccolo, semi-opaco) -->
           <div class="phone-influencer-details phone-details-mini">
             <p style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.5);margin:0 0 2px;">@camilla_yoga_eng</p>
             <p style="font-size:6px;color:rgba(255,255,255,0.35);line-height:1.3;margin:0;">My morning routine stretch! #fitness #yoga</p>
@@ -642,7 +622,6 @@
           </div>
           <video id="vid1" class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Camilla · Yoga (ENG)</div>
-          <!-- Tap hint su mobile -->
           <div class="tap-hint">TAP per aprire 🔊</div>
         </div>
 
@@ -704,7 +683,7 @@
   </div>
 
 
-  <!-- CONFRONTO (FIX MOBILE: padding fluida per evitare sovrapposizioni o straripamenti) -->
+  <!-- CONFRONTO (FIX MOBILE: Unificato e accorpato classi precedentemente duplicate) -->
   <section id="vantaggi" style="position:relative;z-index:1;padding:100px 24px;">
     <div class="reveal" style="max-width:860px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:60px;">
@@ -717,37 +696,37 @@
       </div>
 
       <div class="glass" style="border-radius:24px;overflow:hidden;">
-        <div style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 bg-white/5 border-b border-white/5">
+        <div style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 bg-white/5 border-b border-white/5 items-center">
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Caratteristica</span>
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a855f7;text-align:center;">Vision UGC</span>
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-align:center;">Attori reali</span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
+        <div class="compare-row gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;">
           <span style="font-size:15px;font-weight:500;">Costo per video</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">€ 50</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;"><s>€ 500+</s></span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
+        <div class="compare-row gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;">
           <span style="font-size:15px;font-weight:500;">Tempi di consegna</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">24 ore</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">14–21 giorni</span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
+        <div class="compare-row gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;">
           <span style="font-size:15px;font-weight:500;">Spedizione prodotto</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Non serve</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">Obbligatoria</span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
+        <div class="compare-row gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;">
           <span style="font-size:15px;font-weight:500;">Lingue disponibili</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">10+ native</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">1 per attore</span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
+        <div class="compare-row gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;">
           <span style="font-size:15px;font-weight:500;">Revisioni</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Incluse</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">A pagamento</span>
         </div>
-        <div style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
+        <div class="compare-row gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;">
           <span style="font-size:15px;font-weight:500;">Scalabilità</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Illimitata</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">Dipende dal set</span>
@@ -757,7 +736,7 @@
   </section>
 
 
-  <!-- LA SCUDERIA (FIX MOBILE: Griglia pulita in colonna singola) -->
+  <!-- LA SCUDERIA -->
   <section id="scuderia" style="position:relative;z-index:1;padding:40px 24px 100px;">
     <div class="reveal" style="max-width:1100px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:56px;">
@@ -867,7 +846,7 @@
   </section>
 
 
-  <!-- PREZZI (FIX MOBILE: padding interna responsive) -->
+  <!-- PREZZI -->
 <section id="prezzi" style="position:relative;z-index:1;padding:0 24px 100px;">
   <div class="reveal" style="max-width:760px;margin:0 auto;">
 
@@ -885,7 +864,7 @@
       </p>
     </div>
 
-    <!-- Card principale (Con padding responsive per mobile) -->
+    <!-- Card principale -->
     <div class="glass p-6 sm:p-10 md:p-12" style="border-radius:28px;position:relative;overflow:hidden;border-color:rgba(124,58,237,0.25);">
 
       <!-- Blob decorativo interno -->
@@ -924,7 +903,7 @@
       <!-- Divider -->
       <div style="height:1px;background:rgba(255,255,255,0.05);margin-bottom:36px;"></div>
 
-      <!-- Prezzo + CTA (Flessibile su Mobile) -->
+      <!-- Prezzo + CTA -->
       <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
 
         <div class="text-center sm:text-left">
@@ -936,7 +915,6 @@
               <div style="font-size:12px;color:rgba(255,255,255,0.25);">vs €500–1.500 con attori reali</div>
             </div>
           </div>
-          <!-- Scarsità reale e onesta -->
           <div style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);padding:5px 12px;border-radius:9999px;">
             <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;display:inline-block;animation:pulse 2s ease-in-out infinite;flex-shrink:0;"></span>
             <span style="font-size:11px;font-weight:700;color:rgba(74,222,128,0.8);letter-spacing:0.06em;">Slot disponibili questo mese: <span id="slots-counter">4</span></span>
@@ -1027,7 +1005,7 @@
           <input type="hidden" name="access_key" value="9013a8d5-0901-42a0-b9e6-4c45553f960d">
           <input type="hidden" name="subject" value="Nuovo Lead da Vision UGC">
 
-          <!-- FIX MOBILE: input aggiornati a 16px per evitare lo zoom automatico e penalizzazioni SEO -->
+          <!-- OPTIMIZATION: Tutti i font degli input sono a 16px per evitare lo zoom forzato di iOS Safari -->
           <div style="display:grid;gap:12px;" class="form-grid">
             <div style="display:flex;flex-direction:column;gap:6px;">
               <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Nome azienda *</label>
@@ -1137,37 +1115,28 @@
             </div>
       </div>
       <div style="padding:12px;border-top:1px solid rgba(124,58,237,0.15);display:flex;gap:8px;background:#140520;flex-shrink:0;">
-          <!-- FIX: font-size a 16px per evitare lo zoom forzato su iOS Safari -->
           <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." style="flex:1;border:1px solid rgba(124,58,237,0.2);border-radius:10px;padding:8px 12px;font-size:16px;color:#ffffff;background:#050008;outline:none;font-family:'Inter',sans-serif;">
           <button id="vision-chat-submit" style="background:linear-gradient(135deg,#7c3aed,#e040fb);color:#ffffff;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;padding:0 16px;display:flex;align-items:center;justify-content:center;">Invia</button>
       </div>
   </div>
 
 
-  <!-- FULLSCREEN OVERLAY (FIX MOBILE: Spostato alla radice del body per risolvere lo z-index e lo Stacking Context) -->
-  <div id="fs-overlay" onclick="closeFullscreen()" style="
-    display:none; position:fixed; inset:0; z-index:99999;
-    background:rgba(0,0,0,0.96); backdrop-filter:blur(8px);
-    align-items:center; justify-content:center; flex-direction:column;
-  ">
-    <!-- Mockup fullscreen centrato -->
+  <!-- FULLSCREEN OVERLAY (FIX MOBILE: Spostato alla radice del body, controllo JavaScript robusto senza classi conflittuali) -->
+  <div id="fs-overlay" onclick="closeFullscreen()" style="display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(0,0,0,0.96); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column;">
     <div style="position:relative;width:min(360px,88vw);border:10px solid #1c0e2b;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(124,58,237,0.3);" onclick="event.stopPropagation()">
       <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:80px;height:16px;background:#1c0e2b;border-radius:12px;z-index:30;"></div>
       
-      <!-- Social sidebar fullscreen -->
       <div style="position:absolute;right:12px;bottom:90px;display:flex;flex-direction:column;gap:16px;z-index:20;align-items:center;">
         <div class="social-btn">❤️</div>
         <div class="social-btn">💬</div>
         <div class="social-btn">🔗</div>
       </div>
 
-      <!-- Dettagli fullscreen — testo leggibile -->
       <div id="fs-details" style="position:absolute;left:14px;bottom:14px;right:50px;z-index:20;text-align:left;">
         <p id="fs-handle" style="font-size:14px;font-weight:700;color:white;margin:0 0 6px;"></p>
         <p id="fs-caption" style="font-size:12px;color:#d1d5db;line-height:1.5;margin:0;"></p>
       </div>
 
-      <!-- Badge audio attivo -->
       <div style="position:absolute;top:28px;right:14px;z-index:25;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.15);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
@@ -1179,7 +1148,6 @@
       <video id="fs-video" autoplay loop playsinline style="width:100%;aspect-ratio:9/16;object-fit:cover;display:block;"></video>
     </div>
 
-    <!-- Chiudi hint -->
     <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;">TAP ovunque per chiudere</p>
   </div>
 
@@ -1260,7 +1228,6 @@ const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 
 const SVG_MUTED = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
 const SVG_SOUND = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
 
-// Fullscreen overlay
 let fsActiveSourceId = null;
 
 function openFullscreen(videoId, handle, caption) {
@@ -1268,20 +1235,31 @@ function openFullscreen(videoId, handle, caption) {
   const fsVideo     = document.getElementById('fs-video');
   const overlay     = document.getElementById('fs-overlay');
 
-  // Copia src e stato play
+  if (!sourceVideo || !fsVideo || !overlay) return;
+
+  // Sincronizza sorgente e tempo di riproduzione
   fsVideo.src          = sourceVideo.src;
   fsVideo.currentTime  = sourceVideo.currentTime;
-  fsVideo.muted        = false; // audio attivo in fullscreen
+  fsVideo.muted        = false; 
   fsVideo.volume       = 1;
 
   document.getElementById('fs-handle').textContent  = handle;
   document.getElementById('fs-caption').textContent = caption;
 
-  overlay.classList.add('open');
-  fsVideo.play().catch(() => { fsVideo.muted = false; fsVideo.play().catch(()=>{}); });
+  // Forza display flex via script per evitare conflitti CSS/Tailwind
+  overlay.style.cssText = "display: flex !important; position: fixed; inset: 0; z-index: 999999; background: rgba(0,0,0,0.96); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column;";
+
+  // Gestione asincrona del playback su mobile
+  const playPromise = fsVideo.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(error => {
+      console.warn("Riproduzione audio bloccata dal browser, provo mutato:", error);
+      fsVideo.muted = true;
+      fsVideo.play().catch(err => console.error("Playback fallito completamente:", err));
+    });
+  }
 
   fsActiveSourceId = videoId;
-  // Pausa il video sorgente per non sprecare risorse
   sourceVideo.pause();
 }
 
@@ -1289,11 +1267,13 @@ function closeFullscreen() {
   const overlay  = document.getElementById('fs-overlay');
   const fsVideo  = document.getElementById('fs-video');
 
-  overlay.classList.remove('open');
-  fsVideo.pause();
-  fsVideo.src = '';
+  if (overlay) overlay.style.display = 'none';
+  if (fsVideo) {
+    fsVideo.pause();
+    fsVideo.src = '';
+  }
 
-  // Riprende il video sorgente muted
+  // Riprende il video sorgente in sordina
   if (fsActiveSourceId) {
     const src = document.getElementById(fsActiveSourceId);
     if (src) { src.muted = true; src.play().catch(()=>{}); }
@@ -1301,12 +1281,11 @@ function closeFullscreen() {
   }
 }
 
-// Chiudi con tasto ESC
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreen(); });
 
-// ── DESKTOP ONLY: hover audio sui mockup piccoli ──────────
+// ── DESKTOP ONLY: setup hover audio ──────────
 function setupDesktopHover(videoEl, hintEl) {
-  if (isTouchDevice) return; // su mobile gestisce openFullscreen()
+  if (isTouchDevice) return; 
 
   videoEl.muted  = true;
   videoEl.volume = 0;
@@ -1327,25 +1306,19 @@ function setupDesktopHover(videoEl, hintEl) {
   });
 }
 
+// Inizializzazione sicura senza rischio di crash (No-Crash JS)
 document.addEventListener('DOMContentLoaded', () => {
-  const vid1 = document.getElementById('vid1');
-  const vid2 = document.getElementById('vid2');
-  const vidZoe = document.getElementById('vid_zoe');
-  const vidJanet = document.getElementById('vid_janet');
-  const vidMathis = document.getElementById('vid_mathis');
-
-  if (vid1) setupDesktopHover(vid1, document.getElementById('hint1'));
-  if (vid2) setupDesktopHover(vid2, document.getElementById('hint2'));
-  if (vidZoe) setupDesktopHover(vidZoe, null);
-  if (vidJanet) setupDesktopHover(vidJanet, null);
-  if (vidMathis) setupDesktopHover(vidMathis, null);
+  document.querySelectorAll('.phone-container video').forEach(video => {
+    const hint = video.parentElement.querySelector('.audio-hint');
+    setupDesktopHover(video, hint);
+  });
 });
 
-// IntersectionObserver: SOLO play/pause, mai .muted
+// IntersectionObserver limitato SOLO ai video interni ai telefoni (evita il background video)
 const videoPlayObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     const video = entry.target;
-    if (video.id === 'fs-video') return; // ignora il video fullscreen
+    if (video.id === 'fs-video') return; 
     if (entry.isIntersecting) {
       if (video.paused) video.play().catch(() => {});
     } else {
@@ -1354,7 +1327,7 @@ const videoPlayObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('video').forEach(v => videoPlayObserver.observe(v));
+document.querySelectorAll('.phone-container video').forEach(v => videoPlayObserver.observe(v));
 
   // ── CHATBOT ──
   (function() {
@@ -1424,7 +1397,7 @@ document.querySelectorAll('video').forEach(v => videoPlayObserver.observe(v));
       if (id) div.id = id;
       div.innerHTML = String(text)
         .replace(/\n/g, '<br>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*\*(.*?)\*\"/g, '<strong>$1</strong>')
         .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="text-decoration:underline;font-weight:bold;">$1</a>');
       messagesDiv.appendChild(div);
       messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
