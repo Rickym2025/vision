@@ -349,9 +349,19 @@
           const s3Url      = row[idx.s3_url]        || '';
           const prezzo     = row[idx.prezzo]         || '49';
           const stato      = (row[idx.stato]         || 'da_pagare').toLowerCase().replace(' ', '_');
-          const stripeLink = row[idx.stripe_link]    || '#';
+          const clientId   = row[idx.client_id]      || '';
+          const email      = row[idx.email_cliente]   || '';
+          const token      = row[idx.token]          || '';
 
           const isPaid = stato === 'pagato';
+
+          // Costruisce il link al webhook dinamico di n8n passandogli tutti i dati necessari
+          const finalStripeLink = `https://n8n.rmstudio.app/webhook/crea-checkout-vision` +
+            `?client_id=${encodeURIComponent(clientId)}` +
+            `&token=${encodeURIComponent(token)}` +
+            `&prezzo=${encodeURIComponent(prezzo)}` +
+            `&titolo=${encodeURIComponent(titolo)}` +
+            `&email=${encodeURIComponent(email)}`;
 
           const card = document.createElement('div');
           card.className = 'video-card';
@@ -382,7 +392,7 @@
                 <span class="amount">€${prezzo}</span>
                 <span class="label">una tantum · nessun abbonamento</span>
               </div>
-              <a href="${stripeLink}" target="_blank" class="btn-pay">
+              <a href="${finalStripeLink}" class="btn-pay">
                 <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                   <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
                 </svg>
