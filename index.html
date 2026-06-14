@@ -490,6 +490,12 @@
         backface-visibility: hidden;
         perspective: 1000px;
       }  
+
+      @media (max-width: 600px) {
+          .steps-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+          .step-line { display: none !important; }
+        }  
+        
     </style>
 </head>
 
@@ -1172,32 +1178,33 @@
   const SVG_SOUND = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
 
   function setupVideoAudio(videoEl, hintEl) {
-    videoEl.muted = true;
-    videoEl.play().catch(() => {});
-    if (hintEl) hintEl.innerHTML = SVG_MUTED;
+  videoEl.muted = true;
+  videoEl.play().catch(() => {});
+  if (hintEl) hintEl.innerHTML = SVG_MUTED;
 
-    const container = videoEl.closest('.phone-container') || videoEl.parentElement;
+  const container = videoEl.closest('.phone-container') || videoEl.parentElement;
 
-    function tryUnmute() {
-      videoEl.muted = false;
-      videoEl.play().catch(() => {});
-      if (hintEl) hintEl.innerHTML = SVG_SOUND;
-    }
-
-    function mute() {
-      videoEl.muted = true;
-      if (hintEl) hintEl.innerHTML = SVG_MUTED;
-    }
-
-    if (!isTouchDevice) {
-      container.addEventListener('mouseenter', tryUnmute);
-      container.addEventListener('mouseleave', mute);
-    } else {
-      container.addEventListener('click', () => {
-        videoEl.muted ? tryUnmute() : mute();
-      });
-    }
+  function tryUnmute() {
+    videoEl.muted = false;
+    // NON chiamare .play() qui — se il video sta già girando
+    // Chrome lo interpreta come restart e congela il frame
+    if (hintEl) hintEl.innerHTML = SVG_SOUND;
   }
+
+  function mute() {
+    videoEl.muted = true;
+    if (hintEl) hintEl.innerHTML = SVG_MUTED;
+  }
+
+  if (!isTouchDevice) {
+    container.addEventListener('mouseenter', tryUnmute);
+    container.addEventListener('mouseleave', mute);
+  } else {
+    container.addEventListener('click', () => {
+      videoEl.muted ? tryUnmute() : mute();
+    });
+  }
+}
 
   document.addEventListener('DOMContentLoaded', () => {
     const vid1 = document.getElementById('vid1');
@@ -1208,20 +1215,22 @@
 
   // IntersectionObserver: SOLO play/pause — NON tocca mai .muted
   const videoPlayObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const video = entry.target;
-      if (entry.isIntersecting) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-        // NON fare video.muted = true qui: resetterebbe l'audio sbloccato
-      }
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          // Solo se è effettivamente in pausa, per non disturbare Chrome
+          if (video.paused) {
+            video.play().catch(() => {});
+          }
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('video').forEach(video => {
+      videoPlayObserver.observe(video);
     });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('video').forEach(video => {
-    videoPlayObserver.observe(video);
-  });
 
   // ── CHATBOT ──
   (function() {
