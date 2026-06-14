@@ -1178,75 +1178,74 @@
     }
   });
 
-  // ═══════════════════════════════════════════════════════
-  // VIDEO AUDIO — LOGICA CORRETTA
-  //
-  // Regole:
-  // 1. I video partono SEMPRE muted (obbligatorio per autoplay browser)
-  // 2. DESKTOP: mouseenter toglie il muto, mouseleave lo rimette
-  // 3. MOBILE: tap alterna muto/audio
-  // 4. IntersectionObserver gestisce SOLO play/pause, mai .muted
-  // ═══════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════
+// VIDEO AUDIO — FIX CHROME (volume invece di muted)
+// Chrome congela il video quando cambia .muted
+// durante la riproduzione. .volume non causa re-buffer.
+// ══════════════════════════════════════════════════
 
-  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-  const SVG_MUTED = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
-  const SVG_SOUND = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
+const SVG_MUTED = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+const SVG_SOUND = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
 
-  function setupVideoAudio(videoEl, hintEl) {
+function setupVideoAudio(videoEl, hintEl) {
+  // Stato iniziale: volume 0 + muted per garantire autoplay
+  // muted=true serve SOLO per l'autoplay iniziale del browser
   videoEl.muted = true;
+  videoEl.volume = 0;
   videoEl.play().catch(() => {});
   if (hintEl) hintEl.innerHTML = SVG_MUTED;
 
   const container = videoEl.closest('.phone-container') || videoEl.parentElement;
 
-  function tryUnmute() {
+  function unmute() {
+    // Prima alziamo il volume, POI togliamo muted
+    // Così Chrome non percepisce un cambio "da silenzio a audio"
+    // e non triggera il re-buffer che congela il frame
+    videoEl.volume = 1;
     videoEl.muted = false;
-    // NON chiamare .play() qui — se il video sta già girando
-    // Chrome lo interpreta come restart e congela il frame
     if (hintEl) hintEl.innerHTML = SVG_SOUND;
   }
 
   function mute() {
+    // Abbasso prima il volume, poi metto muted
+    videoEl.volume = 0;
     videoEl.muted = true;
     if (hintEl) hintEl.innerHTML = SVG_MUTED;
   }
 
   if (!isTouchDevice) {
-    container.addEventListener('mouseenter', tryUnmute);
+    container.addEventListener('mouseenter', unmute);
     container.addEventListener('mouseleave', mute);
   } else {
     container.addEventListener('click', () => {
-      videoEl.muted ? tryUnmute() : mute();
+      videoEl.muted ? unmute() : mute();
     });
   }
 }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const vid1 = document.getElementById('vid1');
-    const vid2 = document.getElementById('vid2');
-    if (vid1) setupVideoAudio(vid1, document.getElementById('hint1'));
-    if (vid2) setupVideoAudio(vid2, document.getElementById('hint2'));
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  const vid1 = document.getElementById('vid1');
+  const vid2 = document.getElementById('vid2');
+  if (vid1) setupVideoAudio(vid1, document.getElementById('hint1'));
+  if (vid2) setupVideoAudio(vid2, document.getElementById('hint2'));
+});
 
-  // IntersectionObserver: SOLO play/pause — NON tocca mai .muted
-  const videoPlayObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const video = entry.target;
-        if (entry.isIntersecting) {
-          // Solo se è effettivamente in pausa, per non disturbare Chrome
-          if (video.paused) {
-            video.play().catch(() => {});
-          }
-        } else {
-          video.pause();
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('video').forEach(video => {
-      videoPlayObserver.observe(video);
-    });
+// IntersectionObserver: SOLO play/pause
+// NON tocca mai volume né muted
+const videoPlayObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const video = entry.target;
+    if (entry.isIntersecting) {
+      if (video.paused) video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('video').forEach(v => videoPlayObserver.observe(v));
 
   // ── CHATBOT ──
   (function() {
