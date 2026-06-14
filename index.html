@@ -546,12 +546,12 @@
     <div class="blob" style="width:400px;height:400px;background:rgba(99,102,241,0.07);top:40%;left:50%;transform:translateX(-50%);"></div>
   </div>
 
-  <!-- NAV -->
-  <header class="fixed top-0 left-0 w-full p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5" style="transform: translateZ(0); will-change: transform;">
-    <nav class="glass max-w-6xl mx-auto rounded-2xl px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2.5">
-        <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:32px;width:auto;object-fit:contain;">
-        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:17px;letter-spacing:0.02em;">Vision <span class="grad-text">UGC</span></span>
+  <!-- NAV (FIX MOBILE: padding fluida e pulsante compatto) -->
+  <header class="fixed top-0 left-0 w-full p-2 sm:p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5" style="transform: translateZ(0); will-change: transform;">
+    <nav class="glass max-w-6xl mx-auto rounded-2xl px-3 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-2">
+      <a href="#" class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" style="height:28px; width:auto; object-fit:contain;" class="sm:h-8">
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.02em;" class="sm:text-lg">Vision <span class="grad-text">UGC</span></span>
       </a>
 
       <div class="hidden md:flex items-center gap-8" style="font-size:13px;font-weight:500;">
@@ -561,16 +561,16 @@
         <a href="#ecosistema" class="text-white/50 hover:text-white transition-colors"><span class="nav-dot"></span>Studio</a>
       </div>
 
-      <a href="#prezzi" class="btn-primary px-5 py-2.5" style="font-size:13px;">
+      <a href="#prezzi" class="btn-primary px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm shrink-0 font-bold" style="font-size: 12px; font-weight: 700;">
         Inizia Ora
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        <svg class="hidden sm:inline-block" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
       </a>
     </nav>
   </header>
 
 
-  <!-- HERO — FIX: rimossa la sezione wrapper con position:relative z-index:1, ora esplicito -->
-  <section style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:130px 24px 80px;">
+  <!-- HERO -->
+  <section style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;" class="pt-24 pb-12 px-4 sm:px-6 md:pt-36 md:pb-20">
     <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;gap:64px;align-items:center;" class="hero-grid">
 
       <!-- Left -->
@@ -618,102 +618,62 @@
       </div>
 
       <!-- Right: Smartphone mockups with tap-to-fullscreen -->
-<div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
-  <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
+        <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
-  <!-- Smartphone 1: Camilla Yoga -->
-  <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid1','@camilla_yoga_eng','My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga')">
-    <div class="phone-notch"></div>
-    <div class="phone-social-sidebar">
-      <div class="social-btn">❤️</div>
-      <div class="social-btn">💬</div>
-      <div class="social-btn">🔗</div>
-    </div>
-    <!-- Overlay testo decorativo (piccolo, semi-opaco) -->
-    <div class="phone-influencer-details phone-details-mini">
-      <p style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.5);margin:0 0 2px;">@camilla_yoga_eng</p>
-      <p style="font-size:6px;color:rgba(255,255,255,0.35);line-height:1.3;margin:0;">My morning routine stretch! #fitness #yoga</p>
-    </div>
-    <div class="audio-hint" id="hint1">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-        <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-      </svg>
-    </div>
-    <video id="vid1" class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-    <div class="vid-label">Camilla · Yoga (ENG)</div>
-    <!-- Tap hint su mobile -->
-    <div class="tap-hint">TAP per aprire 🔊</div>
-  </div>
+        <!-- Smartphone 1: Camilla Yoga -->
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid1','@camilla_yoga_eng','My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga')">
+          <div class="phone-notch"></div>
+          <div class="phone-social-sidebar">
+            <div class="social-btn">❤️</div>
+            <div class="social-btn">💬</div>
+            <div class="social-btn">🔗</div>
+          </div>
+          <!-- Overlay testo decorativo (piccolo, semi-opaco) -->
+          <div class="phone-influencer-details phone-details-mini">
+            <p style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.5);margin:0 0 2px;">@camilla_yoga_eng</p>
+            <p style="font-size:6px;color:rgba(255,255,255,0.35);line-height:1.3;margin:0;">My morning routine stretch! #fitness #yoga</p>
+          </div>
+          <div class="audio-hint" id="hint1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </div>
+          <video id="vid1" class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+          <div class="vid-label">Camilla · Yoga (ENG)</div>
+          <!-- Tap hint su mobile -->
+          <div class="tap-hint">TAP per aprire 🔊</div>
+        </div>
 
-  <!-- Smartphone 2: Camilla Swatch -->
-  <div class="phone-container" style="aspect-ratio:9/16;margin-top:32px;" onclick="openFullscreen('vid2','@camilla_swatch_ita','Oggi recensiamo la nuova collezione Swatch! Guardate che colori! 😍⌚ #swatch #unboxing')">
-    <div class="phone-notch"></div>
-    <div class="phone-social-sidebar">
-      <div class="social-btn">❤️</div>
-      <div class="social-btn">💬</div>
-      <div class="social-btn">🔗</div>
-    </div>
-    <div class="phone-influencer-details phone-details-mini">
-      <p style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.5);margin:0 0 2px;">@camilla_swatch_ita</p>
-      <p style="font-size:6px;color:rgba(255,255,255,0.35);line-height:1.3;margin:0;">Nuova collezione Swatch! 😍⌚ #swatch #unboxing</p>
-    </div>
-    <div class="audio-hint" id="hint2">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-        <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-      </svg>
-    </div>
-    <video id="vid2" class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-    <div class="vid-label">Camilla · Swatch (ITA)</div>
-    <div class="tap-hint">TAP per aprire 🔊</div>
-  </div>
+        <!-- Smartphone 2: Camilla Swatch -->
+        <div class="phone-container" style="aspect-ratio:9/16;margin-top:32px;" onclick="openFullscreen('vid2','@camilla_swatch_ita','Oggi recensiamo la nuova collezione Swatch! Guardate che colori! 😍⌚ #swatch #unboxing')">
+          <div class="phone-notch"></div>
+          <div class="phone-social-sidebar">
+            <div class="social-btn">❤️</div>
+            <div class="social-btn">💬</div>
+            <div class="social-btn">🔗</div>
+          </div>
+          <div class="phone-influencer-details phone-details-mini">
+            <p style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.5);margin:0 0 2px;">@camilla_swatch_ita</p>
+            <p style="font-size:6px;color:rgba(255,255,255,0.35);line-height:1.3;margin:0;">Nuova collezione Swatch! 😍⌚ #swatch #unboxing</p>
+          </div>
+          <div class="audio-hint" id="hint2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </div>
+          <video id="vid2" class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+          <div class="vid-label">Camilla · Swatch (ITA)</div>
+          <div class="tap-hint">TAP per aprire 🔊</div>
+        </div>
 
-  <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
-    Clicca per audio e schermo intero 🔊
-  </p>
-</div>
-
-<!-- FULLSCREEN OVERLAY -->
-<div id="fs-overlay" onclick="closeFullscreen()" style="
-  display:none; position:fixed; inset:0; z-index:9999;
-  background:rgba(0,0,0,0.96); backdrop-filter:blur(8px);
-  align-items:center; justify-content:center; flex-direction:column;
-">
-  <!-- Mockup fullscreen centrato -->
-  <div style="position:relative;width:min(360px,88vw);border:10px solid #1c0e2b;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(124,58,237,0.3);" onclick="event.stopPropagation()">
-    <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:80px;height:16px;background:#1c0e2b;border-radius:12px;z-index:30;"></div>
-    
-    <!-- Social sidebar fullscreen -->
-    <div style="position:absolute;right:12px;bottom:90px;display:flex;flex-direction:column;gap:16px;z-index:20;align-items:center;">
-      <div class="social-btn">❤️</div>
-      <div class="social-btn">💬</div>
-      <div class="social-btn">🔗</div>
-    </div>
-
-    <!-- Dettagli fullscreen — testo leggibile -->
-    <div id="fs-details" style="position:absolute;left:14px;bottom:14px;right:50px;z-index:20;text-align:left;">
-      <p id="fs-handle" style="font-size:14px;font-weight:700;color:white;margin:0 0 6px;"></p>
-      <p id="fs-caption" style="font-size:12px;color:#d1d5db;line-height:1.5;margin:0;"></p>
-    </div>
-
-    <!-- Badge audio attivo -->
-    <div style="position:absolute;top:28px;right:14px;z-index:25;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.15);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-      </svg>
-    </div>
-
-    <video id="fs-video" autoplay loop playsinline style="width:100%;aspect-ratio:9/16;object-fit:cover;display:block;"></video>
-  </div>
-
-  <!-- Chiudi hint -->
-  <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;">TAP ovunque per chiudere</p>
-</div>
-
+        <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
+          Clicca per audio e schermo intero 🔊
+        </p>
       </div>
+
     </div>
   </section>
 
@@ -744,7 +704,7 @@
   </div>
 
 
-  <!-- CONFRONTO -->
+  <!-- CONFRONTO (FIX MOBILE: padding fluida per evitare sovrapposizioni o straripamenti) -->
   <section id="vantaggi" style="position:relative;z-index:1;padding:100px 24px;">
     <div class="reveal" style="max-width:860px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:60px;">
@@ -757,37 +717,37 @@
       </div>
 
       <div class="glass" style="border-radius:24px;overflow:hidden;">
-        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:16px 28px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 bg-white/5 border-b border-white/5">
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Caratteristica</span>
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a855f7;text-align:center;">Vision UGC</span>
           <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-align:center;">Attori reali</span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
           <span style="font-size:15px;font-weight:500;">Costo per video</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">€ 50</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;"><s>€ 500+</s></span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
           <span style="font-size:15px;font-weight:500;">Tempi di consegna</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">24 ore</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">14–21 giorni</span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
           <span style="font-size:15px;font-weight:500;">Spedizione prodotto</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Non serve</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">Obbligatoria</span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
           <span style="font-size:15px;font-weight:500;">Lingue disponibili</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">10+ native</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">1 per attore</span>
         </div>
-        <div class="compare-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+        <div class="compare-row" style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
           <span style="font-size:15px;font-weight:500;">Revisioni</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Incluse</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">A pagamento</span>
         </div>
-        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:18px 28px;align-items:center;">
+        <div style="display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr;" class="gap-2 px-4 py-4 sm:px-7 sm:py-5 items-center">
           <span style="font-size:15px;font-weight:500;">Scalabilità</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80;text-align:center;">Illimitata</span>
           <span style="font-size:14px;color:rgba(255,255,255,0.3);text-align:center;">Dipende dal set</span>
@@ -797,7 +757,7 @@
   </section>
 
 
-  <!-- LA SCUDERIA -->
+  <!-- LA SCUDERIA (FIX MOBILE: Griglia pulita in colonna singola) -->
   <section id="scuderia" style="position:relative;z-index:1;padding:40px 24px 100px;">
     <div class="reveal" style="max-width:1100px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:56px;">
@@ -812,10 +772,10 @@
         </p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Zoe -->
-        <div class="phone-container" style="aspect-ratio:9/16;">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid_zoe', '@zoe_beauty_reviews', 'Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine')">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
@@ -826,12 +786,13 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@zoe_beauty_reviews</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine</p>
           </div>
-          <video class="gpu-video" src="/public/video/v2.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video id="vid_zoe" class="gpu-video" src="/public/video/v2.mp4" autoplay loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Zoe · Beauty</div>
+          <div class="tap-hint">TAP per aprire 🔊</div>
         </div>
 
         <!-- Janet -->
-        <div class="phone-container" style="aspect-ratio:9/16;">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid_janet', '@janet_tech_reviews', 'L\'applicazione definitiva che mi ha salvato la produttività quest\'anno 📱💻 #tech #app')">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
@@ -842,12 +803,13 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@janet_tech_reviews</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">L'applicazione definitiva che mi ha salvato la produttività quest'anno 📱💻 #tech #app</p>
           </div>
-          <video class="gpu-video" src="/public/video/v3.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video id="vid_janet" class="gpu-video" src="/public/video/v3.mp4" autoplay loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Janet · Tech</div>
+          <div class="tap-hint">TAP per aprire 🔊</div>
         </div>
 
         <!-- Mathis -->
-        <div class="phone-container" style="aspect-ratio:9/16;">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid_mathis', '@mathis_fit_food', 'La colazione proteica e rapida prima di andare in palestra 💪🥞 #fitness #food')">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
@@ -858,8 +820,9 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@mathis_fit_food</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">La colazione proteica e rapida prima di andare in palestra 💪🥞 #fitness #food</p>
           </div>
-          <video class="gpu-video" src="/public/video/v4.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video id="vid_mathis" class="gpu-video" src="/public/video/v4.mp4" autoplay loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Mathis · Fit Food</div>
+          <div class="tap-hint">TAP per aprire 🔊</div>
         </div>
 
       </div>
@@ -904,7 +867,7 @@
   </section>
 
 
-  <!-- PREZZI -->
+  <!-- PREZZI (FIX MOBILE: padding interna responsive) -->
 <section id="prezzi" style="position:relative;z-index:1;padding:0 24px 100px;">
   <div class="reveal" style="max-width:760px;margin:0 auto;">
 
@@ -916,20 +879,19 @@
       <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;line-height:1.1;">
         Un influencer virtuale.<br><span class="grad-text">A partire da €49.</span>
       </h2>
-      <!-- Anchor cognitivo: il confronto fa il lavoro -->
       <p style="margin-top:16px;font-size:15px;color:rgba(255,255,255,0.35);line-height:1.6;">
         Gli influencer reali costano <s style="color:rgba(255,255,255,0.2);">€500–1.500 a video</s>, richiedono settimane e non garantiscono risultati.<br>
         Con Vision UGC paghi solo il video che ottieni.
       </p>
     </div>
 
-    <!-- Card principale -->
-    <div class="glass" style="border-radius:28px;padding:48px 40px;position:relative;overflow:hidden;border-color:rgba(124,58,237,0.25);">
+    <!-- Card principale (Con padding responsive per mobile) -->
+    <div class="glass p-6 sm:p-10 md:p-12" style="border-radius:28px;position:relative;overflow:hidden;border-color:rgba(124,58,237,0.25);">
 
       <!-- Blob decorativo interno -->
       <div style="position:absolute;width:300px;height:300px;background:rgba(124,58,237,0.07);border-radius:9999px;filter:blur(60px);top:-80px;right:-80px;pointer-events:none;"></div>
 
-      <!-- Processo: 3 step chiari (riduce ansia da acquisto) -->
+      <!-- Processo: 3 step chiari -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:44px;position:relative;" class="steps-grid">
 
         <div style="text-align:center;padding:0 16px;position:relative;">
@@ -962,12 +924,12 @@
       <!-- Divider -->
       <div style="height:1px;background:rgba(255,255,255,0.05);margin-bottom:36px;"></div>
 
-      <!-- Prezzo + CTA -->
-      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;">
+      <!-- Prezzo + CTA (Flessibile su Mobile) -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
 
-        <div>
+        <div class="text-center sm:text-left">
           <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px;">Prezzo per video</div>
-          <div style="display:flex;align-items:baseline;gap:12px;">
+          <div style="display:flex;align-items:baseline;gap:12px;" class="justify-center sm:justify-start">
             <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(2.8rem,6vw,4rem);color:#4ade80;line-height:1;">€49</span>
             <div>
               <div style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500;">a video</div>
@@ -981,7 +943,7 @@
           </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:12px;min-width:220px;">
+        <div style="display:flex;flex-direction:column;gap:12px;min-width:220px;" class="w-full sm:w-auto">
           <a href="#contatti" class="btn-primary" style="padding:18px 32px;font-size:16px;border-radius:14px;text-align:center;">
             Richiedi il tuo video
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
@@ -1053,7 +1015,7 @@
   <!-- FORM RICHIESTA -->
   <section id="contatti" style="position:relative;z-index:1;padding:0 24px 100px;">
     <div class="reveal" style="max-width:640px;margin:0 auto;">
-      <div class="glass" style="border-radius:28px;padding:48px 40px;">
+      <div class="glass p-6 sm:p-10 md:p-12" style="border-radius:28px;">
         <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2rem);text-align:center;margin-bottom:8px;letter-spacing:-0.02em;">
           Richiedi l'analisi del tuo prodotto
         </h2>
@@ -1065,25 +1027,26 @@
           <input type="hidden" name="access_key" value="9013a8d5-0901-42a0-b9e6-4c45553f960d">
           <input type="hidden" name="subject" value="Nuovo Lead da Vision UGC">
 
+          <!-- FIX MOBILE: input aggiornati a 16px per evitare lo zoom automatico e penalizzazioni SEO -->
           <div style="display:grid;gap:12px;" class="form-grid">
             <div style="display:flex;flex-direction:column;gap:6px;">
-              <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Nome azienda *</label>
+              <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Nome azienda *</label>
               <input type="text" name="name" required placeholder="Brand Italia Srl"
-                style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:14px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
+                style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:16px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
                 onfocus="this.style.borderColor='rgba(168,85,247,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
             </div>
             <div style="display:flex;flex-direction:column;gap:6px;">
-              <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Email *</label>
+              <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Email *</label>
               <input type="email" name="email" required placeholder="marketing@brand.it"
-                style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:14px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
+                style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:16px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
                 onfocus="this.style.borderColor='rgba(168,85,247,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
             </div>
           </div>
 
           <div style="display:flex;flex-direction:column;gap:6px;">
-            <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Link prodotto (Amazon / Shopify) *</label>
+            <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Link prodotto (Amazon / Shopify) *</label>
             <input type="url" name="website" required placeholder="https://www.amazon.it/dp/..."
-              style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:14px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
+              style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;color:white;font-size:16px;outline:none;transition:border-color 0.2s;font-family:'Inter',sans-serif;"
               onfocus="this.style.borderColor='rgba(168,85,247,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
           </div>
 
@@ -1116,7 +1079,7 @@
         </p>
       </div>
 
-      <!-- Col 2: Social Hub — FIX: allineamento coerente con col 3 -->
+      <!-- Col 2: Social Hub -->
       <div style="flex:1;min-width:180px;display:flex;flex-direction:column;gap:12px;align-items:center;">
         <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;margin:0;">Social Hub</h4>
         <div style="display:flex;gap:10px;">
@@ -1127,7 +1090,7 @@
         </div>
       </div>
 
-      <!-- Col 3: Supporto — FIX: align-items:center come col 2 per coerenza -->
+      <!-- Col 3: Supporto -->
       <div style="flex:1;min-width:180px;display:flex;flex-direction:column;gap:12px;align-items:center;">
         <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;margin:0;">Supporto</h4>
         <a href="#contatti" class="btn-ghost" style="padding:10px 24px;font-size:12px;font-weight:700;border-radius:9999px;">Contattaci Ora</a>
@@ -1174,9 +1137,50 @@
             </div>
       </div>
       <div style="padding:12px;border-top:1px solid rgba(124,58,237,0.15);display:flex;gap:8px;background:#140520;flex-shrink:0;">
-          <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." style="flex:1;border:1px solid rgba(124,58,237,0.2);border-radius:10px;padding:8px 12px;font-size:14px;color:#ffffff;background:#050008;outline:none;font-family:'Inter',sans-serif;">
+          <!-- FIX: font-size a 16px per evitare lo zoom forzato su iOS Safari -->
+          <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." style="flex:1;border:1px solid rgba(124,58,237,0.2);border-radius:10px;padding:8px 12px;font-size:16px;color:#ffffff;background:#050008;outline:none;font-family:'Inter',sans-serif;">
           <button id="vision-chat-submit" style="background:linear-gradient(135deg,#7c3aed,#e040fb);color:#ffffff;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;padding:0 16px;display:flex;align-items:center;justify-content:center;">Invia</button>
       </div>
+  </div>
+
+
+  <!-- FULLSCREEN OVERLAY (FIX MOBILE: Spostato alla radice del body per risolvere lo z-index e lo Stacking Context) -->
+  <div id="fs-overlay" onclick="closeFullscreen()" style="
+    display:none; position:fixed; inset:0; z-index:99999;
+    background:rgba(0,0,0,0.96); backdrop-filter:blur(8px);
+    align-items:center; justify-content:center; flex-direction:column;
+  ">
+    <!-- Mockup fullscreen centrato -->
+    <div style="position:relative;width:min(360px,88vw);border:10px solid #1c0e2b;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(124,58,237,0.3);" onclick="event.stopPropagation()">
+      <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:80px;height:16px;background:#1c0e2b;border-radius:12px;z-index:30;"></div>
+      
+      <!-- Social sidebar fullscreen -->
+      <div style="position:absolute;right:12px;bottom:90px;display:flex;flex-direction:column;gap:16px;z-index:20;align-items:center;">
+        <div class="social-btn">❤️</div>
+        <div class="social-btn">💬</div>
+        <div class="social-btn">🔗</div>
+      </div>
+
+      <!-- Dettagli fullscreen — testo leggibile -->
+      <div id="fs-details" style="position:absolute;left:14px;bottom:14px;right:50px;z-index:20;text-align:left;">
+        <p id="fs-handle" style="font-size:14px;font-weight:700;color:white;margin:0 0 6px;"></p>
+        <p id="fs-caption" style="font-size:12px;color:#d1d5db;line-height:1.5;margin:0;"></p>
+      </div>
+
+      <!-- Badge audio attivo -->
+      <div style="position:absolute;top:28px;right:14px;z-index:25;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.15);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+      </div>
+
+      <video id="fs-video" autoplay loop playsinline style="width:100%;aspect-ratio:9/16;object-fit:cover;display:block;"></video>
+    </div>
+
+    <!-- Chiudi hint -->
+    <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;">TAP ovunque per chiudere</p>
   </div>
 
 
@@ -1326,8 +1330,15 @@ function setupDesktopHover(videoEl, hintEl) {
 document.addEventListener('DOMContentLoaded', () => {
   const vid1 = document.getElementById('vid1');
   const vid2 = document.getElementById('vid2');
+  const vidZoe = document.getElementById('vid_zoe');
+  const vidJanet = document.getElementById('vid_janet');
+  const vidMathis = document.getElementById('vid_mathis');
+
   if (vid1) setupDesktopHover(vid1, document.getElementById('hint1'));
   if (vid2) setupDesktopHover(vid2, document.getElementById('hint2'));
+  if (vidZoe) setupDesktopHover(vidZoe, null);
+  if (vidJanet) setupDesktopHover(vidJanet, null);
+  if (vidMathis) setupDesktopHover(vidMathis, null);
 });
 
 // IntersectionObserver: SOLO play/pause, mai .muted
