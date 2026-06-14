@@ -74,11 +74,21 @@
     <style>
       *, *::before, *::after { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
+      
+      /* Enforce strict horizontal scroll prevention */
+      html, body {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        position: relative;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
         font-family: 'Inter', sans-serif;
         background: #050008;
         color: #f1f0f5;
-        overflow-x: hidden;
         font-size: 16px;
       }
 
@@ -131,10 +141,14 @@
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         cursor: pointer;
       }
-      .phone-container:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 30px 60px rgba(224, 64, 251, 0.35);
-        border-color: #7c3aed;
+      
+      /* Hover effects restricted to non-touch devices to prevent mobile layout shifts */
+      @media (hover: hover) {
+        .phone-container:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 30px 60px rgba(224, 64, 251, 0.35);
+          border-color: #7c3aed;
+        }
       }
 
       .phone-notch {
@@ -364,7 +378,6 @@
         display: block;
       }
 
-      /* Audio hover hint icon */
       .audio-hint {
         position: absolute;
         top: 28px;
@@ -429,7 +442,7 @@
       }
       @media (max-width: 767px) {
           #vision-chat-bubble { left: 20px; right: auto; }
-          #vision-chat-window { left: 20px; right: auto; width: calc(100vw - 40px); }
+          #vision-chat-window { left: 20px; right: auto; width: calc(100% - 40px); }
       }
 
       .vid-label {
@@ -512,8 +525,8 @@
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- LAYER BACKGROUND VIDEO (Mantenuto in background senza interferenze) -->
-  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+  <!-- LAYER BACKGROUND VIDEO (HIdden on mobile to avoid massive GPU lag) -->
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none hidden md:block">
       <video autoplay muted loop playsinline preload="metadata" class="gpu-video w-full h-full object-cover opacity-15">
             <source src="/public/video/background.mp4" type="video/mp4">
         </video>
@@ -527,8 +540,8 @@
     <div class="blob" style="width:400px;height:400px;background:rgba(99,102,241,0.07);top:40%;left:50%;transform:translateX(-50%);"></div>
   </div>
 
-  <!-- NAV (FIX MOBILE: No clip, no sovrapposizioni, classi fluide native) -->
-  <header class="fixed top-0 left-0 w-full p-2 sm:p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5" style="transform: translateZ(0); will-change: transform;">
+  <!-- NAV (FIX MOBILE: Use inset-x-0 instead of w-full to avoid horizontal scrollbar leaks) -->
+  <header class="fixed top-0 inset-x-0 p-2 sm:p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5" style="transform: translateZ(0); will-change: transform;">
     <nav class="glass max-w-6xl mx-auto rounded-2xl px-3 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-2">
       <a href="#" class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" class="h-7 sm:h-8 w-auto object-contain">
@@ -598,9 +611,9 @@
         </div>
       </div>
 
-      <!-- Right: Smartphone mockups with tap-to-fullscreen -->
-      <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
-        <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <!-- Right: Smartphone mockups (FIX MOBILE: Grid responsive 1 colonna per evitare squish e scorrimenti) -->
+      <div id="esempi" class="grid grid-cols-1 sm:grid-cols-2 gap-6 relative overflow-hidden">
+        <div class="blob" style="width:200px;height:200px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
         <!-- Smartphone 1: Camilla Yoga -->
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid1','@camilla_yoga_eng','My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga')">
@@ -626,7 +639,7 @@
         </div>
 
         <!-- Smartphone 2: Camilla Swatch -->
-        <div class="phone-container" style="aspect-ratio:9/16;margin-top:32px;" onclick="openFullscreen('vid2','@camilla_swatch_ita','Oggi recensiamo la nuova collezione Swatch! Guardate che colori! 😍⌚ #swatch #unboxing')">
+        <div class="phone-container sm:mt-8" style="aspect-ratio:9/16;" onclick="openFullscreen('vid2','@camilla_swatch_ita','Oggi recensiamo la nuova collezione Swatch! Guardate che colori! 😍⌚ #swatch #unboxing')">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
@@ -683,7 +696,7 @@
   </div>
 
 
-  <!-- CONFRONTO (FIX MOBILE: Unificato e accorpato classi precedentemente duplicate) -->
+  <!-- CONFRONTO -->
   <section id="vantaggi" style="position:relative;z-index:1;padding:100px 24px;">
     <div class="reveal" style="max-width:860px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:60px;">
@@ -736,7 +749,7 @@
   </section>
 
 
-  <!-- LA SCUDERIA -->
+  <!-- LA SCUDERIA (FIX PERFORMANCE: Rimosso "autoplay" per caricare i video solo se inquadrati dall'utente) -->
   <section id="scuderia" style="position:relative;z-index:1;padding:40px 24px 100px;">
     <div class="reveal" style="max-width:1100px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:56px;">
@@ -754,7 +767,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Zoe -->
-        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid_zoe', '@zoe_beauty_reviews', 'Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine')">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid_zoe', '@zoe_beauty_reviews', 'Il segreto per uma pelle luminosa ogni mattina! ✨🧴 #skincare #routine')">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
@@ -765,7 +778,7 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@zoe_beauty_reviews</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine</p>
           </div>
-          <video id="vid_zoe" class="gpu-video" src="/public/video/v2.mp4" autoplay loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+          <video id="vid_zoe" class="gpu-video" src="/public/video/v2.mp4" loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Zoe · Beauty</div>
           <div class="tap-hint">TAP per aprire 🔊</div>
         </div>
@@ -782,7 +795,7 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@janet_tech_reviews</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">L'applicazione definitiva che mi ha salvato la produttività quest'anno 📱💻 #tech #app</p>
           </div>
-          <video id="vid_janet" class="gpu-video" src="/public/video/v3.mp4" autoplay loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+          <video id="vid_janet" class="gpu-video" src="/public/video/v3.mp4" loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Janet · Tech</div>
           <div class="tap-hint">TAP per aprire 🔊</div>
         </div>
@@ -799,7 +812,7 @@
             <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@mathis_fit_food</p>
             <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">La colazione proteica e rapida prima di andare in palestra 💪🥞 #fitness #food</p>
           </div>
-          <video id="vid_mathis" class="gpu-video" src="/public/video/v4.mp4" autoplay loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+          <video id="vid_mathis" class="gpu-video" src="/public/video/v4.mp4" loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Mathis · Fit Food</div>
           <div class="tap-hint">TAP per aprire 🔊</div>
         </div>
@@ -970,7 +983,7 @@
             Parte di un ecosistema<br><span class="grad-text">di 9 prodotti AI.</span>
           </h2>
           <p style="font-size:clamp(15px,2vw,18px);color:#d4d0dd;font-weight:300;line-height:1.65;">
-            Vision UGC è sviluppato da <strong style="color:rgba(255,255,255,0.85);font-weight:600;">Riccardo Modena</strong> di RM Studio, un lab di ingegneria software che progetta soluzioni AI verticali per automatizzare i processi commerciali B2B.
+            Vision UGC è Sviluppato da <strong style="color:rgba(255,255,255,0.85);font-weight:600;">Riccardo Modena</strong> di RM Studio, un lab di ingegneria software che progetta soluzioni AI verticali per automatizzare i processi commerciali B2B.
           </p>
           <p style="font-size:clamp(15px,2vw,18px);color:#a1a1aa;font-weight:300;line-height:1.65;">
             Come dimostrato dallo <a href="https://hci.stanford.edu/" target="_blank" rel="noopener" style="color:#a855f7;text-decoration:underline;text-underline-offset:3px;">Stanford HCI Group</a>, l'uso di volti virtuali fotorealistici incrementa la fiducia del consumatore e migliora le metriche di interazione fino al 41%.
@@ -1005,7 +1018,6 @@
           <input type="hidden" name="access_key" value="9013a8d5-0901-42a0-b9e6-4c45553f960d">
           <input type="hidden" name="subject" value="Nuovo Lead da Vision UGC">
 
-          <!-- OPTIMIZATION: Tutti i font degli input sono a 16px per evitare lo zoom forzato di iOS Safari -->
           <div style="display:grid;gap:12px;" class="form-grid">
             <div style="display:flex;flex-direction:column;gap:6px;">
               <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Nome azienda *</label>
@@ -1115,14 +1127,14 @@
             </div>
       </div>
       <div style="padding:12px;border-top:1px solid rgba(124,58,237,0.15);display:flex;gap:8px;background:#140520;flex-shrink:0;">
-          <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." style="flex:1;border:1px solid rgba(124,58,237,0.2);border-radius:10px;padding:8px 12px;font-size:16px;color:#ffffff;background:#050008;outline:none;font-family:'Inter',sans-serif;">
+          <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." style="flex:1;border:1px solid rgba(124,58,237,0.2);border-radius:10px;padding:8px 12px;font-size:14px;color:#ffffff;background:#050008;outline:none;font-family:'Inter',sans-serif;">
           <button id="vision-chat-submit" style="background:linear-gradient(135deg,#7c3aed,#e040fb);color:#ffffff;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;padding:0 16px;display:flex;align-items:center;justify-content:center;">Invia</button>
       </div>
   </div>
 
 
-  <!-- FULLSCREEN OVERLAY (FIX MOBILE: Spostato alla radice del body, controllo JavaScript robusto senza classi conflittuali) -->
-  <div id="fs-overlay" onclick="closeFullscreen()" style="display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(0,0,0,0.96); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column;">
+  <!-- FULLSCREEN OVERLAY -->
+  <div id="fs-overlay" onclick="closeFullscreen()" style="display: none; position: fixed; inset: 0; z-index: 99999999; background: rgba(0,0,0,0.96); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column;">
     <div style="position:relative;width:min(360px,88vw);border:10px solid #1c0e2b;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(124,58,237,0.3);" onclick="event.stopPropagation()">
       <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:80px;height:16px;background:#1c0e2b;border-radius:12px;z-index:30;"></div>
       
@@ -1221,7 +1233,7 @@
     }
   });
 
-// ══ VIDEO — DESKTOP hover audio, MOBILE tap fullscreen ══
+// ══ VIDEO — DESKTOP hover audio, MOBILE tap native fullscreen ══
 
 const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
@@ -1232,12 +1244,29 @@ let fsActiveSourceId = null;
 
 function openFullscreen(videoId, handle, caption) {
   const sourceVideo = document.getElementById(videoId);
+  if (!sourceVideo) return;
+
+  // ── SOLUZIONE IBRIDA NATIVA MOBILE ──
+  // Per evitare lag, crash e caricamenti "neri" infiniti su Safari Mobile,
+  // usiamo l'API nativa a schermo intero del sistema operativo.
+  if (isTouchDevice) {
+    sourceVideo.muted = false;
+    sourceVideo.volume = 1;
+    if (sourceVideo.webkitEnterFullscreen) {
+      sourceVideo.webkitEnterFullscreen();
+    } else if (sourceVideo.requestFullscreen) {
+      sourceVideo.requestFullscreen();
+    } else if (sourceVideo.play) {
+      sourceVideo.play().catch(()=>{});
+    }
+    return;
+  }
+
+  // ── OVERLAY CUSTOM DESKTOP (Veloce e sfocato) ──
   const fsVideo     = document.getElementById('fs-video');
   const overlay     = document.getElementById('fs-overlay');
+  if (!fsVideo || !overlay) return;
 
-  if (!sourceVideo || !fsVideo || !overlay) return;
-
-  // Sincronizza sorgente e tempo di riproduzione
   fsVideo.src          = sourceVideo.src;
   fsVideo.currentTime  = sourceVideo.currentTime;
   fsVideo.muted        = false; 
@@ -1246,16 +1275,13 @@ function openFullscreen(videoId, handle, caption) {
   document.getElementById('fs-handle').textContent  = handle;
   document.getElementById('fs-caption').textContent = caption;
 
-  // Forza display flex via script per evitare conflitti CSS/Tailwind
-  overlay.style.cssText = "display: flex !important; position: fixed; inset: 0; z-index: 999999; background: rgba(0,0,0,0.96); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column;";
+  overlay.style.display = 'flex';
 
-  // Gestione asincrona del playback su mobile
   const playPromise = fsVideo.play();
   if (playPromise !== undefined) {
-    playPromise.catch(error => {
-      console.warn("Riproduzione audio bloccata dal browser, provo mutato:", error);
+    playPromise.catch(() => {
       fsVideo.muted = true;
-      fsVideo.play().catch(err => console.error("Playback fallito completamente:", err));
+      fsVideo.play().catch(()=>{});
     });
   }
 
@@ -1273,7 +1299,6 @@ function closeFullscreen() {
     fsVideo.src = '';
   }
 
-  // Riprende il video sorgente in sordina
   if (fsActiveSourceId) {
     const src = document.getElementById(fsActiveSourceId);
     if (src) { src.muted = true; src.play().catch(()=>{}); }
@@ -1306,7 +1331,6 @@ function setupDesktopHover(videoEl, hintEl) {
   });
 }
 
-// Inizializzazione sicura senza rischio di crash (No-Crash JS)
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.phone-container video').forEach(video => {
     const hint = video.parentElement.querySelector('.audio-hint');
@@ -1314,7 +1338,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// IntersectionObserver limitato SOLO ai video interni ai telefoni (evita il background video)
+// IntersectionObserver ottimizzato (Solo per i video visibili nei mockup, ignorando lo sfondo)
 const videoPlayObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     const video = entry.target;
@@ -1397,7 +1421,7 @@ document.querySelectorAll('.phone-container video').forEach(v => videoPlayObserv
       if (id) div.id = id;
       div.innerHTML = String(text)
         .replace(/\n/g, '<br>')
-        .replace(/\*\*(.*?)\*\"/g, '<strong>$1</strong>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="text-decoration:underline;font-weight:bold;">$1</a>');
       messagesDiv.appendChild(div);
       messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
