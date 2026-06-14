@@ -1059,240 +1059,218 @@
 
 
   <!-- SCRIPTS -->
-  <script>
-    // FIX 1: anno corrente — l'elemento #yr esiste ora nel footer
-    document.getElementById('yr').textContent = new Date().getFullYear();
+<script>
+  // ── Anno corrente ──
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // ── Scroll reveal ──
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // FIX: responsive grid — hero 2col, eco 2col
-    function applyResponsive() {
-      const w = window.innerWidth;
-      document.querySelectorAll('.hero-grid').forEach(el => {
-        el.style.gridTemplateColumns = w < 768 ? '1fr' : '1fr 1fr';
+  // ── Responsive grid ──
+  function applyResponsive() {
+    const w = window.innerWidth;
+    document.querySelectorAll('.hero-grid').forEach(el => {
+      el.style.gridTemplateColumns = w < 768 ? '1fr' : '1fr 1fr';
+    });
+    document.querySelectorAll('.eco-grid').forEach(el => {
+      el.style.gridTemplateColumns = w < 768 ? '1fr' : '1fr 1fr';
+    });
+    document.querySelectorAll('.form-grid').forEach(el => {
+      el.style.gridTemplateColumns = w < 560 ? '1fr' : '1fr 1fr';
+    });
+  }
+  applyResponsive();
+  window.addEventListener('resize', applyResponsive);
+
+  // ── Orbit injection ──
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html')
+      .then(r => { if (!r.ok) throw new Error('orbit fetch failed'); return r.text(); })
+      .then(html => {
+        const c = document.getElementById('orbit-container');
+        if (c) c.innerHTML = html;
+      })
+      .catch(err => console.warn('Orbit non caricata:', err));
+  });
+
+  // ── Form submit ──
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const msg = document.getElementById('form-msg');
+    btn.textContent = 'Invio in corso...';
+    btn.style.opacity = '0.6';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(e.target)
       });
-      document.querySelectorAll('.eco-grid').forEach(el => {
-        el.style.gridTemplateColumns = w < 768 ? '1fr' : '1fr 1fr';
-      });
-      document.querySelectorAll('.form-grid').forEach(el => {
-        el.style.gridTemplateColumns = w < 560 ? '1fr' : '1fr 1fr';
-      });
+      if (res.ok) {
+        msg.textContent = '✓ Messaggio inviato! Ti risponderò entro 24 ore.';
+        msg.style.color = '#4ade80';
+        e.target.reset();
+      } else { throw new Error(); }
+    } catch {
+      msg.textContent = '✗ Errore. Riprova tra poco.';
+      msg.style.color = '#f87171';
+    } finally {
+      msg.style.display = 'block';
+      btn.textContent = 'Invia Richiesta';
+      btn.style.opacity = '1';
+      btn.disabled = false;
     }
-    applyResponsive();
-    window.addEventListener('resize', applyResponsive);
+  });
 
-    // Orbit injection
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html')
-        .then(r => { if (!r.ok) throw new Error('orbit fetch failed'); return r.text(); })
-        .then(html => {
-          const c = document.getElementById('orbit-container');
-          if (c) c.innerHTML = html;
-        })
-        .catch(err => console.warn('Orbit non caricata:', err));
-    });
+  // ═══════════════════════════════════════════════════════
+  // VIDEO AUDIO — LOGICA CORRETTA
+  //
+  // Regole:
+  // 1. I video partono SEMPRE muted (obbligatorio per autoplay browser)
+  // 2. DESKTOP: mouseenter toglie il muto, mouseleave lo rimette
+  // 3. MOBILE: tap alterna muto/audio
+  // 4. IntersectionObserver gestisce SOLO play/pause, mai .muted
+  // ═══════════════════════════════════════════════════════
 
-    // Form submit
-    document.getElementById('contact-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('submit-btn');
-      const msg = document.getElementById('form-msg');
-      btn.textContent = 'Invio in corso...';
-      btn.style.opacity = '0.6';
-      btn.disabled = true;
-      try {
-        const res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: new FormData(e.target)
-        });
-        if (res.ok) {
-          msg.textContent = '✓ Messaggio inviato! Ti risponderò entro 24 ore.';
-          msg.style.color = '#4ade80';
-          e.target.reset();
-        } else { throw new Error(); }
-      } catch {
-        msg.textContent = '✗ Errore. Riprova tra poco.';
-        msg.style.color = '#f87171';
-      } finally {
-        msg.style.display = 'block';
-        btn.textContent = 'Invia Richiesta';
-        btn.style.opacity = '1';
-        btn.disabled = false;
-      }
-    });
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-    // ─── CODICE AUDIO SU HOVER FLUIDO E SENZA CONFLITTI ───
-    let userHasInteracted = false;
-    const registerInteraction = () => {
-        userHasInteracted = true;
-        document.removeEventListener('click', registerInteraction);
-        document.removeEventListener('touchstart', registerInteraction);
-    };
-    document.addEventListener('click', registerInteraction);
-    document.addEventListener('touchstart', registerInteraction);
+  const SVG_MUTED = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+  const SVG_SOUND = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
 
-    // Rileva in tempo reale se il dispositivo supporta il touch (Mobile/Tablet)
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  function setupVideoAudio(videoEl, hintEl) {
+    videoEl.muted = true;
+    videoEl.play().catch(() => {});
+    if (hintEl) hintEl.innerHTML = SVG_MUTED;
 
-    function setupVideoAudio(videoEl, hintEl) {
-      // Il video gira già in autoplay silenzioso grazie al tag HTML
-      videoEl.muted = true;
+    const container = videoEl.closest('.phone-container') || videoEl.parentElement;
+
+    function tryUnmute() {
+      videoEl.muted = false;
       videoEl.play().catch(() => {});
-    
-      // GESTIONE SOLO SU DESKTOP (Se NON è un dispositivo touch)
-      if (!isTouchDevice) {
-          // HOVER ENTRATA: Toglie il muto
-          videoEl.parentElement.addEventListener('mouseenter', () => {
-            try {
-                videoEl.muted = false;
-            } catch (err) {
-                videoEl.muted = true;
-            }
-            if (hintEl && !videoEl.muted) {
-                hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
-            }
-          });
-        
-          // HOVER USCITA: Rimette il muto senza stoppare il video
-          videoEl.parentElement.addEventListener('mouseleave', () => {
-            videoEl.muted = true;
-            if (hintEl) {
-                hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
-            }
-          });
-      }
-
-      // GESTIONE UNIVERSALE CLICK/TAP (Funziona sempre su Mobile, fa da comodo backup su Desktop)
-      videoEl.parentElement.addEventListener('click', (e) => {
-        videoEl.muted = !videoEl.muted; // Alterna muto/attivo
-        
-        if (videoEl.muted) {
-            if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
-        } else {
-            videoEl.play().catch(() => {}); // Riavvia il play se il browser lo avesse messo in pausa
-            if (hintEl) hintEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
-        }
-      });
+      if (hintEl) hintEl.innerHTML = SVG_SOUND;
     }
 
-    // Inizializzazione pulita dei due video principali dell'Hero
+    function mute() {
+      videoEl.muted = true;
+      if (hintEl) hintEl.innerHTML = SVG_MUTED;
+    }
+
+    if (!isTouchDevice) {
+      container.addEventListener('mouseenter', tryUnmute);
+      container.addEventListener('mouseleave', mute);
+    } else {
+      container.addEventListener('click', () => {
+        videoEl.muted ? tryUnmute() : mute();
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
     const vid1 = document.getElementById('vid1');
     const vid2 = document.getElementById('vid2');
     if (vid1) setupVideoAudio(vid1, document.getElementById('hint1'));
     if (vid2) setupVideoAudio(vid2, document.getElementById('hint2'));
+  });
 
-    // ─── FIX 3: CHATBOT — logica open/close corretta ───
-    (function() {
-      const bubble  = document.getElementById('vision-chat-bubble');
-      const win     = document.getElementById('vision-chat-window');
-      const closeBtn = document.getElementById('vision-chat-close');
-      const input   = document.getElementById('vision-chat-input');
-      const submitBtn = document.getElementById('vision-chat-submit');
-      const messagesDiv = document.getElementById('vision-chat-messages');
-
-      // FIX: stato iniziale sempre chiuso — la classe chat-open controlla la visibilità
-      let isOpen = false;
-
-      function openChat()  { isOpen = true;  win.classList.add('chat-open'); }
-      function closeChat() { isOpen = false; win.classList.remove('chat-open'); }
-
-      // Su desktop apri di default
-      if (window.innerWidth >= 768) openChat();
-
-      bubble.addEventListener('click', () => { isOpen ? closeChat() : openChat(); });
-      closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeChat(); });
-
-      // Scroll interno non propaga alla pagina
-      win.addEventListener('wheel', (e) => { e.stopPropagation(); }, { passive: true });
-      win.addEventListener('touchmove', (e) => { e.stopPropagation(); }, { passive: true });
-
-      let chatSessionId = localStorage.getItem('vision_chat_session') || ('session_' + Math.random().toString(36).substring(7));
-      localStorage.setItem('vision_chat_session', chatSessionId);
-
-      async function sendMsg() {
-        const text = input.value.trim();
-        if (!text) return;
-        input.value = '';
-        addMsg(text, 'user');
-
-        const loadingId = 'loading-' + Date.now();
-        addMsg('<span class="dot"></span><span class="dot"></span><span class="dot"></span>', 'bot', loadingId);
-
-        try {
-          const res = await fetch('https://n8n.rmstudio.app/webhook/vision-chatbot', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: text, sessionId: chatSessionId })
-          });
-          const raw = await res.text();
-          let reply = 'Nessuna risposta ricevuta.';
-          if (raw && raw.trim() !== '') {
-            try {
-              const data = JSON.parse(raw);
-              reply = data.response || data.output || data.text || reply;
-            } catch (_) { reply = raw; }
-          }
-          document.getElementById(loadingId)?.remove();
-          addMsg(reply, 'bot');
-        } catch (err) {
-          document.getElementById(loadingId)?.remove();
-          addMsg('Errore di connessione. Riprova tra poco.', 'bot');
-        }
+  // IntersectionObserver: SOLO play/pause — NON tocca mai .muted
+  const videoPlayObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+        // NON fare video.muted = true qui: resetterebbe l'audio sbloccato
       }
+    });
+  }, { threshold: 0.1 });
 
-      submitBtn.addEventListener('click', (e) => { e.preventDefault(); sendMsg(); });
-      input.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendMsg(); } });
+  document.querySelectorAll('video').forEach(video => {
+    videoPlayObserver.observe(video);
+  });
 
-      function addMsg(text, sender, id) {
-        const div = document.createElement('div');
-        div.style.cssText = 'padding:10px 14px;border-radius:12px;font-size:14px;max-width:85%;line-height:1.4;word-wrap:break-word;text-align:left;';
-        if (sender === 'bot') {
-          div.style.background = '#12051c';
-          div.style.color = '#f3f4f6';
-          div.style.alignSelf = 'flex-start';
-          div.style.borderBottomLeftRadius = '2px';
-          div.style.border = '1px solid rgba(124,58,237,0.1)';
-        } else {
-          div.style.background = 'linear-gradient(135deg, #7c3aed, #e040fb)';
-          div.style.color = '#ffffff';
-          div.style.alignSelf = 'flex-end';
-          div.style.borderBottomRightRadius = '2px';
-          div.style.fontWeight = '500';
-        }
-        if (id) div.id = id;
-        let formatted = String(text)
-          .replace(/\n/g, '<br>')
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-          .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="text-decoration:underline;font-weight:bold;">$1</a>');
-        div.innerHTML = formatted;
-        messagesDiv.appendChild(div);
-        messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
-      }
-    })();
-        
-        // Riproduci i video solo se visibili nello schermo per risparmiare risorse GPU/CPU
-        const videoObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            const video = entry.target;
-            if (entry.isIntersecting) {
-              video.play().catch(() => {});
-            } else {
-              video.pause();
-            }
-          });
-        }, { threshold: 0.1 });
-        
-        // Applica l'observer a tutti i video della pagina
-        document.querySelectorAll('video').forEach(video => {
-          videoObserver.observe(video);
+  // ── CHATBOT ──
+  (function() {
+    const bubble      = document.getElementById('vision-chat-bubble');
+    const win         = document.getElementById('vision-chat-window');
+    const closeBtn    = document.getElementById('vision-chat-close');
+    const input       = document.getElementById('vision-chat-input');
+    const submitBtn   = document.getElementById('vision-chat-submit');
+    const messagesDiv = document.getElementById('vision-chat-messages');
+    let isOpen = false;
+
+    function openChat()  { isOpen = true;  win.classList.add('chat-open'); }
+    function closeChat() { isOpen = false; win.classList.remove('chat-open'); }
+
+    if (window.innerWidth >= 768) openChat();
+
+    bubble.addEventListener('click', () => { isOpen ? closeChat() : openChat(); });
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeChat(); });
+    win.addEventListener('wheel',     (e) => e.stopPropagation(), { passive: true });
+    win.addEventListener('touchmove', (e) => e.stopPropagation(), { passive: true });
+
+    let chatSessionId = localStorage.getItem('vision_chat_session') || ('session_' + Math.random().toString(36).substring(7));
+    localStorage.setItem('vision_chat_session', chatSessionId);
+
+    async function sendMsg() {
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      addMsg(text, 'user');
+      const loadingId = 'loading-' + Date.now();
+      addMsg('<span class="dot"></span><span class="dot"></span><span class="dot"></span>', 'bot', loadingId);
+      try {
+        const res = await fetch('https://n8n.rmstudio.app/webhook/vision-chatbot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, sessionId: chatSessionId })
         });
-      
-  </script>
+        const raw = await res.text();
+        let reply = 'Nessuna risposta ricevuta.';
+        if (raw && raw.trim() !== '') {
+          try { const data = JSON.parse(raw); reply = data.response || data.output || data.text || reply; }
+          catch (_) { reply = raw; }
+        }
+        document.getElementById(loadingId)?.remove();
+        addMsg(reply, 'bot');
+      } catch {
+        document.getElementById(loadingId)?.remove();
+        addMsg('Errore di connessione. Riprova tra poco.', 'bot');
+      }
+    }
 
-  <script src="https://rmstudio.app/public/cookie-banner.js" defer></script>
+    submitBtn.addEventListener('click', (e) => { e.preventDefault(); sendMsg(); });
+    input.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendMsg(); } });
+
+    function addMsg(text, sender, id) {
+      const div = document.createElement('div');
+      div.style.cssText = 'padding:10px 14px;border-radius:12px;font-size:14px;max-width:85%;line-height:1.4;word-wrap:break-word;text-align:left;';
+      if (sender === 'bot') {
+        div.style.background = '#12051c'; div.style.color = '#f3f4f6';
+        div.style.alignSelf = 'flex-start'; div.style.borderBottomLeftRadius = '2px';
+        div.style.border = '1px solid rgba(124,58,237,0.1)';
+      } else {
+        div.style.background = 'linear-gradient(135deg,#7c3aed,#e040fb)';
+        div.style.color = '#fff'; div.style.alignSelf = 'flex-end';
+        div.style.borderBottomRightRadius = '2px'; div.style.fontWeight = '500';
+      }
+      if (id) div.id = id;
+      div.innerHTML = String(text)
+        .replace(/\n/g, '<br>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="text-decoration:underline;font-weight:bold;">$1</a>');
+      messagesDiv.appendChild(div);
+      messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
+    }
+  })();
+</script>
+
+<script src="https://rmstudio.app/public/cookie-banner.js" defer></script>
+
 </body>
 </html>
