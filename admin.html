@@ -265,7 +265,7 @@
         const isPaid = stato === 'pagato';
         if (isPaid) paid++; else unpaid++;
 
-        const previewUrl = `${window.location.origin}/vision-preview.html?token=${p.token}`;
+        const previewUrl = `${window.location.origin}/vision-preview?token=${p.token}`;
 
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-white/[0.01] transition duration-150';
