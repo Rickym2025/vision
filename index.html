@@ -131,6 +131,7 @@
         background: #000;
         box-shadow: 0 20px 50px rgba(124, 58, 237, 0.15);
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
       }
       .phone-container:hover {
         transform: translateY(-8px) scale(1.02);
@@ -682,7 +683,7 @@
   align-items:center; justify-content:center; flex-direction:column;
 ">
   <!-- Mockup fullscreen centrato -->
-  <div style="position:relative;width:min(360px,88vw);border:10px solid #1c0e2b;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(124,58,237,0.3);">
+  <div style="position:relative;width:min(360px,88vw);border:10px solid #1c0e2b;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(124,58,237,0.3);" onclick="event.stopPropagation()">
     <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:80px;height:16px;background:#1c0e2b;border-radius:12px;z-index:30;"></div>
     
     <!-- Social sidebar fullscreen -->
@@ -714,9 +715,6 @@
   <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;">TAP ovunque per chiudere</p>
 </div>
 
-        <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
-          Clicca sullo smartphone per sbloccare l&apos;audio 🔊
-        </p>
       </div>
     </div>
   </section>
