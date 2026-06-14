@@ -494,7 +494,38 @@
       @media (max-width: 600px) {
           .steps-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
           .step-line { display: none !important; }
-        }  
+        }
+
+      /* Testo mini decorativo nei mockup piccoli */
+        .phone-details-mini {
+          position: absolute;
+          left: 8px; bottom: 8px; right: 32px;
+          z-index: 20; text-align: left;
+        }
+        
+        /* Hint "TAP" visibile solo su mobile */
+        .tap-hint {
+          display: none;
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(124,58,237,0.7);
+          backdrop-filter: blur(4px);
+          border: 1px solid rgba(255,255,255,0.15);
+          color: white; font-size: 11px; font-weight: 700;
+          letter-spacing: 0.06em; text-transform: uppercase;
+          padding: 6px 14px; border-radius: 9999px;
+          z-index: 25; pointer-events: none;
+          white-space: nowrap;
+        }
+        @media (max-width: 767px) {
+          .tap-hint { display: block; }
+          /* Su mobile i mockup hero sono già piccoli, nascondi l'audio hint */
+          .audio-hint { display: none; }
+        }
+        /* Fullscreen overlay — flex solo quando aperto */
+        #fs-overlay { display: none; }
+        #fs-overlay.open { display: flex !important; }  
         
     </style>
 </head>
@@ -587,57 +618,101 @@
         </div>
       </div>
 
-      <!-- Right: Smartphone mockups with Social Interface Overlays & Audio on Hover -->
-      <div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
-        <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <!-- Right: Smartphone mockups with tap-to-fullscreen -->
+<div id="esempi" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;">
+  <div class="blob" style="width:300px;height:300px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
-        <!-- Smartphone 1: Camilla Yoga -->
-        <div class="phone-container" style="aspect-ratio:9/16;">
-          <div class="phone-notch"></div>
-          <div class="phone-social-sidebar">
-            <div class="social-btn">❤️</div>
-            <div class="social-btn">💬</div>
-            <div class="social-btn">🔗</div>
-          </div>
-          <div class="phone-influencer-details">
-            <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@camilla_yoga_eng</p>
-            <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga</p>
-          </div>
-          <div class="audio-hint" id="hint1">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-              <line x1="23" y1="9" x2="17" y2="15"/>
-              <line x1="17" y1="9" x2="23" y2="15"/>
-            </svg>
-          </div>
-          <!-- Aggiunto autoplay esplicito nell'HTML -->
-          <video id="vid1" class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video> 
-          <div class="vid-label">Camilla · Yoga (ENG)</div>
-        </div>
+  <!-- Smartphone 1: Camilla Yoga -->
+  <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid1','@camilla_yoga_eng','My morning routine stretch! This helps me stay active and focused all day 🧘‍♀️ #fitness #yoga')">
+    <div class="phone-notch"></div>
+    <div class="phone-social-sidebar">
+      <div class="social-btn">❤️</div>
+      <div class="social-btn">💬</div>
+      <div class="social-btn">🔗</div>
+    </div>
+    <!-- Overlay testo decorativo (piccolo, semi-opaco) -->
+    <div class="phone-influencer-details phone-details-mini">
+      <p style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.5);margin:0 0 2px;">@camilla_yoga_eng</p>
+      <p style="font-size:6px;color:rgba(255,255,255,0.35);line-height:1.3;margin:0;">My morning routine stretch! #fitness #yoga</p>
+    </div>
+    <div class="audio-hint" id="hint1">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+    </div>
+    <video id="vid1" class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+    <div class="vid-label">Camilla · Yoga (ENG)</div>
+    <!-- Tap hint su mobile -->
+    <div class="tap-hint">TAP per aprire 🔊</div>
+  </div>
 
-        <!-- Smartphone 2: Camilla Swatch -->
-        <div class="phone-container" style="aspect-ratio:9/16;margin-top:32px;">
-          <div class="phone-notch"></div>
-          <div class="phone-social-sidebar">
-            <div class="social-btn">❤️</div>
-            <div class="social-btn">💬</div>
-            <div class="social-btn">🔗</div>
-          </div>
-          <div class="phone-influencer-details">
-            <p style="font-size:12px;font-weight:700;color:white;margin:0 0 4px;">@camilla_swatch_ita</p>
-            <p style="font-size:11px;color:#d1d5db;line-height:1.4;margin:0;">Oggi recensiamo insieme la nuova collezione Swatch! Guardate che colori pazzeschi! 😍⌚ #swatch #unboxing</p>
-          </div>
-          <div class="audio-hint" id="hint2">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-              <line x1="23" y1="9" x2="17" y2="15"/>
-              <line x1="17" y1="9" x2="23" y2="15"/>
-            </svg>
-          </div>
-          <!-- Aggiunto autoplay esplicito nell'HTML -->
-          <video id="vid2" class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-          <div class="vid-label">Camilla · Swatch (ITA)</div>
-        </div>
+  <!-- Smartphone 2: Camilla Swatch -->
+  <div class="phone-container" style="aspect-ratio:9/16;margin-top:32px;" onclick="openFullscreen('vid2','@camilla_swatch_ita','Oggi recensiamo la nuova collezione Swatch! Guardate che colori! 😍⌚ #swatch #unboxing')">
+    <div class="phone-notch"></div>
+    <div class="phone-social-sidebar">
+      <div class="social-btn">❤️</div>
+      <div class="social-btn">💬</div>
+      <div class="social-btn">🔗</div>
+    </div>
+    <div class="phone-influencer-details phone-details-mini">
+      <p style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.5);margin:0 0 2px;">@camilla_swatch_ita</p>
+      <p style="font-size:6px;color:rgba(255,255,255,0.35);line-height:1.3;margin:0;">Nuova collezione Swatch! 😍⌚ #swatch #unboxing</p>
+    </div>
+    <div class="audio-hint" id="hint2">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+    </div>
+    <video id="vid2" class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+    <div class="vid-label">Camilla · Swatch (ITA)</div>
+    <div class="tap-hint">TAP per aprire 🔊</div>
+  </div>
+
+  <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
+    Clicca per audio e schermo intero 🔊
+  </p>
+</div>
+
+<!-- FULLSCREEN OVERLAY -->
+<div id="fs-overlay" onclick="closeFullscreen()" style="
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,0.96); backdrop-filter:blur(8px);
+  align-items:center; justify-content:center; flex-direction:column;
+">
+  <!-- Mockup fullscreen centrato -->
+  <div style="position:relative;width:min(360px,88vw);border:10px solid #1c0e2b;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(124,58,237,0.3);">
+    <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:80px;height:16px;background:#1c0e2b;border-radius:12px;z-index:30;"></div>
+    
+    <!-- Social sidebar fullscreen -->
+    <div style="position:absolute;right:12px;bottom:90px;display:flex;flex-direction:column;gap:16px;z-index:20;align-items:center;">
+      <div class="social-btn">❤️</div>
+      <div class="social-btn">💬</div>
+      <div class="social-btn">🔗</div>
+    </div>
+
+    <!-- Dettagli fullscreen — testo leggibile -->
+    <div id="fs-details" style="position:absolute;left:14px;bottom:14px;right:50px;z-index:20;text-align:left;">
+      <p id="fs-handle" style="font-size:14px;font-weight:700;color:white;margin:0 0 6px;"></p>
+      <p id="fs-caption" style="font-size:12px;color:#d1d5db;line-height:1.5;margin:0;"></p>
+    </div>
+
+    <!-- Badge audio attivo -->
+    <div style="position:absolute;top:28px;right:14px;z-index:25;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.15);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+      </svg>
+    </div>
+
+    <video id="fs-video" autoplay loop playsinline style="width:100%;aspect-ratio:9/16;object-fit:cover;display:block;"></video>
+  </div>
+
+  <!-- Chiudi hint -->
+  <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;">TAP ovunque per chiudere</p>
+</div>
 
         <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
           Clicca sullo smartphone per sbloccare l&apos;audio 🔊
@@ -1178,65 +1253,92 @@
     }
   });
 
-  // ══════════════════════════════════════════════════
-// VIDEO AUDIO — FIX CHROME (volume invece di muted)
-// Chrome congela il video quando cambia .muted
-// durante la riproduzione. .volume non causa re-buffer.
-// ══════════════════════════════════════════════════
+// ══ VIDEO — DESKTOP hover audio, MOBILE tap fullscreen ══
 
 const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 const SVG_MUTED = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
 const SVG_SOUND = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
 
-function setupVideoAudio(videoEl, hintEl) {
-  // Stato iniziale: volume 0 + muted per garantire autoplay
-  // muted=true serve SOLO per l'autoplay iniziale del browser
-  videoEl.muted = true;
+// Fullscreen overlay
+let fsActiveSourceId = null;
+
+function openFullscreen(videoId, handle, caption) {
+  const sourceVideo = document.getElementById(videoId);
+  const fsVideo     = document.getElementById('fs-video');
+  const overlay     = document.getElementById('fs-overlay');
+
+  // Copia src e stato play
+  fsVideo.src          = sourceVideo.src;
+  fsVideo.currentTime  = sourceVideo.currentTime;
+  fsVideo.muted        = false; // audio attivo in fullscreen
+  fsVideo.volume       = 1;
+
+  document.getElementById('fs-handle').textContent  = handle;
+  document.getElementById('fs-caption').textContent = caption;
+
+  overlay.classList.add('open');
+  fsVideo.play().catch(() => { fsVideo.muted = false; fsVideo.play().catch(()=>{}); });
+
+  fsActiveSourceId = videoId;
+  // Pausa il video sorgente per non sprecare risorse
+  sourceVideo.pause();
+}
+
+function closeFullscreen() {
+  const overlay  = document.getElementById('fs-overlay');
+  const fsVideo  = document.getElementById('fs-video');
+
+  overlay.classList.remove('open');
+  fsVideo.pause();
+  fsVideo.src = '';
+
+  // Riprende il video sorgente muted
+  if (fsActiveSourceId) {
+    const src = document.getElementById(fsActiveSourceId);
+    if (src) { src.muted = true; src.play().catch(()=>{}); }
+    fsActiveSourceId = null;
+  }
+}
+
+// Chiudi con tasto ESC
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreen(); });
+
+// ── DESKTOP ONLY: hover audio sui mockup piccoli ──────────
+function setupDesktopHover(videoEl, hintEl) {
+  if (isTouchDevice) return; // su mobile gestisce openFullscreen()
+
+  videoEl.muted  = true;
   videoEl.volume = 0;
   videoEl.play().catch(() => {});
   if (hintEl) hintEl.innerHTML = SVG_MUTED;
 
   const container = videoEl.closest('.phone-container') || videoEl.parentElement;
 
-  function unmute() {
-    // Prima alziamo il volume, POI togliamo muted
-    // Così Chrome non percepisce un cambio "da silenzio a audio"
-    // e non triggera il re-buffer che congela il frame
+  container.addEventListener('mouseenter', () => {
     videoEl.volume = 1;
-    videoEl.muted = false;
+    videoEl.muted  = false;
     if (hintEl) hintEl.innerHTML = SVG_SOUND;
-  }
-
-  function mute() {
-    // Abbasso prima il volume, poi metto muted
+  });
+  container.addEventListener('mouseleave', () => {
     videoEl.volume = 0;
-    videoEl.muted = true;
+    videoEl.muted  = true;
     if (hintEl) hintEl.innerHTML = SVG_MUTED;
-  }
-
-  if (!isTouchDevice) {
-    container.addEventListener('mouseenter', unmute);
-    container.addEventListener('mouseleave', mute);
-  } else {
-    container.addEventListener('click', () => {
-      videoEl.muted ? unmute() : mute();
-    });
-  }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const vid1 = document.getElementById('vid1');
   const vid2 = document.getElementById('vid2');
-  if (vid1) setupVideoAudio(vid1, document.getElementById('hint1'));
-  if (vid2) setupVideoAudio(vid2, document.getElementById('hint2'));
+  if (vid1) setupDesktopHover(vid1, document.getElementById('hint1'));
+  if (vid2) setupDesktopHover(vid2, document.getElementById('hint2'));
 });
 
-// IntersectionObserver: SOLO play/pause
-// NON tocca mai volume né muted
+// IntersectionObserver: SOLO play/pause, mai .muted
 const videoPlayObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     const video = entry.target;
+    if (video.id === 'fs-video') return; // ignora il video fullscreen
     if (entry.isIntersecting) {
       if (video.paused) video.play().catch(() => {});
     } else {
