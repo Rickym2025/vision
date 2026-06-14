@@ -828,85 +828,114 @@
 
 
   <!-- PREZZI -->
-  <section id="prezzi" style="position:relative;z-index:1;padding:0 24px 100px;">
-    <div class="reveal" style="max-width:1060px;margin:0 auto;">
-      <div style="text-align:center;margin-bottom:56px;">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;margin-bottom:20px;">
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Pay-as-you-go · Nessun abbonamento</span>
-        </div>
-        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
-          Investi sul ROI.<br><span class="grad-text">Non sul contratto.</span>
-        </h2>
+<section id="prezzi" style="position:relative;z-index:1;padding:0 24px 100px;">
+  <div class="reveal" style="max-width:760px;margin:0 auto;">
+
+    <!-- Eyebrow -->
+    <div style="text-align:center;margin-bottom:48px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);padding:6px 14px;border-radius:9999px;margin-bottom:20px;">
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Nessun abbonamento · Nessun anticipo</span>
       </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;align-items:start;">
-
-        <!-- Starter -->
-        <div class="price-card standard">
-          <div>
-            <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;">Starter Pack</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:20px;">Per testare la qualità prima di scalare.</div>
-            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
-              <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 80</span>
-              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 50</span>
-            </div>
-          </div>
-          <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Video UGC (10–15 secondi)</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Sfondo e outfit personalizzato</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Traccia audio ElevenLabs inclusa</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Risoluzione standard 480p</li>
-          </ul>
-          <a href="https://buy.stripe.com/your-starter-link" class="btn-ghost" style="width:100%;padding:14px;font-size:14px;border-radius:14px;justify-content:center;">Acquista Starter</a>
-        </div>
-
-        <!-- Pro Bundle (featured) -->
-        <div class="price-card featured">
-          <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7c3aed,#e040fb);color:white;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 18px;border-radius:9999px;white-space:nowrap;">Più scelto</div>
-          <div>
-            <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#a855f7;margin-bottom:8px;">UGC Pro Bundle</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Ottimizza le campagne testando più varianti hook.</div>
-            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
-              <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 180</span>
-              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 120</span>
-            </div>
-          </div>
-          <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>3 Video UGC (10–15 secondi)</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>3 Ganci psicologici differenti</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Alta risoluzione 720p sbloccata</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Logo del brand inserito nel video</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);"><svg width="16" height="16" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Tutti i modelli e sfondi disponibili</li>
-          </ul>
-          <a href="https://buy.stripe.com/your-pro-link" class="btn-primary" style="width:100%;padding:18px;font-size:16px;border-radius:14px;justify-content:center;">Ottieni Pro Bundle</a>
-        </div>
-
-        <!-- Agency -->
-        <div class="price-card standard">
-          <div>
-            <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;">Agency Maxi Pack</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:20px;">Per e-commerce e agenzie che scalano.</div>
-            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:24px;">
-              <span style="font-size:18px;font-weight:600;color:#ef4444;text-decoration:line-through;">€ 500</span>
-              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:42px;color:#4ade80;">€ 340</span>
-            </div>
-          </div>
-          <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;padding:0;margin:0 0 24px;">
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>10 Video UGC ad alte prestazioni</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Controllo totale su script e hook</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Massima risoluzione 1080p</li>
-            <li style="display:flex;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Supporto prioritario dedicato</li>
-          </ul>
-          <a href="https://buy.stripe.com/your-maxi-link" class="btn-ghost" style="width:100%;padding:14px;font-size:14px;border-radius:14px;justify-content:center;">Sblocca Maxi Pack</a>
-        </div>
-
-      </div>
-
-      <p style="text-align:center;font-size:13px;color:rgba(255,255,255,0.25);margin-top:24px;">
-        I crediti acquistati non scadono mai. Hai dubbi? Scrivici tramite la chat.
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;line-height:1.1;">
+        Un influencer virtuale.<br><span class="grad-text">A partire da €49.</span>
+      </h2>
+      <!-- Anchor cognitivo: il confronto fa il lavoro -->
+      <p style="margin-top:16px;font-size:15px;color:rgba(255,255,255,0.35);line-height:1.6;">
+        Gli influencer reali costano <s style="color:rgba(255,255,255,0.2);">€500–1.500 a video</s>, richiedono settimane e non garantiscono risultati.<br>
+        Con Vision UGC paghi solo il video che ottieni.
       </p>
     </div>
-  </section>
+
+    <!-- Card principale -->
+    <div class="glass" style="border-radius:28px;padding:48px 40px;position:relative;overflow:hidden;border-color:rgba(124,58,237,0.25);">
+
+      <!-- Blob decorativo interno -->
+      <div style="position:absolute;width:300px;height:300px;background:rgba(124,58,237,0.07);border-radius:9999px;filter:blur(60px);top:-80px;right:-80px;pointer-events:none;"></div>
+
+      <!-- Processo: 3 step chiari (riduce ansia da acquisto) -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:44px;position:relative;" class="steps-grid">
+
+        <div style="text-align:center;padding:0 16px;position:relative;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:16px;">📦</div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a855f7;margin-bottom:6px;">Step 1</div>
+          <div style="font-size:14px;font-weight:600;color:white;margin-bottom:4px;">Inviaci il prodotto</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5;">Link Amazon, Shopify o foto HD. Nessuna spedizione fisica.</div>
+        </div>
+
+        <!-- Separatore -->
+        <div style="position:absolute;top:20px;left:33.3%;width:33.3%;height:1px;background:linear-gradient(90deg,rgba(124,58,237,0.3),rgba(224,64,251,0.3));pointer-events:none;" class="step-line"></div>
+        <div style="position:absolute;top:20px;left:66.6%;width:33.3%;height:1px;background:linear-gradient(90deg,rgba(224,64,251,0.3),rgba(124,58,237,0.1));pointer-events:none;" class="step-line"></div>
+
+        <div style="text-align:center;padding:0 16px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(224,64,251,0.12);border:1px solid rgba(224,64,251,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:16px;">✍️</div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e040fb;margin-bottom:6px;">Step 2</div>
+          <div style="font-size:14px;font-weight:600;color:white;margin-bottom:4px;">Script in 24 ore</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5;">Approvi il testo e l'influencer virtuale scelto. Zero sorprese.</div>
+        </div>
+
+        <div style="text-align:center;padding:0 16px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:16px;">🎬</div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#818cf8;margin-bottom:6px;">Step 3</div>
+          <div style="font-size:14px;font-weight:600;color:white;margin-bottom:4px;">Video in 48 ore</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5;">Ricevi il file pronto per Meta, TikTok e YouTube Shorts.</div>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div style="height:1px;background:rgba(255,255,255,0.05);margin-bottom:36px;"></div>
+
+      <!-- Prezzo + CTA -->
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;">
+
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px;">Prezzo per video</div>
+          <div style="display:flex;align-items:baseline;gap:12px;">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(2.8rem,6vw,4rem);color:#4ade80;line-height:1;">€49</span>
+            <div>
+              <div style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500;">a video</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.25);">vs €500–1.500 con attori reali</div>
+            </div>
+          </div>
+          <!-- Scarsità reale e onesta -->
+          <div style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);padding:5px 12px;border-radius:9999px;">
+            <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;display:inline-block;animation:pulse 2s ease-in-out infinite;flex-shrink:0;"></span>
+            <span style="font-size:11px;font-weight:700;color:rgba(74,222,128,0.8);letter-spacing:0.06em;">Slot disponibili questo mese: <span id="slots-counter">4</span></span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;min-width:220px;">
+          <a href="#contatti" class="btn-primary" style="padding:18px 32px;font-size:16px;border-radius:14px;text-align:center;">
+            Richiedi il tuo video
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </a>
+          <p style="font-size:11px;color:rgba(255,255,255,0.25);text-align:center;margin:0;line-height:1.5;">
+            Nessun pagamento anticipato · Prima vedi, poi paghi
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Garanzia sotto la card -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:28px;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.3);">
+        <svg width="14" height="14" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+        Revisione inclusa
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.3);">
+        <svg width="14" height="14" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+        10+ lingue native disponibili
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.3);">
+        <svg width="14" height="14" fill="none" stroke="#4ade80" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+        Nessun contratto vincolante
+      </div>
+    </div>
+
+  </div>
+</section>
 
 
   <!-- ECOSISTEMA RM STUDIO -->
