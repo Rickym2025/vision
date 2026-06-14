@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision UGC — Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Plus Jakarta Sans"', 'sans-serif'],
+              body: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              v: { 50: '#faf5ff', 400: '#c084fc', 500: '#a855f7', 600: '#9333ea', 700: '#7c3aed' },
+              fx: '#e040fb',
+              ink: '#050008',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .glass {
+        background: rgba(15, 5, 30, 0.85);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.07);
+      }
+      .grad-text {
+        background: linear-gradient(135deg, #c084fc 0%, #e040fb 60%, #818cf8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
+</head>
+<body class="bg-ink text-gray-100 font-body min-h-screen">
+
+  <!-- PASSWORD SCREEN -->
+  <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95">
+    <div class="glass p-8 rounded-3xl max-w-md w-full mx-4 text-center">
+      <div class="mb-6">
+        <span class="text-3xl">🔑</span>
+        <h2 class="text-xl font-display font-bold mt-2">Accesso Riservato</h2>
+        <p class="text-xs text-gray-400 mt-1">Inserisci la chiave API/Password impostata su n8n</p>
+      </div>
+      <input type="password" id="admin-password" placeholder="Inserisci Password..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center text-white outline-none focus:border-v-500 transition mb-4">
+      <button onclick="saveAuthAndLoad()" class="w-full bg-gradient-to-r from-v-600 to-fx hover:opacity-90 text-white font-bold py-3 rounded-xl transition">
+        Accedi alla Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN DASHBOARD -->
+  <div id="main-content" class="hidden max-w-6xl mx-auto px-4 py-12">
+    
+    <!-- HEADER -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 pb-6 border-b border-white/5">
+      <div>
+        <h1 class="text-3xl font-display font-extrabold tracking-tight">Vision <span class="grad-text">Admin</span></h1>
+        <p class="text-sm text-gray-400 mt-1">Gestisci la scuderia, genera i token e invia i link ai clienti</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="openNewProjectModal()" class="bg-gradient-to-r from-v-700 to-fx text-white px-5 py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition">
+          + Nuovo Progetto
+        </button>
+        <button onclick="logout()" class="border border-white/10 hover:bg-white/5 text-gray-400 px-4 py-3 rounded-xl text-sm transition">
+          Disconnetti
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT GRID -->
+    <div class="grid grid-cols-1 gap-8">
+      
+      <!-- STATS -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass p-5 rounded-2xl">
+          <p class="text-xs text-gray-400 uppercase font-semibold">Progetti Totali</p>
+          <p id="stat-total" class="text-2xl font-display font-extrabold mt-1">0</p>
+        </div>
+        <div class="glass p-5 rounded-2xl">
+          <p class="text-xs text-gray-400 uppercase font-semibold text-purple-400">Da Pagare</p>
+          <p id="stat-unpaid" class="text-2xl font-display font-extrabold mt-1 text-purple-400">0</p>
+        </div>
+        <div class="glass p-5 rounded-2xl">
+          <p class="text-xs text-gray-400 uppercase font-semibold text-emerald-400">Pagati</p>
+          <p id="stat-paid" class="text-2xl font-display font-extrabold mt-1 text-emerald-400">0</p>
+        </div>
+        <div class="glass p-5 rounded-2xl">
+          <p class="text-xs text-gray-400 uppercase font-semibold text-blue-400">Conversion Rate</p>
+          <p id="stat-cr" class="text-2xl font-display font-extrabold mt-1 text-blue-400">0%</p>
+        </div>
+      </div>
+
+      <!-- TABLE CONTAINER -->
+      <div class="glass rounded-2xl overflow-hidden">
+        <div class="p-6 border-b border-white/5 flex flex-wrap items-center justify-between gap-4">
+          <h3 class="font-display font-bold text-lg">Progetti in Corso</h3>
+          <div class="flex items-center gap-2">
+            <button onclick="fetchProjects()" class="text-xs bg-white/5 border border-white/10 hover:bg-white/10 px-3 py-2 rounded-lg transition">
+              🔄 Ricarica Dati
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-white/[0.02] text-xs font-semibold uppercase tracking-wider text-gray-400 border-b border-white/5">
+                <th class="p-4">Cliente / ID</th>
+                <th class="p-4">Titolo Video</th>
+                <th class="p-4">Prezzo</th>
+                <th class="p-4">Stato</th>
+                <th class="p-4">Token</th>
+                <th class="p-4 text-right">Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="projects-table" class="divide-y divide-white/5 text-sm">
+              <!-- Righe caricate dinamicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL NUOVO PROGETTO -->
+  <div id="new-project-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="glass p-8 rounded-3xl max-w-lg w-full">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-display font-bold">Crea Nuovo Progetto</h3>
+        <button onclick="closeNewProjectModal()" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+      </div>
+      
+      <form id="project-form" onsubmit="handleCreateProject(event)" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs text-gray-400 uppercase font-bold mb-1">ID Cliente (univoco)</label>
+            <input type="text" id="p-client-id" required placeholder="mario-rossi" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-v-500 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs text-gray-400 uppercase font-bold mb-1">Nome Cliente</label>
+            <input type="text" id="p-nome" required placeholder="Mario Rossi" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-v-500 text-sm">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-gray-400 uppercase font-bold mb-1">Email Cliente</label>
+          <input type="email" id="p-email" required placeholder="mario@azienda.it" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-v-500 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs text-gray-400 uppercase font-bold mb-1">Titolo Video</label>
+          <input type="text" id="p-titolo" required placeholder="Video UGC Recensione Swatch" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-v-500 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs text-gray-400 uppercase font-bold mb-1">URL Video S3/Cloudflare R2</label>
+          <input type="url" id="p-s3" required placeholder="https://pub-89945f8350374b50818d716fdc3c108b.r2.dev/..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-v-500 text-sm">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs text-gray-400 uppercase font-bold mb-1">Prezzo (€)</label>
+            <input type="number" id="p-prezzo" required placeholder="49" value="49" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-v-500 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs text-gray-400 uppercase font-bold mb-1">Token (Generato Auto)</label>
+            <input type="text" id="p-token" readonly class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-2 text-gray-400 outline-none text-sm cursor-not-allowed">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-gray-400 uppercase font-bold mb-1">Link di Pagamento Stripe</label>
+          <input type="url" id="p-stripe" placeholder="https://buy.stripe.com/..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-v-500 text-sm">
+        </div>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-v-600 to-fx text-white font-bold py-3 rounded-xl hover:opacity-90 transition mt-6">
+          Registra Progetto e Salva su Sheet
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Configura qui l'URL principale del Webhook di n8n (Production o Test)
+    const N8N_URL = 'https://n8n.rmstudio.app/webhook/vision-admin';
+
+    let authToken = localStorage.getItem('vision_admin_pass') || '';
+
+    if (authToken) {
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('main-content').classList.remove('hidden');
+      fetchProjects();
+    }
+
+    function saveAuthAndLoad() {
+      const p = document.getElementById('admin-password').value;
+      if (!p) return;
+      localStorage.setItem('vision_admin_pass', p);
+      authToken = p;
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('main-content').classList.remove('hidden');
+      fetchProjects();
+    }
+
+    function logout() {
+      localStorage.removeItem('vision_admin_pass');
+      location.reload();
+    }
+
+    function generateSecureToken() {
+      return 'v_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
+
+    function openNewProjectModal() {
+      document.getElementById('p-token').value = generateSecureToken();
+      document.getElementById('new-project-modal').classList.remove('hidden');
+      document.getElementById('new-project-modal').classList.add('flex');
+    }
+
+    function closeNewProjectModal() {
+      document.getElementById('new-project-modal').classList.remove('flex');
+      document.getElementById('new-project-modal').classList.add('hidden');
+    }
+
+    // Lettura da Google Sheets (via n8n)
+    async function fetchProjects() {
+      try {
+        const res = await fetch(`${N8N_URL}?action=read`, {
+          headers: { 'Authorization': authToken }
+        });
+        if (res.status === 401 || res.status === 403) {
+          alert('Password non corretta. Effettua nuovamente il login.');
+          logout();
+          return;
+        }
+        const data = await res.json();
+        renderTable(data);
+      } catch (err) {
+        console.error(err);
+        alert('Errore nel recupero dei progetti.');
+      }
+    }
+
+    function renderTable(projects) {
+      const tbody = document.getElementById('projects-table');
+      tbody.innerHTML = '';
+
+      if (!Array.isArray(projects) || projects.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-500">Nessun progetto trovato nel Google Sheet.</td></tr>`;
+        return;
+      }
+
+      let paid = 0;
+      let unpaid = 0;
+
+      projects.forEach((p, index) => {
+        const stato = (p.stato || 'da_pagare').toLowerCase().trim();
+        const isPaid = stato === 'pagato';
+        if (isPaid) paid++; else unpaid++;
+
+        const previewUrl = `${window.location.origin}/vision-preview.html?token=${p.token}`;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.01] transition duration-150';
+        tr.innerHTML = `
+          <td class="p-4">
+            <div class="font-bold text-white">${p.nome_cliente || 'No name'}</div>
+            <div class="text-xs text-gray-400">${p.client_id || 'No ID'} · ${p.email_cliente || ''}</div>
+          </td>
+          <td class="p-4 max-w-[200px] truncate" title="${p.titolo_video}">${p.titolo_video || '-'}</td>
+          <td class="p-4 font-semibold text-emerald-400">€${p.prezzo || '49'}</td>
+          <td class="p-4">
+            <button onclick="toggleStatus('${p.client_id}', '${p.stato}', ${index + 2})" class="px-3 py-1.5 rounded-full text-xs font-bold transition ${isPaid ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'}">
+              ${isPaid ? '✓ Pagato' : '● Da pagare'}
+            </button>
+          </td>
+          <td class="p-4">
+            <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-gray-300" title="${p.token}">${p.token ? p.token.substring(0,8) + '...' : '-'}</span>
+          </td>
+          <td class="p-4 text-right space-x-1">
+            <button onclick="copyToClipboard('${previewUrl}')" class="bg-white/5 border border-white/10 hover:bg-white/10 text-xs px-3 py-1.5 rounded-lg transition" title="Copia Magic Link">🔗 Link</button>
+            <button onclick="sendNotification('${p.client_id}', ${index + 2})" class="bg-v-600/20 border border-v-500/30 hover:bg-v-600/40 text-v-400 text-xs px-3 py-1.5 rounded-lg transition" title="Invia Email con Resend">✉️ Invia Mail</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Calcola e aggiorna statistiche
+      const total = projects.length;
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-unpaid').textContent = unpaid;
+      document.getElementById('stat-paid').textContent = paid;
+      document.getElementById('stat-cr').textContent = total > 0 ? Math.round((paid / total) * 100) + '%' : '0%';
+    }
+
+    async function handleCreateProject(e) {
+      e.preventDefault();
+      const payload = {
+        action: 'create',
+        client_id: document.getElementById('p-client-id').value.trim(),
+        nome_cliente: document.getElementById('p-nome').value.trim(),
+        email_cliente: document.getElementById('p-email').value.trim(),
+        titolo_video: document.getElementById('p-titolo').value.trim(),
+        s3_url: document.getElementById('p-s3').value.trim(),
+        prezzo: document.getElementById('p-prezzo').value.trim(),
+        stato: 'da_pagare',
+        token: document.getElementById('p-token').value.trim(),
+        stripe_link: document.getElementById('p-stripe').value.trim()
+      };
+
+      try {
+        const res = await fetch(N8N_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authToken
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert('Progetto registrato correttamente nel database!');
+          document.getElementById('project-form').reset();
+          closeNewProjectModal();
+          fetchProjects();
+        } else {
+          throw new Error();
+        }
+      } catch {
+        alert('Errore durante il salvataggio del progetto.');
+      }
+    }
+
+    async function toggleStatus(clientId, currentStatus, rowNumber) {
+      const newStatus = (currentStatus.toLowerCase().trim() === 'pagato') ? 'da_pagare' : 'pagato';
+      if (!confirm(`Vuoi cambiare lo stato del cliente ${clientId} in "${newStatus}"?`)) return;
+
+      try {
+        const res = await fetch(N8N_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authToken
+          },
+          body: JSON.stringify({
+            action: 'update_status',
+            client_id: clientId,
+            stato: newStatus,
+            row: rowNumber
+          })
+        });
+
+        if (res.ok) {
+          fetchProjects();
+        } else {
+          throw new Error();
+        }
+      } catch {
+        alert('Impossibile aggiornare lo stato del progetto.');
+      }
+    }
+
+    async function sendNotification(clientId, rowNumber) {
+      if (!confirm(`Vuoi inviare (o rinviare) l'email di notifica a ${clientId} via Resend?`)) return;
+
+      try {
+        const res = await fetch(N8N_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authToken
+          },
+          body: JSON.stringify({
+            action: 'send_email',
+            client_id: clientId,
+            row: rowNumber,
+            origin: window.location.origin
+          })
+        });
+
+        if (res.ok) {
+          alert('Email inviata con successo con Resend!');
+        } else {
+          throw new Error();
+        }
+      } catch {
+        alert('Errore durante l\'invio dell\'email.');
+      }
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Magic Link copiato negli appunti!');
+      }).catch(err => {
+        console.error('Errore copia:', err);
+      });
+    }
+  </script>
+</body>
+</html>
