@@ -1204,7 +1204,7 @@
       .catch(err => console.warn('Orbit non caricata:', err));
   });
 
-  // ── Form submit ──
+  // ── Sottomissione simultanea a Web3Forms e n8n ──
   document.getElementById('contact-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
@@ -1212,18 +1212,42 @@
     btn.textContent = 'Invio in corso...';
     btn.style.opacity = '0.6';
     btn.disabled = true;
+
+    const formElement = e.target;
+    const formData = new FormData(formElement);
+
+    // Payload strutturato per n8n
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      website: formData.get('website')
+    };
+
+    // Invio simultaneo (parallelo) a entrambi gli endpoint
+    const web3formsPromise = fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+
+    const n8nPromise = fetch('https://n8n.rmstudio.app/webhook/vision-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: new FormData(e.target)
-      });
-      if (res.ok) {
-        msg.textContent = '✓ Messaggio inviato! Ti risponderò entro 24 ore.';
+      // Attende che entrambe le chiamate si completino
+      const [web3Response, n8nResponse] = await Promise.all([web3formsPromise, n8nPromise]);
+
+      if (web3Response.ok && n8nResponse.ok) {
+        msg.textContent = '✓ Richiesta inviata! Ti risponderò entro 24 ore.';
         msg.style.color = '#4ade80';
-        e.target.reset();
-      } else { throw new Error(); }
+        formElement.reset();
+      } else {
+        throw new Error();
+      }
     } catch {
-      msg.textContent = '✗ Errore. Riprova tra poco.';
+      msg.textContent = '✗ Errore di connessione. Riprova tra poco.';
       msg.style.color = '#f87171';
     } finally {
       msg.style.display = 'block';
