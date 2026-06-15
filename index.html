@@ -525,7 +525,7 @@
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- LAYER BACKGROUND VIDEO (HIdden on mobile to avoid massive GPU lag) -->
+  <!-- LAYER BACKGROUND VIDEO (Nascosto su mobile per risparmiare risorse e fluidità) -->
   <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none hidden md:block">
       <video autoplay muted loop playsinline preload="metadata" class="gpu-video w-full h-full object-cover opacity-15">
             <source src="/public/video/background.mp4" type="video/mp4">
@@ -540,7 +540,7 @@
     <div class="blob" style="width:400px;height:400px;background:rgba(99,102,241,0.07);top:40%;left:50%;transform:translateX(-50%);"></div>
   </div>
 
-  <!-- NAV (FIX MOBILE: Use inset-x-0 instead of w-full to avoid horizontal scrollbar leaks) -->
+  <!-- NAV (FIX MOBILE: Indirizza correttamente a #contatti per modulo analisi) -->
   <header class="fixed top-0 inset-x-0 p-2 sm:p-4 md:p-6 z-50 backdrop-blur-md bg-black/25 border-b border-white/5" style="transform: translateZ(0); will-change: transform;">
     <nav class="glass max-w-6xl mx-auto rounded-2xl px-3 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-2">
       <a href="#" class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
@@ -555,7 +555,7 @@
         <a href="#ecosistema" class="text-white/50 hover:text-white transition-colors"><span class="nav-dot"></span>Studio</a>
       </div>
 
-      <a href="#prezzi" class="btn-primary px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm shrink-0 font-bold" style="font-size: 12px; font-weight: 700;">
+      <a href="#contatti" class="btn-primary px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm shrink-0 font-bold" style="font-size: 12px; font-weight: 700;">
         Inizia Ora
         <svg class="hidden sm:inline-block" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
       </a>
@@ -563,7 +563,7 @@
   </header>
 
 
-  <!-- HERO -->
+  <!-- HERO (Wording aggiornato da "Scuderia" a "Presenter Virtuali") -->
   <section style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;" class="pt-24 pb-12 px-4 sm:px-6 md:pt-36 md:pb-20">
     <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;gap:64px;align-items:center;" class="hero-grid">
 
@@ -571,26 +571,26 @@
       <div style="display:flex;flex-direction:column;gap:28px;">
         <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);padding:6px 16px;border-radius:9999px;width:fit-content;">
           <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;display:inline-block;animation:pulse 2s ease-in-out infinite;"></span>
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">La Fabbrica degli Influencer H24 · Consegna 24h</span>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">La Fabbrica dei Presenter H24 · Consegna 24h</span>
         </div>
 
         <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;letter-spacing:-0.02em;">
-          La tua scuderia di<br>
-          Influencer Virtuali.<br>
+          I tuoi Presenter Virtuali.<br>
+          Pronti in 24 ore.<br>
           <span class="grad-text">Per vendite reali.</span>
         </h1>
 
         <p style="font-size:clamp(16px,2vw,20px);color:#d4d0dd;font-weight:300;line-height:1.65;max-width:480px;">
-          Nessuna agenzia di modelle, nessuna spedizione fisica e zero ritardi. Generiamo video UGC di grande impatto con i presentatori virtuali della nostra scuderia pronti da lanciare in 24 ore.
+          Nessuna agenzia di modelle, nessuna spedizione fisica e zero ritardi. Generiamo video UGC di grande impatto con i presentatori virtuali della nostra selezione pronti da lanciare in 24 ore.
         </p>
 
         <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
-          <a href="#prezzi" class="btn-primary px-8 py-4" style="font-size:16px;">
-            Sblocca la tua Scuderia
+          <a href="#contatti" class="btn-primary px-8 py-4" style="font-size:16px;">
+            Crea il tuo primo video
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
           </a>
           <a href="#esempi" class="btn-ghost px-6 py-4" style="font-size:14px;">
-            Guarda la scuderia
+            Guarda gli esempi
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/></svg>
           </a>
         </div>
@@ -611,8 +611,8 @@
         </div>
       </div>
 
-      <!-- Right: Smartphone mockups (FIX MOBILE: Grid responsive 1 colonna per evitare squish e scorrimenti) -->
-      <div id="esempi" class="grid grid-cols-1 sm:grid-cols-2 gap-6 relative overflow-hidden">
+      <!-- Right: Smartphone mockups (FIX MOBILE: Ripristinati compatti a due colonne "grid-cols-2" con overflow controllato) -->
+      <div id="esempi" class="grid grid-cols-2 gap-4 relative overflow-hidden">
         <div class="blob" style="width:200px;height:200px;background:rgba(124,58,237,0.15);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
         <!-- Smartphone 1: Camilla Yoga -->
@@ -635,11 +635,11 @@
           </div>
           <video id="vid1" class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Camilla · Yoga (ENG)</div>
-          <div class="tap-hint">TAP per aprire 🔊</div>
+          <div class="tap-hint">TAP 🔊</div>
         </div>
 
         <!-- Smartphone 2: Camilla Swatch -->
-        <div class="phone-container sm:mt-8" style="aspect-ratio:9/16;" onclick="openFullscreen('vid2','@camilla_swatch_ita','Oggi recensiamo la nuova collezione Swatch! Guardate che colori! 😍⌚ #swatch #unboxing')">
+        <div class="phone-container mt-6 sm:mt-8" style="aspect-ratio:9/16;" onclick="openFullscreen('vid2','@camilla_swatch_ita','Oggi recensiamo la nuova collezione Swatch! Guardate che colori! 😍⌚ #swatch #unboxing')">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
@@ -658,11 +658,11 @@
           </div>
           <video id="vid2" class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Camilla · Swatch (ITA)</div>
-          <div class="tap-hint">TAP per aprire 🔊</div>
+          <div class="tap-hint">TAP 🔊</div>
         </div>
 
         <p style="grid-column:1/-1;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px;">
-          Clicca per audio e schermo intero 🔊
+          Clicca per audio 🔊
         </p>
       </div>
 
@@ -749,7 +749,7 @@
   </section>
 
 
-  <!-- LA SCUDERIA (FIX PERFORMANCE: Rimosso "autoplay" per caricare i video solo se inquadrati dall'utente) -->
+  <!-- LA SCUDERIA -->
   <section id="scuderia" style="position:relative;z-index:1;padding:40px 24px 100px;">
     <div class="reveal" style="max-width:1100px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:56px;">
@@ -757,7 +757,7 @@
           <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Campagne di Successo</span>
         </div>
         <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;">
-          La nostra squadra di<br><span class="grad-text">Influencer Virtuali</span>
+          I nostri migliori<br><span class="grad-text">Presenter Virtuali</span>
         </h2>
         <p style="font-size:clamp(15px,2vw,18px);color:#a1a1aa;margin-top:16px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.65;">
           Ogni avatar della nostra agenzia è addestrato e ottimizzato su mercati verticali differenti (Beauty, Tech, App, Food) per connettersi in modo emotivo con le esigenze specifiche del tuo pubblico.
@@ -767,7 +767,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Zoe -->
-        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid_zoe', '@zoe_beauty_reviews', 'Il segreto per uma pelle luminosa ogni mattina! ✨🧴 #skincare #routine')">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreen('vid_zoe', '@zoe_beauty_reviews', 'Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare #routine')">
           <div class="phone-notch"></div>
           <div class="phone-social-sidebar">
             <div class="social-btn">❤️</div>
@@ -780,7 +780,7 @@
           </div>
           <video id="vid_zoe" class="gpu-video" src="/public/video/v2.mp4" loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Zoe · Beauty</div>
-          <div class="tap-hint">TAP per aprire 🔊</div>
+          <div class="tap-hint">TAP 🔊</div>
         </div>
 
         <!-- Janet -->
@@ -797,7 +797,7 @@
           </div>
           <video id="vid_janet" class="gpu-video" src="/public/video/v3.mp4" loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Janet · Tech</div>
-          <div class="tap-hint">TAP per aprire 🔊</div>
+          <div class="tap-hint">TAP 🔊</div>
         </div>
 
         <!-- Mathis -->
@@ -814,7 +814,7 @@
           </div>
           <video id="vid_mathis" class="gpu-video" src="/public/video/v4.mp4" loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
           <div class="vid-label">Mathis · Fit Food</div>
-          <div class="tap-hint">TAP per aprire 🔊</div>
+          <div class="tap-hint">TAP 🔊</div>
         </div>
 
       </div>
@@ -832,7 +832,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
         <div class="glass" style="padding:32px;border-radius:20px;display:flex;flex-direction:column;gap:16px;">
           <div style="font-size:28px;">👗</div>
-          <p style="font-size:16px;color:#d4d0dd;line-height:1.65;font-style:italic;margin:0;">"Con i creator virtuali pubblichiamo 10 video a settimana invece di 3 al mese. Il ROAS su Meta è raddoppiato in 60 giorni."</p>
+          <p style="font-size:16px;color:#d4d0dd;line-height:1.65;font-style:italic;margin:0;">"Con i presenter virtuali pubblichiamo 10 video a settimana invece di 3 al mese. Il ROAS su Meta è raddoppiato in 60 giorni."</p>
           <div>
             <div style="font-size:14px;font-weight:600;">Elena S.</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.35);">E-Commerce Fashion Manager</div>
@@ -848,7 +848,7 @@
         </div>
         <div class="glass" style="padding:32px;border-radius:20px;display:flex;flex-direction:column;gap:16px;">
           <div style="font-size:28px;">🚀</div>
-          <p style="font-size:16px;color:#d4d0dd;line-height:1.65;font-style:italic;margin:0;">"Il lip sync is perfetto, le voci italiane sono naturali. I clienti non si accorgono che è AI."</p>
+          <p style="font-size:16px;color:#d4d0dd;line-height:1.65;font-style:italic;margin:0;">"Il lip sync è perfetto, le voci italiane sono naturali. I clienti non si accorgono che è AI."</p>
           <div>
             <div style="font-size:14px;font-weight:600;">Luca M.</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.35);">Media Buyer Agency</div>
@@ -859,7 +859,7 @@
   </section>
 
 
-  <!-- PREZZI -->
+  <!-- PREZZI (FIX WORDING: "UGC ad alte conversioni") -->
 <section id="prezzi" style="position:relative;z-index:1;padding:0 24px 100px;">
   <div class="reveal" style="max-width:760px;margin:0 auto;">
 
@@ -869,7 +869,7 @@
         <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c084fc;">Nessun abbonamento · Nessun anticipo</span>
       </div>
       <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;line-height:1.1;">
-        Un influencer virtuale.<br><span class="grad-text">A partire da €49.</span>
+        Video UGC ad alte conversioni.<br><span class="grad-text">A partire da €49 a video.</span>
       </h2>
       <p style="margin-top:16px;font-size:15px;color:rgba(255,255,255,0.35);line-height:1.6;">
         Gli influencer reali costano <s style="color:rgba(255,255,255,0.2);">€500–1.500 a video</s>, richiedono settimane e non garantiscono risultati.<br>
@@ -983,7 +983,7 @@
             Parte di un ecosistema<br><span class="grad-text">di 9 prodotti AI.</span>
           </h2>
           <p style="font-size:clamp(15px,2vw,18px);color:#d4d0dd;font-weight:300;line-height:1.65;">
-            Vision UGC è Sviluppato da <strong style="color:rgba(255,255,255,0.85);font-weight:600;">Riccardo Modena</strong> di RM Studio, un lab di ingegneria software che progetta soluzioni AI verticali per automatizzare i processi commerciali B2B.
+            Vision UGC è sviluppato da <strong style="color:rgba(255,255,255,0.85);font-weight:600;">Riccardo Modena</strong> di RM Studio, un lab di ingegneria software che progetta soluzioni AI verticali per automatizzare i processi commerciali B2B.
           </p>
           <p style="font-size:clamp(15px,2vw,18px);color:#a1a1aa;font-weight:300;line-height:1.65;">
             Come dimostrato dallo <a href="https://hci.stanford.edu/" target="_blank" rel="noopener" style="color:#a855f7;text-decoration:underline;text-underline-offset:3px;">Stanford HCI Group</a>, l'uso di volti virtuali fotorealistici incrementa la fiducia del consumatore e migliora le metriche di interazione fino al 41%.
@@ -1127,13 +1127,13 @@
             </div>
       </div>
       <div style="padding:12px;border-top:1px solid rgba(124,58,237,0.15);display:flex;gap:8px;background:#140520;flex-shrink:0;">
-          <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." style="flex:1;border:1px solid rgba(124,58,237,0.2);border-radius:10px;padding:8px 12px;font-size:14px;color:#ffffff;background:#050008;outline:none;font-family:'Inter',sans-serif;">
+          <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." style="flex:1;border:1px solid rgba(124,58,237,0.2);border-radius:10px;padding:8px 12px;font-size:16px;color:#ffffff;background:#050008;outline:none;font-family:'Inter',sans-serif;">
           <button id="vision-chat-submit" style="background:linear-gradient(135deg,#7c3aed,#e040fb);color:#ffffff;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;padding:0 16px;display:flex;align-items:center;justify-content:center;">Invia</button>
       </div>
   </div>
 
 
-  <!-- FULLSCREEN OVERLAY -->
+  <!-- FULLSCREEN OVERLAY (Usato come fallback per Desktop) -->
   <div id="fs-overlay" onclick="closeFullscreen()" style="display: none; position: fixed; inset: 0; z-index: 99999999; background: rgba(0,0,0,0.96); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column;">
     <div style="position:relative;width:min(360px,88vw);border:10px solid #1c0e2b;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(124,58,237,0.3);" onclick="event.stopPropagation()">
       <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:80px;height:16px;background:#1c0e2b;border-radius:12px;z-index:30;"></div>
@@ -1233,7 +1233,7 @@
     }
   });
 
-// ══ VIDEO — DESKTOP hover audio, MOBILE tap native fullscreen ══
+// ══ VIDEO — DESKTOP hover audio, MOBILE tap native fullscreen with automatic close ══
 
 const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
@@ -1246,12 +1246,34 @@ function openFullscreen(videoId, handle, caption) {
   const sourceVideo = document.getElementById(videoId);
   if (!sourceVideo) return;
 
-  // ── SOLUZIONE IBRIDA NATIVA MOBILE ──
-  // Per evitare lag, crash e caricamenti "neri" infiniti su Safari Mobile,
-  // usiamo l'API nativa a schermo intero del sistema operativo.
+  // ── SOLUZIONE MOBILE NATIVA E INTELLIGENTE ──
+  // Per evitare ritardi di buffering e anomalie grafiche, usiamo l'API nativa.
+  // In più, agganciamo i trigger per uscire dallo schermo intero non appena viene premuto PAUSA o il video FINISCE.
   if (isTouchDevice) {
     sourceVideo.muted = false;
     sourceVideo.volume = 1;
+
+    // Chiudi lo schermo intero in automatico se l'utente mette in pausa o il video termina
+    const exitOnControl = () => {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(()=>{});
+      } else if (sourceVideo.webkitExitFullscreen) {
+        sourceVideo.webkitExitFullscreen();
+      }
+    };
+
+    // Ri-mutiamo il video quando esce dallo schermo intero per non disturbare la navigazione
+    const onExitFullscreen = () => {
+      sourceVideo.muted = true;
+      sourceVideo.removeEventListener('pause', exitOnControl);
+      sourceVideo.removeEventListener('ended', exitOnControl);
+      sourceVideo.removeEventListener('webkitendfullscreen', onExitFullscreen);
+    };
+
+    sourceVideo.addEventListener('pause', exitOnControl);
+    sourceVideo.addEventListener('ended', exitOnControl);
+    sourceVideo.addEventListener('webkitendfullscreen', onExitFullscreen);
+
     if (sourceVideo.webkitEnterFullscreen) {
       sourceVideo.webkitEnterFullscreen();
     } else if (sourceVideo.requestFullscreen) {
@@ -1262,7 +1284,7 @@ function openFullscreen(videoId, handle, caption) {
     return;
   }
 
-  // ── OVERLAY CUSTOM DESKTOP (Veloce e sfocato) ──
+  // ── OVERLAY CUSTOM DESKTOP ──
   const fsVideo     = document.getElementById('fs-video');
   const overlay     = document.getElementById('fs-overlay');
   if (!fsVideo || !overlay) return;
@@ -1307,6 +1329,15 @@ function closeFullscreen() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreen(); });
+
+// Configura i listener di chiusura per i cambi di stato fullscreen generali (es. Android)
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) {
+    document.querySelectorAll('.phone-container video').forEach(v => {
+      v.muted = true;
+    });
+  }
+});
 
 // ── DESKTOP ONLY: setup hover audio ──────────
 function setupDesktopHover(videoEl, hintEl) {
