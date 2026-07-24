@@ -18,7 +18,7 @@ p, label, input, textarea, button {
   font-size: 18px;
 }
 
-/* SFONDO VIVO E COLORATO IN PURO CSS (0% CARICO GPU) */
+/* SFONDO VIVO, COLORATO E LUMINOSO IN PURO CSS (0% CARICO DECODER VIDEO) */
 @keyframes float-blob1 {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(80px, 50px) scale(1.18); }
@@ -160,7 +160,7 @@ p, label, input, textarea, button {
   transform: translateX(-50%) scale(1.08);
 }
 
-/* MARQUEE TICKER SCORREVOLE CONTINUO SENZA VUOTI */
+/* MARQUEE TICKER SCORREVOLE 100% CONTINUO E SENZA GAP */
 .marquee {
   display: flex;
   overflow: hidden;
@@ -193,6 +193,163 @@ p, label, input, textarea, button {
   border: 1px solid rgba(124,58,237,0.25);
   padding: 20px 24px; border-radius: 20px;
   width: 340px; flex-shrink: 0; text-align: left;
+}
+
+/* ─── STILI WIDGET ORBITALE SINCRO (IDENTICO A DENTIS) ─── */
+@keyframes orbit-rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes counter-rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+@keyframes pulse-ring-optimized {
+  0%, 100% { opacity: 0.2; transform: scale(0.95); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
+
+.orbit-area {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.orbit-ring {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.15);
+  animation: orbit-rotation 40s linear infinite;
+  z-index: 10 !important;
+  transform-style: preserve-3d !important;
+  perspective: 1000px !important;
+}
+
+.orbit-area:hover .orbit-ring,
+.orbit-area:hover .orbit-item {
+  animation-play-state: paused;
+}
+
+.orbit-wrapper {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d !important;
+  transition: transform 0.3s ease-in-out !important;
+}
+
+.orbit-wrapper:hover {
+  z-index: 1000 !important;
+  transform: translate(-50%, -50%) translateZ(150px) !important;
+}
+
+.orbit-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: counter-rotation 40s linear infinite;
+  transform-origin: center;
+}
+
+.orbit-link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-sizing: border-box;
+  transition: 0.3s;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.orbit-link:hover {
+  border-color: #e040fb;
+  box-shadow: 0 0 15px rgba(224, 64, 251, 0.4);
+}
+
+.orbit-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.orbit-img.cover { object-fit: cover; }
+
+.orbit-center-photo {
+  position: absolute;
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+  border: 4px solid #7c3aed;
+  padding: 4px;
+  background: #000;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+  z-index: 2 !important;
+  box-sizing: border-box;
+}
+
+.orbit-center-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.orbit-tooltip {
+  position: absolute !important;
+  bottom: 85px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 210px !important;
+  background: #060b19 !important;
+  border: 1px solid rgba(124, 58, 237, 0.3) !important;
+  color: #94a3b8 !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out !important;
+  text-align: center !important;
+  z-index: 99999 !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important;
+  line-height: 1.4 !important;
+}
+
+.orbit-tooltip b {
+  color: #ffffff !important;
+  display: block !important;
+  margin-bottom: 4px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.orbit-item:hover .orbit-tooltip,
+.orbit-wrapper:hover .orbit-tooltip {
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(-4px) !important;
+}
+
+.pulse-ring-element {
+  position: absolute;
+  width: 288px;
+  height: 288px;
+  background-color: rgba(124, 58, 237, 0.08);
+  filter: blur(48px);
+  border-radius: 9999px;
+  will-change: transform, opacity;
+  animation: pulse-ring-optimized 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* PULSANTI */
