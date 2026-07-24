@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* REGOLA FONT MINIMO 18PX (GOOGLE MOBILE COMPLIANCE) */
+/* REGOLA FONT MINIMO 18PX */
 html, body {
   overflow-x: hidden !important;
   max-width: 100% !important;
@@ -70,7 +70,7 @@ p, label, input, textarea, button {
   pointer-events: none;
 }
 
-/* GLASS PANELS SENZA BACKDROP-FILTER BLUR PER EVITARE SCATTI GRAFICI */
+/* GLASS PANELS SENZA BACKDROP-FILTER BLUR PER MASSIMA FLUIDITÀ VIDEO */
 .glass {
   background: rgba(14, 8, 28, 0.95);
   border: 1px solid rgba(255,255,255,0.08);
@@ -93,7 +93,7 @@ p, label, input, textarea, button {
   backface-visibility: hidden;
 }
 
-/* SMARTPHONE MOCKUPS SENZA OVERFLOW:HIDDEN PER EVITARE IL BUG DI CHROME */
+/* SMARTPHONE MOCKUPS SENZA BUG DI CHROME */
 .phone-container {
   position: relative;
   width: 100%;
@@ -123,7 +123,6 @@ p, label, input, textarea, button {
   z-index: 30;
 }
 
-/* BORDER RADIUS APPLICATO DIRETTAMENTE SUL VIDEO = HARDWARE GPU DIRECTCOMPOSITION */
 .phone-container video {
   width: 100%; height: 100%;
   object-fit: cover; display: block;
