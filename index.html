@@ -55,7 +55,7 @@
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- SFONDO AMBIENT NEON MESH LEGGERISSIMO -->
+  <!-- SFONDO AMBIENT NEON MESH LUMINOSO IN PURO CSS -->
   <div aria-hidden="true" class="fixed inset-0 z-0 pointer-events-none overflow-hidden" style="isolation: isolate;">
     <div class="ambient-glow blob-1"></div>
     <div class="ambient-glow blob-2"></div>
@@ -116,18 +116,18 @@
         </div>
       </div>
 
-      <!-- Right Smartphone Mockups (Video con caricamento leggero per massima fluidità) -->
+      <!-- Right Smartphone Mockups con Video Reali VISIBILI SUBITO -->
       <div id="esempi" class="grid grid-cols-2 gap-4 relative">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/UGC_Lumiere_Completo.mp4', '@lumiere_beauty', 'Trattamento viso rigenerante Lumière ✨🧴 #skincare #beauty')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" data-src="/public/video/UGC_Lumiere_Completo.mp4" loop muted playsinline preload="none"></video>
+          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" autoplay loop muted playsinline preload="auto"></video>
           <div class="vid-label">Lumière • Beauty Skin</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container mt-8" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/Houseboat_Compresso_5.mp4', '@houseboat_chioggia', 'Vacanze uniche in Houseboat a Chioggia! 🚤🌅 #travel #vacanze')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" data-src="/public/video/Houseboat_Compresso_5.mp4" loop muted playsinline preload="none"></video>
+          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" autoplay loop muted playsinline preload="auto"></video>
           <div class="vid-label">Houseboat • Chioggia</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -166,21 +166,21 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v1.mp4', '@camilla_yoga', 'My morning routine stretch! 🧘‍♀️ #fitness')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" data-src="/public/video/v1.mp4" loop muted playsinline preload="none"></video>
+          <video class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Fitness</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/promo_super_bici_completo.mp4', '@kayla_bike', 'Questa bici è pazzesca! Leggerissima! 🚴‍♀️')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" data-src="/public/video/promo_super_bici_completo.mp4" loop muted playsinline preload="none"></video>
+          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Kayla • E-Bike</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v5_ita.mp4', '@swatch_review', 'Nuova collezione Swatch! 😍⌚ #unboxing')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" data-src="/public/video/v5_ita.mp4" loop muted playsinline preload="none"></video>
+          <video class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Tech & Style</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -336,7 +336,6 @@
       <h2 class="text-2xl font-bold mb-2">Powered by <span class="grad-text">RM Studio</span></h2>
       <p class="text-xs text-gray-400 mb-8">Sistemi autonomi ed ingegneria software per l'automazione B2B.</p>
       
-      <!-- CONTENITORE DOVE SCRIPT.JS INIETTA IL FILE ESTERNO DA GITHUB -->
       <div id="orbit-container" class="orbit-area relative min-h-[440px] flex items-center justify-center">
           <p class="text-xs text-gray-500 animate-pulse">Caricamento Ecosistema RM Studio...</p>
       </div>
@@ -412,7 +411,7 @@
     <p class="mt-4 text-xs text-gray-400 tracking-wider uppercase cursor-pointer">CLICCA OVUNQUE PER CHIUDERE ✕</p>
   </div>
 
-  <!-- CHATBOT AI VIVO (STILE FF-EDIZIONI - APERTO DI DEFAULT) -->
+  <!-- CHATBOT AI VIVO -->
   <div id="chatbot-window-wrapper">
       <div class="chatbot-header" onclick="toggleChatWindow()">
           <img src="https://rmstudio.app/public/loghi/logo_vision.png" class="chatbot-avatar" alt="Camilla AI">
