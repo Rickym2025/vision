@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* FONT MINIMO 18PX */
+/* REGOLA FONT MINIMO 18PX (GOOGLE MOBILE COMPLIANCE) */
 html, body {
   overflow-x: hidden !important;
   max-width: 100% !important;
@@ -160,7 +160,7 @@ p, label, input, textarea, button {
   transform: translateX(-50%) scale(1.08);
 }
 
-/* MARQUEE TICKER 100% FLUIDO, CONTINUO E SENZA GAP */
+/* MARQUEE TICKER SCORREVOLE 100% CONTINUO E SENZA GAP */
 .marquee {
   display: flex;
   overflow: hidden;
@@ -270,5 +270,4 @@ p, label, input, textarea, button {
 .chat-chip:hover { background: #7c3aed; color: #fff; }
 
 .chatbot-input-bar { padding: 10px; background: #181820; display: flex; gap: 8px; border-top: 1px solid rgba(255,255,255,0.1); }
-.chatbot-input-bar input { flex: 1; background: #000; border: 1px solid #333; border-radius: 18px; padding: 8px 14px; color: #fff; font-size: 15px; outline: none; }
-.chatbot-input-bar button { background: #7c3aed; color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+.chatbot-input-bar input { flex: 1; background: #000; border: 1px solid #333
