@@ -2,7 +2,7 @@
 // FUNZIONI GLOBALI SU WINDOW
 // ==========================================
 
-// ── FULLSCREEN MODAL VIDEO PLAYER ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE ANTI-SCATTI DEFINITIVA) ──
 window.openFullscreenModal = function(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -11,7 +11,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti gli altri video della pagina per dedicare la GPU al 100% al video aperto
+  // 1. Mette in PAUSA tutti gli altri video per dedicare la GPU al 100% al video aperto
   document.querySelectorAll('.phone-container video').forEach(v => {
     try { v.pause(); } catch(e) {}
   });
@@ -19,23 +19,23 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. Apri modale
+  // 2. Apri la modale visivamente
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Reset video e imposta caricamento buffer pulito
+  // 3. Reset sorgente video e imposta buffering pulito
   fsVideo.pause();
   fsVideo.removeAttribute('src');
   fsVideo.load();
 
   fsVideo.src = videoSrc;
-  fsVideo.currentTime = 0;
   fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
   fsVideo.volume = 1;
 
+  // Attende che ci siano abbastanza fotogrammi pronti prima del play
   const tryPlay = () => {
     fsVideo.play().catch(e => {
-      console.warn("Autoplay audio bloccato dal browser, riprovo in muted:", e);
+      console.warn("Autoplay audio bloccato, riprovo in muted:", e);
       fsVideo.muted = true;
       fsVideo.play().catch(() => {});
     });
@@ -155,19 +155,23 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // ── GESTIONE RIPRODUZIONE FLUIDA VIDEO MOCKUP (MAX 1 VIDEO PER VOLTA) ──
+  // ── GESTIONE RIPRODUZIONE INTELLIGENTE A VIDEO SINGOLO (0% SCATTI) ──
   const phoneVideos = document.querySelectorAll('.phone-container video');
   if ('IntersectionObserver' in window && phoneVideos.length > 0) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting) {
+          // Riproduce SOLO il video centrato a schermo e ferma tutti gli altri
+          phoneVideos.forEach(v => { if (v !== video) v.pause(); });
           video.play().catch(() => {});
         } else {
           video.pause();
         }
       });
-    }, { threshold: 0.25 });
+    }, { 
+      threshold: 0.5 
+    });
 
     phoneVideos.forEach(v => videoObserver.observe(v));
   }
