@@ -55,22 +55,14 @@
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- BACKGROUND VIDEO -->
-  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none hidden md:block">
-      <video autoplay muted loop playsinline preload="none" id="main-bg-video" class="gpu-video w-full h-full object-cover opacity-15">
-            <source src="/public/video/background.mp4" type="video/mp4">
-      </video>
-      <div class="absolute inset-0 bg-gradient-to-b from-ink/95 via-ink/60 to-ink"></div>
-  </div>
-
-  <!-- AMBIENT BLOBS -->
+  <!-- AMBIENT NEON BACKGROUND (LEGGERISSIMO, ZERO CARICO GPU) -->
   <div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
-    <div class="blob" style="width:600px;height:600px;background:rgba(124,58,237,0.12);top:-150px;left:-150px;"></div>
-    <div class="blob" style="width:500px;height:500px;background:rgba(224,64,251,0.08);bottom:-100px;right:-100px;"></div>
+    <div class="blob" style="width:650px;height:600px;background:rgba(124,58,237,0.14);top:-150px;left:-150px;"></div>
+    <div class="blob" style="width:550px;height:550px;background:rgba(224,64,251,0.1);bottom:-100px;right:-100px;"></div>
   </div>
 
   <!-- NAVBAR -->
-  <header class="fixed top-0 inset-x-0 p-3 sm:p-4 z-50 backdrop-blur-md bg-black/30 border-b border-white/5">
+  <header class="fixed top-0 inset-x-0 p-3 sm:p-4 z-50 backdrop-blur-md bg-black/40 border-b border-white/5">
     <nav class="glass max-w-6xl mx-auto rounded-2xl px-4 py-3 flex items-center justify-between gap-2">
       <a href="#" class="flex items-center gap-2 shrink-0">
         <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" class="h-8 w-auto object-contain">
@@ -122,18 +114,18 @@
         </div>
       </div>
 
-      <!-- Right Smartphone Mockups -->
+      <!-- Right Smartphone Mockups con Video Reali FLUIDI -->
       <div id="esempi" class="grid grid-cols-2 gap-4 relative">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/UGC_Lumiere_Completo.mp4', '@lumiere_beauty', 'Trattamento viso rigenerante Lumière ✨🧴 #skincare #beauty')">
           <div class="phone-notch"></div>
-          <video class="gpu-video lazy-video" data-src="/public/video/UGC_Lumiere_Completo.mp4" autoplay loop muted playsinline></video>
+          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Lumière • Beauty Skin</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container mt-8" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/Houseboat_Compresso_5.mp4', '@houseboat_chioggia', 'Vacanze uniche in Houseboat a Chioggia! 🚤🌅 #travel #vacanze')">
           <div class="phone-notch"></div>
-          <video class="gpu-video lazy-video" data-src="/public/video/Houseboat_Compresso_5.mp4" autoplay loop muted playsinline></video>
+          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Houseboat • Chioggia</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -172,34 +164,34 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v1.mp4', '@camilla_yoga', 'My morning routine stretch! 🧘‍♀️ #fitness')">
           <div class="phone-notch"></div>
-          <video class="gpu-video lazy-video" data-src="/public/video/v1.mp4" autoplay loop muted playsinline></video>
+          <video class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Fitness</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/promo_super_bici_completo.mp4', '@kayla_bike', 'Questa bici è pazzesca! Leggerissima! 🚴‍♀️')">
           <div class="phone-notch"></div>
-          <video class="gpu-video lazy-video" data-src="/public/video/promo_super_bici_completo.mp4" autoplay loop muted playsinline></video>
+          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Kayla • E-Bike</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v5_ita.mp4', '@swatch_review', 'Nuova collezione Swatch! 😍⌚ #unboxing')">
           <div class="phone-notch"></div>
-          <video class="gpu-video lazy-video" data-src="/public/video/v5_ita.mp4" autoplay loop muted playsinline></video>
+          <video class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Tech & Style</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
       </div>
   </section>
 
-  <!-- STRISCIA CONTINUA RECENSIONI -->
+  <!-- STRISCIA CONTINUA RECENSIONI SENZA VUOTI (TECNICA A DOPPIO TRACCIATO) -->
   <section class="relative z-10 py-14 overflow-hidden bg-black/40 border-y border-white/5">
       <div class="text-center mb-8">
         <h3 class="text-sm font-bold uppercase tracking-widest text-purple-400">Cosa dicono i nostri clienti</h3>
       </div>
-      <div class="marquee-container">
-          <div class="marquee-track">
+      <div class="marquee">
+          <div class="marquee-content">
               <div class="review-card">
                   <div class="text-yellow-400 text-base mb-2">★★★★★</div>
                   <p class="text-sm text-gray-200 italic leading-relaxed">"Abbiamo sostituito i creatori tradizionali con Vision. Pubblichiamo 10 video a settimana invece di 2. Vendite raddoppiate su Meta."</p>
@@ -220,7 +212,10 @@
                   <p class="text-sm text-gray-200 italic leading-relaxed">"Un risparmio incredibile su set e modelle. I video sono puliti e pronti per le campagne adv."</p>
                   <span class="text-xs font-bold text-purple-300 mt-3 block">Matteo P. • Marketing Director</span>
               </div>
-              <!-- DUPLICAZIONE CONTINUA -->
+          </div>
+          
+          <!-- SECONDO TRACCIATO IDENTICO PER UN LOOP INFINITO SENZA VUOTI -->
+          <div class="marquee-content" aria-hidden="true">
               <div class="review-card">
                   <div class="text-yellow-400 text-base mb-2">★★★★★</div>
                   <p class="text-sm text-gray-200 italic leading-relaxed">"Abbiamo sostituito i creatori tradizionali con Vision. Pubblichiamo 10 video a settimana invece di 2. Vendite raddoppiate su Meta."</p>
@@ -230,6 +225,16 @@
                   <div class="text-yellow-400 text-base mb-2">★★★★★</div>
                   <p class="text-sm text-gray-200 italic leading-relaxed">"Spedire campioni in tutta Europa richiedeva 3 settimane. Con l'attore digitale abbiamo il video pronto in 24 ore."</p>
                   <span class="text-xs font-bold text-purple-300 mt-3 block">Elena R. • Brand Manager</span>
+              </div>
+              <div class="review-card">
+                  <div class="text-yellow-400 text-base mb-2">★★★★★</div>
+                  <p class="text-sm text-gray-200 italic leading-relaxed">"Qualità video impressionante. Il lip sync in italiano è naturale e performa benissimo su TikTok Ads."</p>
+                  <span class="text-xs font-bold text-purple-300 mt-3 block">Gianluca T. • Media Buyer Agency</span>
+              </div>
+              <div class="review-card">
+                  <div class="text-yellow-400 text-base mb-2">★★★★★</div>
+                  <p class="text-sm text-gray-200 italic leading-relaxed">"Un risparmio incredibile su set e modelle. I video sono puliti e pronti per le campagne adv."</p>
+                  <span class="text-xs font-bold text-purple-300 mt-3 block">Matteo P. • Marketing Director</span>
               </div>
           </div>
       </div>
@@ -325,7 +330,7 @@
     </div>
   </section>
 
-  <!-- ECOSISTEMA ORBIT VIA IFRAME ESTERNO CENTRALE (SENZA ERRORE CORS) -->
+  <!-- ECOSISTEMA ORBIT VIA IFRAME ESTERNO CENTRALE (IMMUNE DA CORS) -->
   <section id="ecosistema" class="relative z-10 py-20 px-4 max-w-5xl mx-auto text-center border-t border-white/5">
       <h2 class="text-2xl font-bold mb-2">Powered by <span class="grad-text">RM Studio</span></h2>
       <p class="text-xs text-gray-400 mb-8">Sistemi autonomi ed ingegneria software per l'automazione B2B.</p>
@@ -405,7 +410,7 @@
     <p class="mt-4 text-xs text-gray-400 tracking-wider uppercase cursor-pointer">CLICCA OVUNQUE PER CHIUDERE ✕</p>
   </div>
 
-  <!-- CHATBOT AI VIVO (STILE FF-EDIZIONI - APERTO DI DEFAULT) -->
+  <!-- CHATBOT AI VIVO (SENZA LA PAROLA OGGI NEL SALUTO) -->
   <div id="chatbot-window-wrapper">
       <div class="chatbot-header" onclick="toggleChatWindow()">
           <img src="https://rmstudio.app/public/loghi/logo_vision.png" class="chatbot-avatar" alt="Camilla AI">
