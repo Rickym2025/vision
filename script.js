@@ -1,8 +1,8 @@
 // ==========================================
-// FUNZIONI GLOBALI SU WINDOW (Nessun Errore ReferenceError)
+// FUNZIONI GLOBALI SU WINDOW (Nessun Errore)
 // ==========================================
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (100% FLUIDO CON AUDIO COMPLETO) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE ANTI-SCATTI DEFINITIVA) ──
 window.openFullscreenModal = function(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -26,7 +26,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   // 3. Riproduzione del video selezionato con audio al 100%
   fsVideo.src = videoSrc;
   fsVideo.currentTime = 0;
-  fsVideo.muted = false; // AUDIO COMPLETO
+  fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
   fsVideo.volume = 1;
 
   fsVideo.play().catch(e => {
@@ -46,7 +46,7 @@ window.closeFullscreenModal = function() {
     fsVideo.src = '';
   }
 
-  // Riprende la riproduzione fluida dei video nei telefoni visibili
+  // Riprende la riproduzione del video attualmente visibile al centro dello schermo
   document.querySelectorAll('.phone-container video').forEach(v => {
     try {
       const rect = v.getBoundingClientRect();
@@ -129,19 +129,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // RIPRODUZIONE INTELLIGENTE DEI VIDEO VISIBILI
+  // RIPRODUZIONE INTELLIGENTE DEI VIDEO (MAX 1 ALLA VOLTA)
   const phoneVideos = document.querySelectorAll('.phone-container video');
   if ('IntersectionObserver' in window && phoneVideos.length > 0) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting) {
+          // Mette in pausa gli altri prima di far partire questo
+          phoneVideos.forEach(v => { if (v !== video) v.pause(); });
           video.play().catch(() => {});
         } else {
           video.pause();
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.6 }); // Gioca solo quando la scheda è al centro dello schermo
 
     phoneVideos.forEach(v => videoObserver.observe(v));
   }
