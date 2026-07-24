@@ -18,54 +18,55 @@ p, label, input, textarea, button {
   font-size: 18px;
 }
 
-/* SFONDO VIVO, COLORATO E LUMINOSO IN PURO CSS (0% CARICO DECODER VIDEO) */
+/* SFONDO VIVO IN PURO CSS CON BLUR RIDOTTO A 50PX ED ISOLAMENTO COMPOSITING */
 @keyframes float-blob1 {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(80px, 50px) scale(1.18); }
-  100% { transform: translate(-40px, 30px) scale(0.92); }
+  50% { transform: translate(60px, 40px) scale(1.15); }
+  100% { transform: translate(-30px, 20px) scale(0.92); }
 }
 
 @keyframes float-blob2 {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-70px, -60px) scale(1.22); }
-  100% { transform: translate(30px, -20px) scale(0.95); }
+  50% { transform: translate(-50px, -40px) scale(1.18); }
+  100% { transform: translate(20px, -15px) scale(0.95); }
 }
 
 .ambient-glow {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(100px);
+  filter: blur(50px); /* Ridotto a 50px per azzerare lo sforzo della GPU */
   pointer-events: none;
-  opacity: 0.28;
-  will-change: transform;
+  opacity: 0.25;
+  transform: translateZ(0);
+  contain: strict;
 }
 
 .blob-1 {
-  width: 700px; height: 700px;
+  width: 650px; height: 650px;
   background: radial-gradient(circle, #7c3aed 0%, #e040fb 100%);
-  top: -150px; left: -150px;
-  animation: float-blob1 14s ease-in-out infinite alternate;
+  top: -100px; left: -100px;
+  animation: float-blob1 16s ease-in-out infinite alternate;
 }
 
 .blob-2 {
-  width: 650px; height: 650px;
+  width: 600px; height: 600px;
   background: radial-gradient(circle, #a855f7 0%, #00e5f2 100%);
-  bottom: 5%; right: -100px;
-  animation: float-blob2 18s ease-in-out infinite alternate;
+  bottom: 5%; right: -80px;
+  animation: float-blob2 20s ease-in-out infinite alternate;
 }
 
 .blob-3 {
-  width: 500px; height: 500px;
+  width: 450px; height: 450px;
   background: radial-gradient(circle, #e040fb 0%, #6366f1 100%);
-  top: 40%; left: 25%;
-  animation: float-blob1 20s ease-in-out infinite reverse;
+  top: 45%; left: 20%;
+  animation: float-blob1 22s ease-in-out infinite reverse;
 }
 
 .blob-4 {
-  width: 450px; height: 450px;
+  width: 400px; height: 400px;
   background: radial-gradient(circle, #7c3aed 0%, #00e5f2 100%);
-  bottom: -150px; left: 10%;
-  animation: float-blob2 16s ease-in-out infinite;
+  bottom: -100px; left: 10%;
+  animation: float-blob2 18s ease-in-out infinite;
 }
 
 .ambient-grid-overlay {
@@ -88,7 +89,6 @@ p, label, input, textarea, button {
   -webkit-text-fill-color: transparent;
 }
 
-/* ACCELERAZIONE GPU NATIVA PER VIDEO */
 .gpu-video {
   transform: translate3d(0, 0, 0);
   will-change: transform;
@@ -160,7 +160,7 @@ p, label, input, textarea, button {
   transform: translateX(-50%) scale(1.08);
 }
 
-/* MARQUEE TICKER SCORREVOLE 100% CONTINUO E SENZA GAP */
+/* MARQUEE TICKER SCORREVOLE CONTINUO */
 .marquee {
   display: flex;
   overflow: hidden;
@@ -195,13 +195,94 @@ p, label, input, textarea, button {
   width: 340px; flex-shrink: 0; text-align: left;
 }
 
-/* BASE ORBIT CONTAINER */
+/* ─── CLASSI BASE DELL'ORBIT SYSTEM (Senza di queste il template scaricato risultava sparpagliato) ─── */
 .orbit-area {
   position: relative;
+  min-height: 440px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 440px;
+}
+
+.orbit-ring {
+  position: relative;
+  width: 440px;
+  height: 440px;
+  margin: 0 auto;
+}
+
+.orbit-wrapper {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  transform: translate(-50%, -50%);
+}
+
+.orbit-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.orbit-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 229, 242, 0.25);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.orbit-link:hover {
+  box-shadow: 0 0 20px rgba(0, 229, 242, 0.5);
+}
+
+.orbit-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+.orbit-img.cover { object-fit: cover; }
+
+.orbit-center-photo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(124, 58, 237, 0.5);
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.35);
+}
+
+.orbit-center-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pulse-ring-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(0, 229, 242, 0.3);
+  border-radius: 50%;
+  animation: pulse-ring 3s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%   { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  70%  { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
 }
 
 /* PULSANTI */
