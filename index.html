@@ -31,10 +31,11 @@
 
     <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
 
-    <!-- Fonts -->
+    <!-- Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -56,7 +57,7 @@
 
   <!-- BACKGROUND VIDEO -->
   <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none hidden md:block">
-      <video autoplay muted loop playsinline preload="none" class="gpu-video w-full h-full object-cover opacity-15">
+      <video autoplay muted loop playsinline preload="none" id="main-bg-video" class="gpu-video w-full h-full object-cover opacity-15">
             <source src="/public/video/background.mp4" type="video/mp4">
       </video>
       <div class="absolute inset-0 bg-gradient-to-b from-ink/95 via-ink/60 to-ink"></div>
@@ -102,7 +103,7 @@
 
         <h1 class="font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight">
           Attori Digitali per il tuo Brand.<br>
-          <span class="grad-text">Zero Spedizioni. ROAS Raddoppiato.</span>
+          <span class="grad-text">Zero Spedizioni. Vendite Raddoppiate.</span>
         </h1>
 
         <p class="text-gray-300 text-lg font-light leading-relaxed">
@@ -150,7 +151,7 @@
       </div>
       <div>
         <div class="text-4xl font-extrabold text-purple-400">+110%</div>
-        <div class="text-sm text-gray-400 mt-1 uppercase tracking-wider">Incremento ROAS Medio</div>
+        <div class="text-sm text-gray-400 mt-1 uppercase tracking-wider">Aumento Vendite Inserzioni</div>
       </div>
       <div>
         <div class="text-4xl font-extrabold text-purple-400">24 Ore</div>
@@ -192,17 +193,16 @@
       </div>
   </section>
 
-  <!-- STRISCIA CONTINUA RECENSIONI SENZA VUOTI (MARQUEE TICKER 100% CONTINUO) -->
+  <!-- STRISCIA CONTINUA RECENSIONI -->
   <section class="relative z-10 py-14 overflow-hidden bg-black/40 border-y border-white/5">
       <div class="text-center mb-8">
         <h3 class="text-sm font-bold uppercase tracking-widest text-purple-400">Cosa dicono i nostri clienti</h3>
       </div>
       <div class="marquee-container">
           <div class="marquee-track">
-              <!-- SERIE 1 -->
               <div class="review-card">
                   <div class="text-yellow-400 text-base mb-2">★★★★★</div>
-                  <p class="text-sm text-gray-200 italic leading-relaxed">"Abbiamo sostituito i creatori tradizionali con Vision. Pubblichiamo 10 video a settimana invece di 2. ROAS raddoppiato su Meta."</p>
+                  <p class="text-sm text-gray-200 italic leading-relaxed">"Abbiamo sostituito i creatori tradizionali con Vision. Pubblichiamo 10 video a settimana invece di 2. Vendite raddoppiate su Meta."</p>
                   <span class="text-xs font-bold text-purple-300 mt-3 block">Alessandro M. • E-Commerce Founder</span>
               </div>
               <div class="review-card">
@@ -220,27 +220,16 @@
                   <p class="text-sm text-gray-200 italic leading-relaxed">"Un risparmio incredibile su set e modelle. I video sono puliti e pronti per le campagne adv."</p>
                   <span class="text-xs font-bold text-purple-300 mt-3 block">Matteo P. • Marketing Director</span>
               </div>
-
-              <!-- DUPLICAZIONE ESATTA PER RISOLVERE IL VUOTO -->
+              <!-- DUPLICAZIONE CONTINUA -->
               <div class="review-card">
                   <div class="text-yellow-400 text-base mb-2">★★★★★</div>
-                  <p class="text-sm text-gray-200 italic leading-relaxed">"Abbiamo sostituito i creatori tradizionali con Vision. Pubblichiamo 10 video a settimana invece di 2. ROAS raddoppiato su Meta."</p>
+                  <p class="text-sm text-gray-200 italic leading-relaxed">"Abbiamo sostituito i creatori tradizionali con Vision. Pubblichiamo 10 video a settimana invece di 2. Vendite raddoppiate su Meta."</p>
                   <span class="text-xs font-bold text-purple-300 mt-3 block">Alessandro M. • E-Commerce Founder</span>
               </div>
               <div class="review-card">
                   <div class="text-yellow-400 text-base mb-2">★★★★★</div>
                   <p class="text-sm text-gray-200 italic leading-relaxed">"Spedire campioni in tutta Europa richiedeva 3 settimane. Con l'attore digitale abbiamo il video pronto in 24 ore."</p>
                   <span class="text-xs font-bold text-purple-300 mt-3 block">Elena R. • Brand Manager</span>
-              </div>
-              <div class="review-card">
-                  <div class="text-yellow-400 text-base mb-2">★★★★★</div>
-                  <p class="text-sm text-gray-200 italic leading-relaxed">"Qualità video impressionante. Il lip sync in italiano è naturale e performa benissimo su TikTok Ads."</p>
-                  <span class="text-xs font-bold text-purple-300 mt-3 block">Gianluca T. • Media Buyer Agency</span>
-              </div>
-              <div class="review-card">
-                  <div class="text-yellow-400 text-base mb-2">★★★★★</div>
-                  <p class="text-sm text-gray-200 italic leading-relaxed">"Un risparmio incredibile su set e modelle. I video sono puliti e pronti per le campagne adv."</p>
-                  <span class="text-xs font-bold text-purple-300 mt-3 block">Matteo P. • Marketing Director</span>
               </div>
           </div>
       </div>
@@ -322,7 +311,7 @@
         <div class="glass p-6 rounded-xl">
           <span class="text-xs font-bold text-purple-400 uppercase">Step 04</span>
           <h4 class="font-bold text-white my-2 text-lg">Consegna HD</h4>
-          <p class="text-xs text-gray-400">Ricevi il file pronto per le tue campagne Ads.</p>
+          <p class="text-xs text-gray-300">Ricevi il file pronto per le tue campagne Ads.</p>
         </div>
       </div>
   </section>
@@ -336,18 +325,13 @@
     </div>
   </section>
 
-  <!-- ECOSISTEMA ORBIT NATIVO INLINE (SENZA ERRORE CORS) -->
+  <!-- ECOSISTEMA ORBIT VIA IFRAME ESTERNO CENTRALE (SENZA ERRORE CORS) -->
   <section id="ecosistema" class="relative z-10 py-20 px-4 max-w-5xl mx-auto text-center border-t border-white/5">
       <h2 class="text-2xl font-bold mb-2">Powered by <span class="grad-text">RM Studio</span></h2>
       <p class="text-xs text-gray-400 mb-8">Sistemi autonomi ed ingegneria software per l'automazione B2B.</p>
       
-      <div class="orbit-native-box">
-          <div class="orbit-center-node">RM STUDIO</div>
-          <div class="orbit-ring-line"></div>
-          <div class="orbit-badge b1">Vision UGC</div>
-          <div class="orbit-badge b2">HomeTour</div>
-          <div class="orbit-badge b3">DriveMotion</div>
-          <div class="orbit-badge b4">Concierge24</div>
+      <div class="w-full flex justify-center items-center overflow-hidden">
+          <iframe src="https://rmstudio.app/public/orbit-template.html" class="w-full h-[400px] border-0 overflow-hidden" loading="lazy"></iframe>
       </div>
   </section>
 
@@ -406,8 +390,8 @@
     </div>
   </footer>
 
-  <!-- FULLSCREEN MODAL PLAYER (PROTETTO E AD ALTA RISOLUZIONE) -->
-  <div id="fs-overlay" onclick="closeFullscreenModal()" class="fixed inset-0 z-[99999999] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4">
+  <!-- FULLSCREEN MODAL PLAYER (VELOCE E SENZA SCATTI) -->
+  <div id="fs-overlay" onclick="closeFullscreenModal()" class="fixed inset-0 z-[9999999] bg-black/95 hidden flex-col items-center justify-center p-4">
     <div class="relative w-full max-w-[340px] border-8 border-purple-950 rounded-[36px] overflow-hidden bg-black shadow-2xl" onclick="event.stopPropagation()">
       <div class="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-4 bg-purple-950 rounded-xl z-30"></div>
       
@@ -416,28 +400,35 @@
         <p id="fs-caption" class="text-xs text-gray-300 leading-snug"></p>
       </div>
 
-      <video id="fs-video" autoplay loop playsinline class="w-full aspect-[9/16] object-cover block"></video>
+      <video id="fs-video" autoplay loop playsinline class="w-full aspect-[9/16] object-cover block gpu-video"></video>
     </div>
     <p class="mt-4 text-xs text-gray-400 tracking-wider uppercase cursor-pointer">CLICCA OVUNQUE PER CHIUDERE ✕</p>
   </div>
 
-  <!-- CHATBOT WIDGET (APERTO DI DEFAULT) -->
-  <div id="vision-chat-bubble">💬</div>
-  <div id="vision-chat-window" class="chat-open">
-      <div class="chat-header" onclick="toggleChatWindow()">
-          <span class="font-bold text-white text-sm">Camilla AI • Vision</span>
-          <button id="vision-chat-close" class="text-gray-400 text-xl">&times;</button>
+  <!-- CHATBOT AI VIVO (STILE FF-EDIZIONI - APERTO DI DEFAULT) -->
+  <div id="chatbot-window-wrapper">
+      <div class="chatbot-header" onclick="toggleChatWindow()">
+          <img src="https://rmstudio.app/public/loghi/logo_vision.png" class="chatbot-avatar" alt="Camilla AI">
+          <div class="chatbot-header-text">
+              <div class="chatbot-header-name">Camilla AI • Vision</div>
+              <div class="chatbot-status"><i class="fas fa-circle"></i> Online</div>
+          </div>
+          <span id="chat-toggle-icon">&minus;</span>
       </div>
-      <div id="vision-chat-messages" class="chat-messages">
-          <div class="msg bot">Ciao! Sono Camilla, l'attrice digitale di Vision. Come posso aiutarti oggi?</div>
-          <div class="flex flex-col gap-2">
-            <span class="chat-chip" onclick="sendQuickMsg('Come funziona il processo di creazione?')">💬 Come funziona?</span>
-            <span class="chat-chip" onclick="sendQuickMsg('Quanto costa un video UGC?')">💰 Quanto costa?</span>
+      
+      <div id="chatbot-messages" class="chatbot-messages">
+          <div class="msg bot">
+            Ciao! 🎬 Sono Camilla, l'attrice digitale di Vision. Posso mostrarti i nostri video o guidarti nella creazione della tua prima campagna. Come posso aiutarti?
+            <div class="flex flex-col gap-1.5 mt-2">
+              <span class="chat-chip" onclick="sendQuickMsg('Come funziona il processo di creazione?')">💬 Come funziona?</span>
+              <span class="chat-chip" onclick="sendQuickMsg('Quanto costa un video UGC?')">💰 Quanto costa?</span>
+            </div>
           </div>
       </div>
-      <div class="chat-input-area">
-          <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio...">
-          <button id="vision-chat-submit">Invia</button>
+
+      <div class="chatbot-input-bar">
+          <input type="text" id="vision-chat-input" placeholder="Scrivi un messaggio..." onkeypress="if(event.key==='Enter') sendChatMsg()">
+          <button id="vision-chat-submit" onclick="sendChatMsg()"><i class="fas fa-paper-plane"></i></button>
       </div>
   </div>
 
