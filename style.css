@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* REGOLA FONT MINIMO 18PX (NEUROSCIENZE & REGOLA GOOGLE) */
+/* FONT MINIMO 18PX */
 html, body {
   overflow-x: hidden !important;
   max-width: 100% !important;
@@ -37,7 +37,7 @@ p, label, input, textarea, button {
   pointer-events: none;
 }
 
-/* OTTIMIZZAZIONE GPU PER ELIMINARE SCATTI */
+/* HARDWARE GPU OPTIMIZATION PER ELIMINARE SCATTI */
 .gpu-video {
   transform: translate3d(0, 0, 0);
   will-change: transform;
@@ -109,19 +109,32 @@ p, label, input, textarea, button {
   transform: translateX(-50%) scale(1.08);
 }
 
-/* MARQUEE TICKER SCORREVOLE CONTINUO */
-.marquee-container {
-  width: 100%; overflow: hidden; position: relative; padding: 15px 0;
+/* MARQUEE TICKER SCORREVOLE CONTINUO SENZA VUOTI */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 24px;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
-.marquee-track {
-  display: flex; gap: 24px; width: max-content;
-  animation: marquee-scroll 32s linear infinite;
-}
-.marquee-track:hover { animation-play-state: paused; }
 
-@keyframes marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.marquee-content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: 24px;
+  min-width: 100%;
+  animation: scroll-left 25s linear infinite;
+}
+
+.marquee:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 
 .review-card {
@@ -162,7 +175,7 @@ p, label, input, textarea, button {
 }
 .form-input:focus { border-color: #a855f7; }
 
-/* CHATBOT AI VIVO STILE FF-EDIZIONI */
+/* CHATBOT AI STILE FF-EDIZIONI */
 #chatbot-window-wrapper { 
   position: fixed; bottom: 85px; right: 20px; 
   width: 350px; height: 480px; 
