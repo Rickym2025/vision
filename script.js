@@ -1,8 +1,8 @@
 // ==========================================
-// FUNZIONI GLOBALI SU WINDOW (Nessun Errore di Sintassi)
+// FUNZIONI GLOBALI SU WINDOW
 // ==========================================
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE ANTI-SCATTI DEFINITIVA) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SENZA RACE CONDITION = FLUIDITÀ 100%) ──
 window.openFullscreenModal = function(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -11,7 +11,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti gli altri video della pagina per dedicare la GPU al 100% al video aperto
+  // 1. Mette in pausa gli altri video
   document.querySelectorAll('.phone-container video').forEach(v => {
     try { v.pause(); } catch(e) {}
   });
@@ -19,21 +19,30 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. Mostra la modale
+  // 2. Apri modale visivamente
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Riproduzione del video selezionato con audio al 100%
+  // 3. Reset video e imposta caricamento buffer pulito
+  fsVideo.pause();
+  fsVideo.removeAttribute('src');
+  fsVideo.load();
+
   fsVideo.src = videoSrc;
-  fsVideo.currentTime = 0;
-  fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
+  fsVideo.muted = false; // AUDIO COMPLETO
   fsVideo.volume = 1;
 
-  fsVideo.play().catch(e => {
-    console.warn("Autoplay audio bloccato dal browser, riprovo in muted:", e);
-    fsVideo.muted = true;
-    fsVideo.play().catch(() => {});
-  });
+  // Attende che ci siano abbastanza fotogrammi pronti prima del play
+  const tryPlay = () => {
+    fsVideo.play().catch(e => {
+      console.warn("Autoplay audio bloccato, riprovo in muted:", e);
+      fsVideo.muted = true;
+      fsVideo.play().catch(() => {});
+    });
+  };
+
+  fsVideo.addEventListener('canplay', tryPlay, { once: true });
+  fsVideo.load(); // Forza il buffering anticipato
 };
 
 window.closeFullscreenModal = function() {
@@ -46,7 +55,7 @@ window.closeFullscreenModal = function() {
     fsVideo.src = '';
   }
 
-  // Riprende la riproduzione del video attualmente visibile a schermo
+  // Riprende la riproduzione nei telefoni visibili
   document.querySelectorAll('.phone-container video').forEach(v => {
     try {
       const rect = v.getBoundingClientRect();
@@ -129,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── CARICAMENTO FILE ORBIT ESTERNO DA GITHUB (PERFETTAMENTE FUNZIONANTE) ──
+  // ── CARICAMENTO ORBIT ESTERNO DA GITHUB CON FALLBACK VISIBILE ──
   const orbitContainer = document.getElementById('orbit-container');
   if (orbitContainer) {
     fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
@@ -142,24 +151,28 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(err => {
         console.error("Impossibile caricare l'ecosistema orbitale:", err);
+        orbitContainer.innerHTML = '<p class="text-xs text-purple-400">RM Studio Ecosystem Active</p>';
       });
   }
 
-  // ── RIPRODUZIONE INTELLIGENTE DEI VIDEO (MAX 1 ALLA VOLTA = ZERO SCATTI) ──
+  // ── INTERSECTION OBSERVER VIDEO CON ROOTMARGIN PER BUFFERING ANTICIPATO ──
   const phoneVideos = document.querySelectorAll('.phone-container video');
   if ('IntersectionObserver' in window && phoneVideos.length > 0) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting) {
-          // Mette in pausa gli altri prima di far partire questo
+          // Mette in pausa gli altri video fuori campo
           phoneVideos.forEach(v => { if (v !== video) v.pause(); });
           video.play().catch(() => {});
         } else {
           video.pause();
         }
       });
-    }, { threshold: 0.6 }); // Gioca solo quando la scheda è ben visibile al centro
+    }, { 
+      threshold: 0.3,
+      rootMargin: '200px 0px' // Inizia a caricare il video 200px PRIMA che entri a schermo!
+    });
 
     phoneVideos.forEach(v => videoObserver.observe(v));
   }
