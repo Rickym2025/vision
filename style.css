@@ -93,7 +93,7 @@ p, label, input, textarea, button {
   backface-visibility: hidden;
 }
 
-/* SMARTPHONE MOCKUPS ISOLATI CON BORDURA CURVA SUI VIDEO */
+/* SMARTPHONE MOCKUPS SENZA OVERFLOW:HIDDEN PER EVITARE IL BUG DI CHROME */
 .phone-container {
   position: relative;
   width: 100%;
@@ -102,7 +102,8 @@ p, label, input, textarea, button {
   background: #000;
   box-shadow: 0 15px 35px rgba(124, 58, 237, 0.2);
   cursor: pointer;
-  contain: content;
+  isolation: isolate;
+  transform: translate3d(0, 0, 0);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -122,12 +123,14 @@ p, label, input, textarea, button {
   z-index: 30;
 }
 
+/* BORDER RADIUS APPLICATO DIRETTAMENTE SUL VIDEO = HARDWARE GPU DIRECTCOMPOSITION */
 .phone-container video {
   width: 100%; height: 100%;
   object-fit: cover; display: block;
   border-radius: 22px;
   transform: translate3d(0, 0, 0);
   will-change: transform;
+  backface-visibility: hidden;
 }
 
 .vid-label {
