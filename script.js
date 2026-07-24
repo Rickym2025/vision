@@ -1,19 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Anno corrente Footer ──
+  // ── Anno Footer ──
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── Orbit injection ──
-  fetch('https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html')
-    .then(r => r.ok ? r.text() : '')
-    .then(html => {
-      const c = document.getElementById('orbit-container');
-      if (c && html) c.innerHTML = html;
-    })
-    .catch(err => console.warn('Orbit non caricata:', err));
+  // ── OTTIMIZZAZIONE INTERSECTION OBSERVER VIDEO (ZERO SCATTI) ──
+  // Carica ed esegue i video degli smartphone SOLO quando sono visibili a schermo
+  const lazyVideos = document.querySelectorAll('.lazy-video');
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        if (!video.src && video.dataset.src) {
+          video.src = video.dataset.src;
+        }
+        video.play().catch(()=>{});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.15 });
 
-  // ── Sottomissione Simultanea Form (Web3Forms + n8n) ──
+  lazyVideos.forEach(v => videoObserver.observe(v));
+
+  // ── FORM CONTATTO (Web3Forms + n8n) ──
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -55,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── CHATBOT WIDGET ──
+  // ── CHATBOT ──
   const bubble = document.getElementById('vision-chat-bubble');
   const win = document.getElementById('vision-chat-window');
   const closeBtn = document.getElementById('vision-chat-close');
@@ -106,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (CON AUDIO ATTIVO AL 100%) ──
+// ── MODALE FULLSCREEN VIDEO (AUDIO 100%) ──
 function openFullscreenModal(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -116,7 +126,7 @@ function openFullscreenModal(videoSrc, handle, caption) {
   if (!overlay || !fsVideo) return;
 
   fsVideo.src = videoSrc;
-  fsVideo.muted = false; // ATTIVA AUDIO COMPLETO
+  fsVideo.muted = false; // ATTIVA AUDIO AL 100%
   fsVideo.volume = 1;
 
   if (fsHandle) fsHandle.textContent = handle;
@@ -124,7 +134,7 @@ function openFullscreenModal(videoSrc, handle, caption) {
 
   overlay.style.display = 'flex';
   fsVideo.play().catch(e => {
-    console.log("Autoplay con audio bloccato dal browser, riprovo:", e);
+    console.log("Autoplay con audio bloccato, riprovo in muted:", e);
     fsVideo.muted = true;
     fsVideo.play();
   });
