@@ -117,18 +117,18 @@
         </div>
       </div>
 
-      <!-- Right Smartphone Mockups con Video Reali -->
+      <!-- Right Smartphone Mockups (Senza autoplay aggressivo per massima fluidità) -->
       <div id="esempi" class="grid grid-cols-2 gap-4 relative">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/UGC_Lumiere_Completo.mp4', '@lumiere_beauty', 'Trattamento viso rigenerante Lumière ✨🧴 #skincare #beauty')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Lumière • Beauty Skin</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container mt-8" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/Houseboat_Compresso_5.mp4', '@houseboat_chioggia', 'Vacanze uniche in Houseboat a Chioggia! 🚤🌅 #travel #vacanze')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Houseboat • Chioggia</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -167,21 +167,21 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v1.mp4', '@camilla_yoga', 'My morning routine stretch! 🧘‍♀️ #fitness')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/v1.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Fitness</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/promo_super_bici_completo.mp4', '@kayla_bike', 'Questa bici è pazzesca! Leggerissima! 🚴‍♀️')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Kayla • E-Bike</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v5_ita.mp4', '@swatch_review', 'Nuova collezione Swatch! 😍⌚ #unboxing')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/v5_ita.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Tech & Style</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -332,13 +332,136 @@
     </div>
   </section>
 
-  <!-- ECOSISTEMA ORBIT VIA IFRAME ESTERNO CENTRALE (PERFETTAMENTE FUNZIONANTE) -->
-  <section id="ecosistema" class="relative z-10 py-20 px-4 max-w-5xl mx-auto text-center border-t border-white/5">
+  <!-- ECOSISTEMA ORBITALE NATIVO IDENTICO A DENTIS (PERFETTO E SENZA IFRAME) -->
+  <section id="ecosistema" class="relative z-10 py-24 px-4 max-w-5xl mx-auto text-center border-t border-white/5">
       <h2 class="text-2xl font-bold mb-2">Powered by <span class="grad-text">RM Studio</span></h2>
-      <p class="text-xs text-gray-400 mb-8">Sistemi autonomi ed ingegneria software per l'automazione B2B.</p>
-      
-      <div class="w-full flex justify-center items-center overflow-hidden min-h-[420px]">
-          <iframe src="https://rmstudio.app/public/orbit-template.html" class="w-full h-[420px] border-0 overflow-hidden" loading="lazy"></iframe>
+      <p class="text-xs text-gray-400 mb-12">Sistemi autonomi ed ingegneria software per l'automazione B2B.</p>
+
+      <div class="orbit-area">
+          <div class="pulse-ring-element"></div>
+
+          <div class="orbit-ring">
+            <!-- 1. CONCIERGE24 -->
+            <div class="orbit-wrapper" style="top: 0%; left: 50%;">
+              <div class="orbit-item">
+                <a href="https://concierge24.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 10px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_concierge.png" alt="Concierge24" class="orbit-img" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>Concierge24</b>
+                  Assistente vocale e testuale AI H24 per hotel e strutture.
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. DRIVEMOTION -->
+            <div class="orbit-wrapper" style="top: 11.7%; left: 82.1%;">
+              <div class="orbit-item">
+                <a href="https://drivemotion.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 10px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_drivemotion.png" alt="DriveMotion" class="orbit-img" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>DriveMotion AI</b>
+                  Generazione automatica di sfondi e video per saloni auto.
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. NEXUS AI -->
+            <div class="orbit-wrapper" style="top: 41.3%; left: 99.2%;">
+              <div class="orbit-item">
+                <a href="https://nexus.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 12px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_nexus.png" alt="Nexus AI" class="orbit-img" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>Nexus AI</b>
+                  Widget chatbot intelligente per accoglienza lead.
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. OMNIASTUDIO -->
+            <div class="orbit-wrapper" style="top: 75.0%; left: 93.3%;">
+              <div class="orbit-item">
+                <a href="https://omniastudio.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 10px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_omniastudio.png" alt="OmniaStudio" class="orbit-img" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>OmniaStudio</b>
+                  La potenza dell'AI locale e protetta offline sul tuo PC.
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. DENTIS -->
+            <div class="orbit-wrapper" style="top: 97.0%; left: 67.1%;">
+              <div class="orbit-item">
+                <a href="https://dentis.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 10px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_dentis.png" alt="Dentis AI" class="orbit-img" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>Dentis AI</b>
+                  Receptionist telefonica AI H24 per studi dentistici.
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. LEXIS AI -->
+            <div class="orbit-wrapper" style="top: 97.0%; left: 32.9%;">
+              <div class="orbit-item">
+                <a href="https://lexis.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 10px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_lexis.png" alt="Lexis AI" class="orbit-img" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>Lexis AI</b>
+                  Assistente vocale ed accoglienza AI per studi legali.
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. FF EDIZIONI -->
+            <div class="orbit-wrapper" style="top: 75.0%; left: 6.7%;">
+              <div class="orbit-item">
+                <a href="https://ff.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 10px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_ff.png" alt="FF Edizioni" class="orbit-img" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>FF Edizioni</b>
+                  Colonne sonore, jingle commerciali e sound design AI.
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. HOMETOUR -->
+            <div class="orbit-wrapper" style="top: 41.3%; left: 0.8%;">
+              <div class="orbit-item">
+                <a href="https://hometour.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 10px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_hometour.jpg" alt="HomeTour AI" class="orbit-img cover" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>HomeTour AI</b>
+                  Reel immobiliari con voce narrante generati da foto.
+                </div>
+              </div>
+            </div>
+
+            <!-- 9. VISION -->
+            <div class="orbit-wrapper" style="top: 11.7%; left: 17.9%;">
+              <div class="orbit-item">
+                <a href="https://vision.rmstudio.app" target="_blank" rel="noopener noreferrer" class="orbit-link" style="background: #0a0a0c; padding: 10px;">
+                  <img src="https://rmstudio.app/public/loghi/logo_vision.png" alt="Vision UGC" class="orbit-img" />
+                </a>
+                <div class="orbit-tooltip">
+                  <b>Vision UGC</b>
+                  Video virali con influencer virtuali in 24 ore.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="orbit-center-photo">
+            <img src="https://rmstudio.app/public/loghi/foto_riccardo.jpeg" alt="Riccardo Modena - Fondatore RM Studio" />
+          </div>
       </div>
   </section>
 
@@ -397,7 +520,7 @@
     </div>
   </footer>
 
-  <!-- FULLSCREEN MODAL PLAYER -->
+  <!-- FULLSCREEN MODAL PLAYER (Senza filtri sfocatura = 60 FPS Fluidissimo) -->
   <div id="fs-overlay" onclick="closeFullscreenModal()" class="fixed inset-0 z-[9999999] bg-black/95 hidden flex-col items-center justify-center p-4">
     <div class="relative w-full max-w-[340px] border-8 border-purple-950 rounded-[36px] overflow-hidden bg-black shadow-2xl" onclick="event.stopPropagation()">
       <div class="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-4 bg-purple-950 rounded-xl z-30"></div>
