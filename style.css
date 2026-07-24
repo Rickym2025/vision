@@ -92,7 +92,7 @@ p, label, input, textarea, button {
   backface-visibility: hidden;
 }
 
-/* SMARTPHONE MOCKUPS SENZA STUTTERING / BUG CHROME */
+/* SMARTPHONE MOCKUPS CON FIX CLIP-PATH PER SOLLEVARE IL CARICO DALLA GPU IN CHROME */
 .phone-container {
   position: relative;
   width: 100%;
@@ -102,14 +102,12 @@ p, label, input, textarea, button {
   box-shadow: 0 15px 35px rgba(124, 58, 237, 0.2);
   cursor: pointer;
   isolation: isolate;
-  overflow: hidden;
-  contain: paint layout;
+  clip-path: inset(0 round 24px); /* FIX CHROMIUM BUG: Sostituisce overflow:hidden per accelerazione HW diretta */
   transform: translate3d(0, 0, 0);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .phone-container:hover {
-  transform: translateY(-5px) scale(1.02);
   box-shadow: 0 20px 45px rgba(224, 64, 251, 0.35);
   border-color: #7c3aed;
 }
@@ -128,6 +126,7 @@ p, label, input, textarea, button {
   width: 100%; height: 100%;
   object-fit: cover; display: block;
   border-radius: 22px;
+  clip-path: inset(0 round 22px);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
 }
@@ -160,7 +159,7 @@ p, label, input, textarea, button {
 }
 
 .phone-container:hover .audio-btn-badge {
-  transform: translateX(-50%) scale(1.08);
+  transform: translateX(-50%) scale(1.05);
 }
 
 /* MARQUEE TICKER SCORREVOLE CONTINUO SENZA GAP */
@@ -198,7 +197,7 @@ p, label, input, textarea, button {
   width: 340px; flex-shrink: 0; text-align: left;
 }
 
-/* ─── CONTENITORE ISOLATO PER L'ORBITA ESTERNA ─── */
+/* CONTENITORE ISOLATO PER L'ORBITA ESTERNA */
 #orbit-container {
   width: 100%;
   max-width: 100%;
