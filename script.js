@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── LAZY VIDEO OBSERVER (Senza scatti) ──
+  // ── LAZY VIDEO OBSERVER ──
   const lazyVideos = document.querySelectorAll('.lazy-video');
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -64,69 +64,68 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── CHATBOT WIDGET ──
-  const bubble = document.getElementById('vision-chat-bubble');
-  const win = document.getElementById('vision-chat-window');
-  const closeBtn = document.getElementById('vision-chat-close');
-  const input = document.getElementById('vision-chat-input');
-  const submitBtn = document.getElementById('vision-chat-submit');
-  const messagesDiv = document.getElementById('vision-chat-messages');
+  // ── CHATBOT WIDGET LOGIC ──
+  const win = document.getElementById('chatbot-window-wrapper');
+  const icon = document.getElementById('chat-toggle-icon');
 
   window.toggleChatWindow = function() {
-    if (win) win.classList.toggle('chat-open');
+    if (win) {
+      win.classList.toggle('collapsed');
+      if (icon) icon.innerHTML = win.classList.contains('collapsed') ? '&#43;' : '&minus;';
+    }
   };
 
-  if (bubble && win) {
-    bubble.onclick = toggleChatWindow;
-    if (closeBtn) closeBtn.onclick = (e) => { e.stopPropagation(); win.classList.remove('chat-open'); };
-
-    let chatSessionId = localStorage.getItem('vision_chat_session') || ('sess_' + Date.now());
-    localStorage.setItem('vision_chat_session', chatSessionId);
-
-    window.sendQuickMsg = function(text) {
-      if (input) {
-        input.value = text;
-        sendChatMsg();
-      }
-    };
-
-    async function sendChatMsg() {
-      const text = input.value.trim();
-      if (!text) return;
-      input.value = '';
-      appendMsg(text, 'user');
-
-      try {
-        const res = await fetch('https://n8n.rmstudio.app/webhook/vision-chatbot', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text, sessionId: chatSessionId })
-        });
-        const raw = await res.text();
-        let reply = 'Risposta ricevuta.';
-        if (raw) {
-          try { reply = JSON.parse(raw).response || raw; } catch(_) { reply = raw; }
-        }
-        appendMsg(reply, 'bot');
-      } catch {
-        appendMsg('Errore di connessione.', 'bot');
-      }
+  window.sendQuickMsg = function(text) {
+    const input = document.getElementById('vision-chat-input');
+    if (input) {
+      input.value = text;
+      sendChatMsg();
     }
+  };
 
-    if (submitBtn) submitBtn.onclick = sendChatMsg;
-    if (input) input.onkeypress = (e) => { if (e.key === 'Enter') sendChatMsg(); };
+  let chatSessionId = localStorage.getItem('vision_chat_session') || ('sess_' + Date.now());
+  localStorage.setItem('vision_chat_session', chatSessionId);
 
-    function appendMsg(text, sender) {
-      const div = document.createElement('div');
-      div.className = `msg ${sender}`;
-      div.innerHTML = String(text).replace(/\n/g, '<br>');
-      messagesDiv.appendChild(div);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  window.sendChatMsg = async function() {
+    const input = document.getElementById('vision-chat-input');
+    const messagesDiv = document.getElementById('chatbot-messages');
+    if (!input || !messagesDiv) return;
+
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+
+    appendMsg(text, 'user');
+
+    try {
+      const res = await fetch('https://n8n.rmstudio.app/webhook/vision-chatbot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, sessionId: chatSessionId })
+      });
+      const raw = await res.text();
+      let reply = 'Risposta ricevuta.';
+      if (raw) {
+        try { reply = JSON.parse(raw).response || raw; } catch(_) { reply = raw; }
+      }
+      appendMsg(reply, 'bot');
+    } catch {
+      appendMsg('Connessione temporaneamente non disponibile.', 'bot');
     }
+  };
+
+  function appendMsg(text, sender) {
+    const messagesDiv = document.getElementById('chatbot-messages');
+    if (!messagesDiv) return;
+    const div = document.createElement('div');
+    div.className = `msg ${sender}`;
+    div.innerHTML = String(text).replace(/\n/g, '<br>');
+    messagesDiv.appendChild(div);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
   }
 });
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE AL BLOCCO) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SENZA SCATTI: METTE IN PAUSA GLI ALTRI VIDEO) ──
 function openFullscreenModal(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -135,28 +134,27 @@ function openFullscreenModal(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Inserisci i testi
+  // METTE IN PAUSA TUTTI GLI ALTRI VIDEO PER LIBERARE LA GPU AL 100%
+  document.querySelectorAll('video').forEach(v => {
+    if (v.id !== 'fs-video') v.pause();
+  });
+
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. MOSTRA LA MODALE PRIMA DI CARICARE IL VIDEO
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Imposta la sorgente video e l'audio al 100%
   fsVideo.src = videoSrc;
   fsVideo.currentTime = 0;
-  fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
+  fsVideo.muted = false; // AUDIO ATTIVO COMPLETO
   fsVideo.volume = 1;
 
-  const playPromise = fsVideo.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(e => {
-      console.warn("Autoplay con audio bloccato, riprovo senza audio:", e);
-      fsVideo.muted = true;
-      fsVideo.play();
-    });
-  }
+  fsVideo.play().catch(e => {
+    console.warn("Autoplay audio bloccato, riprovo in muted:", e);
+    fsVideo.muted = true;
+    fsVideo.play();
+  });
 }
 
 function closeFullscreenModal() {
@@ -168,6 +166,13 @@ function closeFullscreenModal() {
     fsVideo.pause();
     fsVideo.src = '';
   }
+
+  // RIPRENDE LA RIPRODUZIONE DEGLI ALTRI VIDEO DELLA PAGINA
+  document.querySelectorAll('.phone-container video').forEach(v => {
+    v.play().catch(()=>{});
+  });
+  const bgVideo = document.getElementById('main-bg-video');
+  if (bgVideo) bgVideo.play().catch(()=>{});
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreenModal(); });
