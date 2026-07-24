@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="it" class="scroll-smooth">
 <head>
+
     <!-- Schema Strutturato -->
     <script type="application/ld+json">
     {
@@ -26,7 +27,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vision UGC | Centro di Produzione Video con Attori Digitali in 24 Ore</title>
+    <title>Vision UGC | Centro Produzione Video con Attori Digitali in 24 Ore</title>
     <meta name="description" content="Genera video UGC ad alta conversione con attori digitali iper-realistici. Nessun attore fisico, nessuna spedizione. Consegna in 24 ore.">
 
     <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
@@ -49,7 +50,6 @@
       }
     </script>
 
-    <!-- Stili Custom Separati -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -78,14 +78,15 @@
       </a>
 
       <div class="hidden md:flex items-center gap-8 text-xs font-medium">
-        <a href="#esempi" class="text-white/50 hover:text-white transition-colors">Esempi</a>
-        <a href="#vantaggi" class="text-white/50 hover:text-white transition-colors">Vantaggi</a>
+        <a href="#esempi" class="text-white/50 hover:text-white transition-colors">Esempi Video</a>
+        <a href="#vantaggi" class="text-white/50 hover:text-white transition-colors">Perché Vision</a>
+        <a href="#processo" class="text-white/50 hover:text-white transition-colors">Come Funziona</a>
         <a href="#prezzi" class="text-white/50 hover:text-white transition-colors">Prezzi</a>
         <a href="#ecosistema" class="text-white/50 hover:text-white transition-colors">Studio</a>
       </div>
 
       <a href="#contatti" class="btn-primary px-4 py-2 text-xs font-bold">
-        Inizia Ora
+        Richiedi Proposta
       </a>
     </nav>
   </header>
@@ -94,44 +95,46 @@
   <section class="relative z-10 min-h-screen flex items-center pt-24 pb-12 px-4 sm:px-6 md:pt-36 md:pb-20">
     <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
 
-      <!-- Left Narrative -->
       <div class="flex flex-col gap-6">
         <div class="inline-flex items-center gap-2 bg-v-700/10 border border-v-700/30 px-4 py-1.5 rounded-full w-fit">
           <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-          <span class="text-xs font-bold tracking-wider uppercase color-v-400 text-purple-300">Centro Produzione H24 • Consegna 24h</span>
+          <span class="text-xs font-bold tracking-wider uppercase text-purple-300">Produzione Video H24 • Consegna 24 Ore</span>
         </div>
 
         <h1 class="font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight">
           I tuoi Attori Digitali.<br>
-          Pronti in 24 ore.<br>
-          <span class="grad-text">Per vendite reali.</span>
+          <span class="grad-text">Zero Spedizioni. ROAS Raddoppiato.</span>
         </h1>
 
         <p class="text-gray-300 text-base sm:text-lg font-light max-w-lg leading-relaxed">
-          Nessuna agenzia di modelle, nessuna spedizione fisica e zero ritardi. Generiamo video UGC ad alto impatto per le tue campagne social.
+          Smetti di sprecare settimane e migliaia di euro con agenzie e creator tradizionali. Generiamo video UGC iper-realistici e performanti pronti da lanciare su Meta, TikTok e YouTube in soli 24 ore.
         </p>
 
         <div class="flex flex-wrap gap-4 items-center pt-2">
-          <a href="#contatti" class="btn-primary px-8 py-4 text-base">Crea il tuo video</a>
-          <a href="#esempi" class="btn-ghost px-6 py-4 text-sm">Guarda gli esempi</a>
+          <a href="#contatti" class="btn-primary px-8 py-4 text-base">Crea il tuo primo video</a>
+          <a href="#esempi" class="btn-ghost px-6 py-4 text-sm">Guarda gli Esempi</a>
+        </div>
+
+        <div class="flex flex-wrap gap-6 pt-4 border-t border-white/10 text-xs text-gray-400">
+          <div class="flex items-center gap-2">✓ Abbattimento costi del 90%</div>
+          <div class="flex items-center gap-2">✓ 10+ Lingue Native</div>
+          <div class="flex items-center gap-2">✓ Diritti d'uso illimitati</div>
         </div>
       </div>
 
       <!-- Right Smartphone Mockups -->
       <div id="esempi" class="grid grid-cols-2 gap-4 relative">
-        <!-- Phone 1 -->
-        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v1.mp4', '@camilla_yoga_eng', 'My morning routine stretch! 🧘‍♀️ #fitness #yoga')">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/UGC_Lumiere_Completo.mp4', '@lumiere_beauty', 'Trattamento viso rigenerante Lumière ✨🧴 #skincare #beauty')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline></video>
-          <div class="vid-label">Camilla • Yoga (ENG)</div>
+          <video class="gpu-video lazy-video" data-src="/public/video/UGC_Lumiere_Completo.mp4" autoplay loop muted playsinline></video>
+          <div class="vid-label">Lumière • Beauty Skin</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
-        <!-- Phone 2 -->
-        <div class="phone-container mt-6" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v5_ita.mp4', '@camilla_swatch_ita', 'Nuova collezione Swatch! 😍⌚ #swatch #unboxing')">
+        <div class="phone-container mt-6" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/Houseboat_Compresso_5.mp4', '@houseboat_chioggia', 'Vacanze uniche in Houseboat a Chioggia! 🚤🌅 #travel #vacanze')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline></video>
-          <div class="vid-label">Camilla • Swatch (ITA)</div>
+          <video class="gpu-video lazy-video" data-src="/public/video/Houseboat_Compresso_5.mp4" autoplay loop muted playsinline></video>
+          <div class="vid-label">Houseboat • Chioggia</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
       </div>
@@ -139,36 +142,112 @@
     </div>
   </section>
 
+  <!-- NUMERI DI FIDUCIA -->
+  <section class="relative z-10 py-12 border-y border-white/10 bg-black/40">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+        <div class="text-3xl sm:text-4xl font-extrabold text-purple-400">+500</div>
+        <div class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Video Generati</div>
+      </div>
+      <div>
+        <div class="text-3xl sm:text-4xl font-extrabold text-purple-400">+110%</div>
+        <div class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Incremento ROAS Medio</div>
+      </div>
+      <div>
+        <div class="text-3xl sm:text-4xl font-extrabold text-purple-400">24 Ore</div>
+        <div class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Tempo di Consegna</div>
+      </div>
+      <div>
+        <div class="text-3xl sm:text-4xl font-extrabold text-purple-400">0€</div>
+        <div class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Costi di Spedizione</div>
+      </div>
+    </div>
+  </section>
+
   <!-- SCUDERIA VOLTI DIGITALI -->
-  <section id="scuderia" class="relative z-10 py-16 px-4 max-w-6xl mx-auto text-center">
+  <section id="scuderia" class="relative z-10 py-20 px-4 max-w-6xl mx-auto text-center">
       <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">La nostra selezione di <span class="grad-text">Attori Digitali</span></h2>
-      <p class="text-gray-400 max-w-2xl mx-auto mb-12">Ogni avatar è addestrato su mercati verticali (Beauty, Tech, App, Food) per connettersi con il tuo pubblico.</p>
+      <p class="text-gray-400 max-w-2xl mx-auto mb-12">Attori ed attrici virtuali addestrati su settori specifici per ingaggiare il tuo pubblico target.</p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Zoe -->
-        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v2.mp4', '@zoe_beauty_reviews', 'Il segreto per una pelle luminosa ogni mattina! ✨🧴 #skincare')">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v1.mp4', '@camilla_yoga', 'My morning routine stretch! 🧘‍♀️ #fitness')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v2.mp4" autoplay loop muted playsinline></video>
-          <div class="vid-label">Zoe • Beauty</div>
+          <video class="gpu-video lazy-video" data-src="/public/video/v1.mp4" autoplay loop muted playsinline></video>
+          <div class="vid-label">Camilla • Fitness</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
-        <!-- Kayla -->
-        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/promo_super_bici_completo.mp4', '@kayla_bike_life', 'Questa bici è pazzesca! Leggerissima e perfetta per la città! 🚴‍♀️')">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/promo_super_bici_completo.mp4', '@kayla_bike', 'Questa bici è pazzesca! Leggerissima! 🚴‍♀️')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" autoplay loop muted playsinline></video>
+          <video class="gpu-video lazy-video" data-src="/public/video/promo_super_bici_completo.mp4" autoplay loop muted playsinline></video>
           <div class="vid-label">Kayla • E-Bike</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
-        <!-- Mathis -->
-        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v4.mp4', '@mathis_fit_food', 'La colazione proteica e rapida prima di andare in palestra 💪🥞')">
+        <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v5_ita.mp4', '@swatch_review', 'Nuova collezione Swatch! 😍⌚ #unboxing')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v4.mp4" autoplay loop muted playsinline></video>
-          <div class="vid-label">Mathis • Fit Food</div>
+          <video class="gpu-video lazy-video" data-src="/public/video/v5_ita.mp4" autoplay loop muted playsinline></video>
+          <div class="vid-label">Camilla • Tech & Style</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
       </div>
+  </section>
+
+  <!-- STRISCIA ANIMATA RECENSIONI -->
+  <section class="relative z-10 py-12 overflow-hidden bg-black/30 border-y border-white/5">
+      <div class="text-center mb-8">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-purple-400">Cosa dicono i nostri clienti</h3>
+      </div>
+      <div class="marquee-container">
+          <div class="marquee-track">
+              <div class="review-card">
+                  <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
+                  <p class="text-xs text-gray-300 italic">"Abbiamo sostituito i creatori tradizionali con Vision. Pubblichiamo 10 video a settimana invece di 2. ROAS raddoppiato su Meta."</p>
+                  <span class="text-[11px] font-bold text-purple-300 mt-2 block">Alessandro M. • E-Commerce Founder</span>
+              </div>
+              <div class="review-card">
+                  <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
+                  <p class="text-xs text-gray-300 italic">"Spedire campioni in tutta Europa richiedeva 3 settimane. Con l'attore digitale abbiamo il video pronto in 24 ore."</p>
+                  <span class="text-[11px] font-bold text-purple-300 mt-2 block">Elena R. • Brand Manager</span>
+              </div>
+              <div class="review-card">
+                  <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
+                  <p class="text-xs text-gray-300 italic">"Qualità video impressionante. Il lip sync in italiano è naturale e performa benissimo su TikTok Ads."</p>
+                  <span class="text-[11px] font-bold text-purple-300 mt-2 block">Gianluca T. • Media Buyer Agency</span>
+              </div>
+              <div class="review-card">
+                  <div class="text-yellow-400 text-sm mb-1">★★★★★</div>
+                  <p class="text-xs text-gray-300 italic">"Abbiamo sostituito i creatori tradizionali con Vision. Pubblichiamo 10 video a settimana invece di 2. ROAS raddoppiato su Meta."</p>
+                  <span class="text-[11px] font-bold text-purple-300 mt-2 block">Alessandro M. • E-Commerce Founder</span>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- PERCHÉ COLLABORARE -->
+  <section id="vantaggi" class="relative z-10 py-20 px-4 max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Perché scegliere la <span class="grad-text">Produzione Digitale</span></h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Elimina le inefficienze della produzione video tradizionale.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass p-6 rounded-2xl">
+        <div class="text-2xl mb-3">⚡</div>
+        <h3 class="font-bold text-lg text-white mb-2">Consegna Flash 24h</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">Ricevi i tuoi video pronti per essere lanciati in campagna senza attese o ritardi di montaggio.</p>
+      </div>
+      <div class="glass p-6 rounded-2xl">
+        <div class="text-2xl mb-3">📦</div>
+        <h3 class="font-bold text-lg text-white mb-2">Zero Logistica</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">Non devi spedire prodotti fisici. Ci basta il link Amazon, Shopify o foto HD per generare l'inquadratura.</p>
+      </div>
+      <div class="glass p-6 rounded-2xl">
+        <div class="text-2xl mb-3">🌍</div>
+        <h3 class="font-bold text-lg text-white mb-2">10+ Lingue Native</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">Scala i tuoi ad verso mercati esteri (Inghilterra, Germania, Spagna, USA) mantenendo lo stesso attore.</p>
+      </div>
+    </div>
   </section>
 
   <!-- PREZZI -->
@@ -176,20 +255,45 @@
     <div class="glass p-8 sm:p-12 rounded-3xl border border-purple-500/20">
       <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">A partire da <span class="text-green-400">€49</span> a video</h2>
       <p class="text-gray-400 mb-8">Nessun abbonamento vincolante • Consegna in 24 ore • Revisione inclusa</p>
-      <a href="#contatti" class="btn-primary px-8 py-4 text-lg">Richiedi il tuo video</a>
+      <a href="#contatti" class="btn-primary px-8 py-4 text-lg">Richiedi Proposta Gratuita</a>
     </div>
   </section>
 
-  <!-- ECOSISTEMA RM STUDIO -->
-  <section id="ecosistema" class="relative z-10 py-16 px-4 max-w-5xl mx-auto">
-      <div id="orbit-container" class="min-h-[350px] flex items-center justify-center"></div>
+  <!-- ECOSISTEMA RM STUDIO CON CARICAMENTO TEMPLATE ESTERNO ORBIT -->
+  <section id="ecosistema" class="relative z-10 py-20 px-4 max-w-5xl mx-auto text-center border-t border-white/5">
+      <h2 class="text-2xl font-bold mb-2">Powered by <span class="grad-text">RM Studio</span></h2>
+      <p class="text-xs text-gray-400 mb-8">Sistemi autonomi ed ingegneria software per l'automazione B2B.</p>
+      
+      <!-- CONTENITORE PER INIETTARE IL FILE ESTERNO ORBIT-TEMPLATE.HTML -->
+      <div id="orbit-container" class="min-h-[380px] flex items-center justify-center relative">
+          <p class="text-xs text-gray-500 animate-pulse">Caricamento Ecosistema RM Studio...</p>
+      </div>
+  </section>
+
+  <!-- FAQ ACCORDION -->
+  <section id="faq" class="relative z-10 py-20 px-4 max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-8">Domande <span class="grad-text">Frequenti</span></h2>
+      <div class="space-y-4">
+        <details class="glass p-4 rounded-xl cursor-pointer">
+          <summary class="font-bold text-white">I video possono essere usati per inserzioni pubblicitarie Meta e TikTok?</summary>
+          <p class="text-xs text-gray-400 mt-2">Assolutamente sì. I video generati includono diritti d'uso commerciali illimitati per tutte le tue campagne marketing.</p>
+        </details>
+        <details class="glass p-4 rounded-xl cursor-pointer">
+          <summary class="font-bold text-white">Devo spedire il mio prodotto fisico?</summary>
+          <p class="text-xs text-gray-400 mt-2">No! Ci basta il link del tuo e-commerce, foto ad alta risoluzione o schede prodotto.</p>
+        </details>
+        <details class="glass p-4 rounded-xl cursor-pointer">
+          <summary class="font-bold text-white">I clienti capiscono che si tratta di un attore digitale?</summary>
+          <p class="text-xs text-gray-400 mt-2">I nostri attori digitali sono ottimizzati con espressività e toni di voce naturali per garantire la massima immedesimazione.</p>
+        </details>
+      </div>
   </section>
 
   <!-- FORM DI CONTATTO -->
   <section id="contatti" class="relative z-10 py-16 px-4 max-w-2xl mx-auto">
     <div class="glass p-8 sm:p-12 rounded-3xl">
       <h2 class="text-2xl sm:text-3xl font-bold text-center mb-2">Richiedi l'analisi del tuo prodotto</h2>
-      <p class="text-gray-400 text-center text-sm mb-8">Inviaci il link. Generiamo una prima proposta di script e attore digitale.</p>
+      <p class="text-gray-400 text-center text-sm mb-8">Inviaci il link del tuo prodotto per ricevere una proposta gratuita.</p>
 
       <form id="contact-form" class="flex flex-col gap-4">
         <input type="hidden" name="access_key" value="9013a8d5-0901-42a0-b9e6-4c45553f960d">
@@ -217,7 +321,7 @@
     </div>
   </footer>
 
-  <!-- FULLSCREEN MODAL PLAYER (UNIVERSALE DESKTOP E MOBILE CON AUDIO) -->
+  <!-- FULLSCREEN MODAL PLAYER -->
   <div id="fs-overlay" onclick="closeFullscreenModal()" class="fixed inset-0 z-[999999] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4">
     <div class="relative w-full max-w-[340px] border-8 border-purple-950 rounded-[36px] overflow-hidden bg-black shadow-2xl" onclick="event.stopPropagation()">
       <div class="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-4 bg-purple-950 rounded-xl z-30"></div>
