@@ -4,8 +4,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── OTTIMIZZAZIONE INTERSECTION OBSERVER VIDEO (ZERO SCATTI) ──
-  // Carica ed esegue i video degli smartphone SOLO quando sono visibili a schermo
+  // ── CARICAMENTO ROBUSTO ESEGUIBILE DEL FILE ORBIT ESTERNO ──
+  async function loadExternalOrbit() {
+    const container = document.getElementById('orbit-container');
+    if (!container) return;
+
+    // Sorgenti dell'Orbit esterno con cache-busting
+    const urls = [
+      'https://rmstudio.app/public/orbit-template.html?v=' + Date.now(),
+      'https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html?v=' + Date.now()
+    ];
+
+    let html = '';
+    for (const url of urls) {
+      try {
+        const res = await fetch(url);
+        if (res.ok) {
+          html = await res.text();
+          if (html && html.trim().length > 0) break;
+        }
+      } catch (e) {
+        console.warn('Attempt Orbit fetch fallito per:', url);
+      }
+    }
+
+    if (html) {
+      container.innerHTML = html;
+
+      // RE-INIEZIONE ED ESECUZIONE ATTIVA DEI TAG <SCRIPT> CONTENUTI NELL'ORBIT ESTERNO
+      const scripts = container.querySelectorAll('script');
+      scripts.forEach(oldScript => {
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+      });
+    } else {
+      container.innerHTML = '<p class="text-xs text-gray-500">RM Studio Ecosystem</p>';
+    }
+  }
+
+  loadExternalOrbit();
+
+  // ── OTTIMIZZAZIONE LAZY VIDEO (ZERO SCATTI) ──
   const lazyVideos = document.querySelectorAll('.lazy-video');
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -65,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── CHATBOT ──
+  // ── CHATBOT WIDGET ──
   const bubble = document.getElementById('vision-chat-bubble');
   const win = document.getElementById('vision-chat-window');
   const closeBtn = document.getElementById('vision-chat-close');
@@ -116,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ── MODALE FULLSCREEN VIDEO (AUDIO 100%) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (CON AUDIO AL 100%) ──
 function openFullscreenModal(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -126,7 +167,7 @@ function openFullscreenModal(videoSrc, handle, caption) {
   if (!overlay || !fsVideo) return;
 
   fsVideo.src = videoSrc;
-  fsVideo.muted = false; // ATTIVA AUDIO AL 100%
+  fsVideo.muted = false; // RIPRODUZIONE AUDIO ATTIVA
   fsVideo.volume = 1;
 
   if (fsHandle) fsHandle.textContent = handle;
@@ -134,7 +175,7 @@ function openFullscreenModal(videoSrc, handle, caption) {
 
   overlay.style.display = 'flex';
   fsVideo.play().catch(e => {
-    console.log("Autoplay con audio bloccato, riprovo in muted:", e);
+    console.log("Autoplay audio bloccato, riprovo:", e);
     fsVideo.muted = true;
     fsVideo.play();
   });
