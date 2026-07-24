@@ -2,7 +2,7 @@
 // FUNZIONI GLOBALI SU WINDOW
 // ==========================================
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (FLUIDO A 60 FPS) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE ANTI-SCATTI DEFINITIVA) ──
 window.openFullscreenModal = function(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -11,38 +11,36 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti gli altri video per dedicare la GPU al 100% al video aperto
+  // 1. FERMA E AZZERA TUTTI I VIDEO IN ANTEPRIMA PER DEDICARE LA GPU AL 100%
   document.querySelectorAll('.phone-container video').forEach(v => {
-    try { v.pause(); } catch(e) {}
+    try {
+      v.pause();
+      v.removeAttribute('src');
+      v.load(); // Libera la scheda grafica
+    } catch(e) {}
   });
 
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. Apri modale visivamente
+  // 2. Mostra la modale
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Reset video e imposta buffering pulito
+  // 3. Caricamento del video selezionato con audio al 100%
   fsVideo.pause();
   fsVideo.removeAttribute('src');
   fsVideo.load();
 
   fsVideo.src = videoSrc;
-  fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
+  fsVideo.muted = false; // AUDIO COMPLETO
   fsVideo.volume = 1;
 
-  // Attende che ci siano abbastanza fotogrammi pronti prima del play
-  const tryPlay = () => {
-    fsVideo.play().catch(e => {
-      console.warn("Autoplay audio bloccato, riprovo in muted:", e);
-      fsVideo.muted = true;
-      fsVideo.play().catch(() => {});
-    });
-  };
-
-  fsVideo.addEventListener('canplay', tryPlay, { once: true });
-  fsVideo.load();
+  fsVideo.play().catch(e => {
+    console.warn("Autoplay audio bloccato dal browser, riprovo in muted:", e);
+    fsVideo.muted = true;
+    fsVideo.play().catch(() => {});
+  });
 };
 
 window.closeFullscreenModal = function() {
@@ -54,16 +52,6 @@ window.closeFullscreenModal = function() {
     fsVideo.pause();
     fsVideo.src = '';
   }
-
-  // Riprende la riproduzione del video visibile a schermo
-  document.querySelectorAll('.phone-container video').forEach(v => {
-    try {
-      const rect = v.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        v.play().catch(() => {});
-      }
-    } catch(e) {}
-  });
 };
 
 // ── CHATBOT FUNCTIONS ──
@@ -138,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── CARICAMENTO ORBIT ESTERNO DA GITHUB CON FALLBACK ──
+  // ── CARICAMENTO ORBIT ESTERNO DA GITHUB ──
   const orbitContainer = document.getElementById('orbit-container');
   if (orbitContainer) {
     fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
@@ -155,25 +143,51 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // ── GESTIONE RIPRODUZIONE INTELLIGENTE A VIDEO SINGOLO ──
-  const phoneVideos = document.querySelectorAll('.phone-container video');
-  if ('IntersectionObserver' in window && phoneVideos.length > 0) {
+  // ── GESTIONE RIPRODUZIONE VIDEO ON-DEMAND (RILASCIO GPU ZERO SCATTI) ──
+  const phoneContainers = document.querySelectorAll('.phone-container');
+
+  phoneContainers.forEach(container => {
+    const video = container.querySelector('video');
+    if (!video) return;
+
+    // Al passaggio del mouse su Desktop: carica e riproduce
+    container.addEventListener('mouseenter', () => {
+      const src = video.dataset.src;
+      if (src && video.src !== src) {
+        video.src = src;
+      }
+      video.play().catch(() => {});
+    });
+
+    // All'uscita del mouse: ferma e svuota il video per azzerare il carico sulla GPU
+    container.addEventListener('mouseleave', () => {
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+    });
+  });
+
+  // IntersectionObserver per Mobile: riproduce solo il video perfettamente centrato
+  if ('IntersectionObserver' in window && window.innerWidth < 768) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
-        if (entry.isIntersecting) {
-          // Mette in pausa gli altri video prima di avviare questo
-          phoneVideos.forEach(v => { if (v !== video) v.pause(); });
+        const src = video.dataset.src;
+
+        if (entry.isIntersecting && src) {
+          if (video.src !== src) {
+            video.src = src;
+          }
           video.play().catch(() => {});
         } else {
           video.pause();
+          video.removeAttribute('src');
+          video.load();
         }
       });
-    }, { 
-      threshold: 0.5 
-    });
+    }, { threshold: 0.65 });
 
-    phoneVideos.forEach(v => videoObserver.observe(v));
+    document.querySelectorAll('.phone-container video').forEach(v => videoObserver.observe(v));
   }
 
   // FORM CONTATTI (Web3Forms + n8n)
