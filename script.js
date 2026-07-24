@@ -11,7 +11,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti gli altri video della pagina per dedicare la GPU al 100% al video aperto
+  // 1. Mette in PAUSA tutti gli altri video di sfondo per dedicare il 100% della GPU al video aperto
   document.querySelectorAll('.phone-container video').forEach(v => {
     try { v.pause(); } catch(e) {}
   });
@@ -19,21 +19,24 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. Apri modale visivamente
+  // 2. Mostra la modale visivamente
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Riproduzione pulita del video selezionato con audio
+  // 3. Riproduzione pulita con audio
   fsVideo.src = videoSrc;
   fsVideo.currentTime = 0;
-  fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
+  fsVideo.muted = false;
   fsVideo.volume = 1;
 
-  fsVideo.play().catch(e => {
-    console.warn("Autoplay audio bloccato, riprovo in muted:", e);
-    fsVideo.muted = true;
-    fsVideo.play().catch(() => {});
-  });
+  const playPromise = fsVideo.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(e => {
+      console.warn("Autoplay con audio bloccato dal browser, riprovo in muted:", e);
+      fsVideo.muted = true;
+      fsVideo.play().catch(() => {});
+    });
+  }
 };
 
 window.closeFullscreenModal = function() {
@@ -43,10 +46,11 @@ window.closeFullscreenModal = function() {
   if (overlay) overlay.style.display = 'none';
   if (fsVideo) {
     fsVideo.pause();
-    fsVideo.src = '';
+    fsVideo.removeAttribute('src');
+    fsVideo.load(); // Libera la memoria della GPU
   }
 
-  // Riprende la riproduzione del video visibile a schermo
+  // Riprende la riproduzione dei soli video attualmente visibili nello schermo
   document.querySelectorAll('.phone-container video').forEach(v => {
     try {
       const rect = v.getBoundingClientRect();
@@ -129,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── CARICAMENTO ORBIT ESTERNO DA GITHUB ──
+  // ── CARICAMENTO ECOSISTEMA ORBITALE DA GITHUB ──
   const orbitContainer = document.getElementById('orbit-container');
   if (orbitContainer) {
     fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
@@ -146,28 +150,35 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // ── GESTIONE RIPRODUZIONE INTELLIGENTE A VIDEO SINGOLO ──
+  // ── RIPRODUZIONE INTELLIGENTE ED INDIPENDENTE DEI VIDEO (ZERO SCATTI / STUTTERING) ──
   const phoneVideos = document.querySelectorAll('.phone-container video');
   if ('IntersectionObserver' in window && phoneVideos.length > 0) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting) {
-          // Pausa TUTTI gli altri video prima di avviare questo
-          phoneVideos.forEach(v => { if (v !== video) v.pause(); });
-          video.play().catch(() => {});
+          // Riproduci il video in sicurezza solo se in pausa
+          if (video.paused) {
+            const promise = video.play();
+            if (promise !== undefined) {
+              promise.catch(() => {});
+            }
+          }
         } else {
-          video.pause();
+          // Metti in pausa se esce dallo schermo
+          if (!video.paused) {
+            video.pause();
+          }
         }
       });
     }, { 
-      threshold: 0.5 
+      threshold: 0.25 
     });
 
     phoneVideos.forEach(v => videoObserver.observe(v));
   }
 
-  // FORM CONTATTI (Web3Forms + n8n)
+  // ── FORM CONTATTI (DOPPIO INVIO PARALLELO WEB3FORMS + N8N) ──
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -192,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         const [res1, res2] = await Promise.all([web3Promise, n8nPromise]);
-        if (res1.ok && res2.ok) {
+        if (res1.ok || res2.ok) {
           if (msg) {
             msg.textContent = '✓ Richiesta inviata! Ti risponderemo entro 24 ore.';
             msg.style.color = '#4ade80';
