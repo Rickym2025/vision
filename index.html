@@ -116,18 +116,18 @@
         </div>
       </div>
 
-      <!-- Right Smartphone Mockups (NOMI VIDEO OTTIMIZZATI) -->
+      <!-- Right Smartphone Mockups con Video Ottimizzati per Chrome -->
       <div id="esempi" class="grid grid-cols-2 gap-4 relative">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/lumiere_skincare.mp4', '@lumiere_beauty', 'Trattamento viso rigenerante Lumière ✨🧴 #skincare #beauty')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/lumiere_skincare.mp4" loop muted playsinline preload="auto"></video>
+          <video class="gpu-video" src="/public/video/lumiere_skincare.mp4" loop muted playsinline disablePictureInPicture disableRemotePlayback preload="metadata"></video>
           <div class="vid-label">Lumière • Beauty Skin</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container mt-8" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/houseboat_chioggia.mp4', '@houseboat_chioggia', 'Vacanze uniche in Houseboat a Chioggia! 🚤🌅 #travel #vacanze')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/houseboat_chioggia.mp4" loop muted playsinline preload="auto"></video>
+          <video class="gpu-video" src="/public/video/houseboat_chioggia.mp4" loop muted playsinline disablePictureInPicture disableRemotePlayback preload="metadata"></video>
           <div class="vid-label">Houseboat • Chioggia</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -158,7 +158,7 @@
     </div>
   </section>
 
-  <!-- SCUDERIA VOLTI DIGITALI (NOMI VIDEO OTTIMIZZATI) -->
+  <!-- SCUDERIA VOLTI DIGITALI -->
   <section id="scuderia" class="relative z-10 py-20 px-4 max-w-6xl mx-auto text-center">
       <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">La nostra selezione di <span class="grad-text">Attori Digitali</span></h2>
       <p class="text-gray-300 max-w-2xl mx-auto mb-12">Attori ed attrici virtuali addestrati su settori specifici per ingaggiare il tuo pubblico target.</p>
@@ -166,21 +166,21 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/camilla_fitness.mp4', '@camilla_yoga', 'My morning routine stretch! 🧘‍♀️ #fitness')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/camilla_fitness.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/camilla_fitness.mp4" loop muted playsinline disablePictureInPicture disableRemotePlayback preload="metadata"></video>
           <div class="vid-label">Camilla • Fitness</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/ebike_superbici.mp4', '@kayla_bike', 'Questa bici è pazzesca! Leggerissima! 🚴‍♀️')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/ebike_superbici.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/ebike_superbici.mp4" loop muted playsinline disablePictureInPicture disableRemotePlayback preload="metadata"></video>
           <div class="vid-label">Kayla • E-Bike</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/camilla_tech_style.mp4', '@swatch_review', 'Nuova collezione Swatch! 😍⌚ #unboxing')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/camilla_tech_style.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/camilla_tech_style.mp4" loop muted playsinline disablePictureInPicture disableRemotePlayback preload="metadata"></video>
           <div class="vid-label">Camilla • Tech & Style</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -406,7 +406,7 @@
         <p id="fs-caption" class="text-xs text-gray-300 leading-snug"></p>
       </div>
 
-      <video id="fs-video" autoplay loop playsinline class="w-full aspect-[9/16] object-cover block gpu-video"></video>
+      <video id="fs-video" autoplay loop playsinline class="w-full aspect-[9/16] object-cover block gpu-video" disablePictureInPicture disableRemotePlayback></video>
     </div>
     <p class="mt-4 text-xs text-gray-400 tracking-wider uppercase cursor-pointer">CLICCA OVUNQUE PER CHIUDERE ✕</p>
   </div>
