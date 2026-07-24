@@ -2,7 +2,7 @@
 // FUNZIONI GLOBALI SU WINDOW
 // ==========================================
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (SENZA RACE CONDITION = FLUIDITÀ 100%) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SENZA RACE CONDITION CON BUFFERING CANPLAY) ──
 window.openFullscreenModal = function(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -11,7 +11,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in pausa gli altri video
+  // 1. Mette in PAUSA tutti gli altri video per liberare la GPU
   document.querySelectorAll('.phone-container video').forEach(v => {
     try { v.pause(); } catch(e) {}
   });
@@ -19,23 +19,23 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. Apri modale visivamente
+  // 2. Apri la modale visivamente
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Reset video e imposta caricamento buffer pulito
+  // 3. Reset sorgente video e preparati al buffering pulito
   fsVideo.pause();
   fsVideo.removeAttribute('src');
   fsVideo.load();
 
   fsVideo.src = videoSrc;
-  fsVideo.muted = false; // AUDIO COMPLETO
+  fsVideo.muted = false; // Audio attivo
   fsVideo.volume = 1;
 
   // Attende che ci siano abbastanza fotogrammi pronti prima del play
   const tryPlay = () => {
     fsVideo.play().catch(e => {
-      console.warn("Autoplay audio bloccato, riprovo in muted:", e);
+      console.warn("Autoplay audio bloccato dal browser, riprovo in muted:", e);
       fsVideo.muted = true;
       fsVideo.play().catch(() => {});
     });
@@ -55,7 +55,7 @@ window.closeFullscreenModal = function() {
     fsVideo.src = '';
   }
 
-  // Riprende la riproduzione nei telefoni visibili
+  // Riprende la riproduzione del video attualmente visibile a schermo
   document.querySelectorAll('.phone-container video').forEach(v => {
     try {
       const rect = v.getBoundingClientRect();
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── CARICAMENTO ORBIT ESTERNO DA GITHUB CON FALLBACK VISIBILE ──
+  // ── CARICAMENTO ORBIT ESTERNO DA GITHUB CON FALLBACK ──
   const orbitContainer = document.getElementById('orbit-container');
   if (orbitContainer) {
     fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting) {
-          // Mette in pausa gli altri video fuori campo
+          // Mette in pausa gli altri video prima di avviare questo
           phoneVideos.forEach(v => { if (v !== video) v.pause(); });
           video.play().catch(() => {});
         } else {
@@ -170,8 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { 
-      threshold: 0.3,
-      rootMargin: '200px 0px' // Inizia a caricare il video 200px PRIMA che entri a schermo!
+      threshold: 0.4,
+      rootMargin: '150px 0px'
     });
 
     phoneVideos.forEach(v => videoObserver.observe(v));
