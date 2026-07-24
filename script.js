@@ -4,24 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── LAZY VIDEO OBSERVER ──
-  const lazyVideos = document.querySelectorAll('.lazy-video');
-  const videoObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const video = entry.target;
-      if (entry.isIntersecting) {
-        if (!video.src && video.dataset.src) {
-          video.src = video.dataset.src;
-        }
-        video.play().catch(()=>{});
-      } else {
-        video.pause();
-      }
-    });
-  }, { threshold: 0.15 });
-
-  lazyVideos.forEach(v => videoObserver.observe(v));
-
   // ── FORM CONTATTO (Web3Forms + n8n) ──
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
@@ -125,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (SENZA SCATTI: METTE IN PAUSA GLI ALTRI VIDEO) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE DEFINITIVA ANTI-SCATTI) ──
 function openFullscreenModal(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -134,7 +116,7 @@ function openFullscreenModal(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // METTE IN PAUSA TUTTI GLI ALTRI VIDEO PER LIBERARE LA GPU AL 100%
+  // 1. Mette in pausa TUTTI gli altri video per liberare la GPU al 100%
   document.querySelectorAll('video').forEach(v => {
     if (v.id !== 'fs-video') v.pause();
   });
@@ -142,16 +124,18 @@ function openFullscreenModal(videoSrc, handle, caption) {
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
+  // 2. Apri modale
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
+  // 3. Imposta sorgente video con audio attivo
   fsVideo.src = videoSrc;
   fsVideo.currentTime = 0;
   fsVideo.muted = false; // AUDIO ATTIVO COMPLETO
   fsVideo.volume = 1;
 
   fsVideo.play().catch(e => {
-    console.warn("Autoplay audio bloccato, riprovo in muted:", e);
+    console.warn("Autoplay audio bloccato dal browser, riprovo in muted:", e);
     fsVideo.muted = true;
     fsVideo.play();
   });
@@ -167,12 +151,10 @@ function closeFullscreenModal() {
     fsVideo.src = '';
   }
 
-  // RIPRENDE LA RIPRODUZIONE DEGLI ALTRI VIDEO DELLA PAGINA
+  // Riprende la riproduzione dei video nei telefoni
   document.querySelectorAll('.phone-container video').forEach(v => {
     v.play().catch(()=>{});
   });
-  const bgVideo = document.getElementById('main-bg-video');
-  if (bgVideo) bgVideo.play().catch(()=>{});
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreenModal(); });
