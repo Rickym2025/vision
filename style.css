@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* FONT MINIMO 18PX */
+/* REGOLA FONT MINIMO 18PX (GOOGLE MOBILE COMPLIANCE) */
 html, body {
   overflow-x: hidden !important;
   max-width: 100% !important;
@@ -18,7 +18,7 @@ p, label, input, textarea, button {
   font-size: 18px;
 }
 
-/* SFONDO LUMINOSO IN PURO CSS CON BLUR RIDOTTO (ZERO CARICO GPU) */
+/* SFONDO VIVO IN PURO CSS CON BLUR RIDOTTO (ZERO CARICO GPU) */
 @keyframes float-blob1 {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(50px, 30px) scale(1.1); }
@@ -34,7 +34,7 @@ p, label, input, textarea, button {
 .ambient-glow {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(35px); /* Ridotto a 35px per eliminare qualsiasi rallentamento grafico */
+  filter: blur(35px);
   pointer-events: none;
   opacity: 0.22;
   transform: translateZ(0);
@@ -87,10 +87,12 @@ p, label, input, textarea, button {
   -webkit-text-fill-color: transparent;
 }
 
+/* ACCELERAZIONE HARDWARE PER VIDEO */
 .gpu-video {
   transform: translate3d(0, 0, 0);
   will-change: transform;
   backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* SMARTPHONE MOCKUPS */
@@ -231,7 +233,6 @@ p, label, input, textarea, button {
   transition: transform 0.3s ease-in-out;
 }
 
-/* PAUSA DELLA ROTAZIONE AL PASSAGGIO DEL MOUSE */
 .orbit-wrapper:hover,
 .orbit-area:hover .orbit-ring,
 .orbit-area:hover .orbit-wrapper {
