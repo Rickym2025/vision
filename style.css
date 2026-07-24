@@ -18,7 +18,7 @@ p, label, input, textarea, button {
   font-size: 18px;
 }
 
-/* SFONDO LUMINOSO IN PURO CSS (0% CARICO GPU) */
+/* SFONDO LUMINOSO IN PURO CSS CON BLUR RIDOTTO (ZERO CARICO GPU) */
 @keyframes float-blob1 {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(50px, 30px) scale(1.1); }
