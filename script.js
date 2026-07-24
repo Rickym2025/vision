@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── OTTIMIZZAZIONE LAZY VIDEO (PAUSA QUANDO FUORI SCHERMO) ──
+  // ── LAZY VIDEO OBSERVER (Senza scatti) ──
   const lazyVideos = document.querySelectorAll('.lazy-video');
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -72,12 +72,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = document.getElementById('vision-chat-submit');
   const messagesDiv = document.getElementById('vision-chat-messages');
 
+  window.toggleChatWindow = function() {
+    if (win) win.classList.toggle('chat-open');
+  };
+
   if (bubble && win) {
-    bubble.onclick = () => win.classList.toggle('chat-open');
-    if (closeBtn) closeBtn.onclick = () => win.classList.remove('chat-open');
+    bubble.onclick = toggleChatWindow;
+    if (closeBtn) closeBtn.onclick = (e) => { e.stopPropagation(); win.classList.remove('chat-open'); };
 
     let chatSessionId = localStorage.getItem('vision_chat_session') || ('sess_' + Date.now());
     localStorage.setItem('vision_chat_session', chatSessionId);
+
+    window.sendQuickMsg = function(text) {
+      if (input) {
+        input.value = text;
+        sendChatMsg();
+      }
+    };
 
     async function sendChatMsg() {
       const text = input.value.trim();
@@ -115,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (CON AUDIO AL 100%) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE AL BLOCCO) ──
 function openFullscreenModal(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -124,19 +135,28 @@ function openFullscreenModal(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  fsVideo.src = videoSrc;
-  fsVideo.muted = false; // RIPRODUZIONE AUDIO ATTIVA
-  fsVideo.volume = 1;
-
+  // 1. Inserisci i testi
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
+  // 2. MOSTRA LA MODALE PRIMA DI CARICARE IL VIDEO
   overlay.style.display = 'flex';
-  fsVideo.play().catch(e => {
-    console.log("Autoplay audio bloccato, riprovo in muted:", e);
-    fsVideo.muted = true;
-    fsVideo.play();
-  });
+  overlay.classList.remove('hidden');
+
+  // 3. Imposta la sorgente video e l'audio al 100%
+  fsVideo.src = videoSrc;
+  fsVideo.currentTime = 0;
+  fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
+  fsVideo.volume = 1;
+
+  const playPromise = fsVideo.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(e => {
+      console.warn("Autoplay con audio bloccato, riprovo senza audio:", e);
+      fsVideo.muted = true;
+      fsVideo.play();
+    });
+  }
 }
 
 function closeFullscreenModal() {
