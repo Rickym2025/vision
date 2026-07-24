@@ -55,7 +55,7 @@
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- SFONDO AMBIENT NEON MESH LUMINOSO IN PURO CSS (0% CARICO GPU) -->
+  <!-- SFONDO AMBIENT NEON MESH LUMINOSO IN PURO CSS -->
   <div aria-hidden="true" class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
     <div class="ambient-glow blob-1"></div>
     <div class="ambient-glow blob-2"></div>
@@ -117,18 +117,18 @@
         </div>
       </div>
 
-      <!-- Right Smartphone Mockups -->
+      <!-- Right Smartphone Mockups con Video Reali -->
       <div id="esempi" class="grid grid-cols-2 gap-4 relative">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/UGC_Lumiere_Completo.mp4', '@lumiere_beauty', 'Trattamento viso rigenerante Lumière ✨🧴 #skincare #beauty')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Lumière • Beauty Skin</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container mt-8" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/Houseboat_Compresso_5.mp4', '@houseboat_chioggia', 'Vacanze uniche in Houseboat a Chioggia! 🚤🌅 #travel #vacanze')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Houseboat • Chioggia</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -167,21 +167,21 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v1.mp4', '@camilla_yoga', 'My morning routine stretch! 🧘‍♀️ #fitness')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v1.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Fitness</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/promo_super_bici_completo.mp4', '@kayla_bike', 'Questa bici è pazzesca! Leggerissima! 🚴‍♀️')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Kayla • E-Bike</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v5_ita.mp4', '@swatch_review', 'Nuova collezione Swatch! 😍⌚ #unboxing')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v5_ita.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Tech & Style</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -397,7 +397,7 @@
     </div>
   </footer>
 
-  <!-- FULLSCREEN MODAL PLAYER (VELOCE, FLUIDO SENZA BLUR) -->
+  <!-- FULLSCREEN MODAL PLAYER -->
   <div id="fs-overlay" onclick="closeFullscreenModal()" class="fixed inset-0 z-[9999999] bg-black/95 hidden flex-col items-center justify-center p-4">
     <div class="relative w-full max-w-[340px] border-8 border-purple-950 rounded-[36px] overflow-hidden bg-black shadow-2xl" onclick="event.stopPropagation()">
       <div class="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-4 bg-purple-950 rounded-xl z-30"></div>
