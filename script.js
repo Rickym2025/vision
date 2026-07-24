@@ -4,6 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
+  // ── RIPRODUZIONE INTELLIGENTE VIDEO (MAX 1 VIDEO PER VOLTA = ZERO SCATTI) ──
+  const phoneVideos = document.querySelectorAll('.phone-container video');
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        video.play().catch(()=>{});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.5 }); // Avvia il video SOLO se visibile per almeno il 50%
+
+  phoneVideos.forEach(v => videoObserver.observe(v));
+
   // ── FORM CONTATTO (Web3Forms + n8n) ──
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
@@ -116,8 +131,10 @@ function openFullscreenModal(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti i video della pagina per dedicare la GPU al 100% al video aperto
-  document.querySelectorAll('.phone-container video').forEach(v => v.pause());
+  // 1. Mette in PAUSA tutti gli altri video della pagina per dedicare la GPU al 100% al video aperto
+  document.querySelectorAll('video').forEach(v => {
+    if (v !== fsVideo) v.pause();
+  });
 
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
@@ -133,26 +150,4 @@ function openFullscreenModal(videoSrc, handle, caption) {
   fsVideo.volume = 1;
 
   fsVideo.play().catch(e => {
-    console.warn("Autoplay audio bloccato, riprovo in muted:", e);
-    fsVideo.muted = true;
-    fsVideo.play();
-  });
-}
-
-function closeFullscreenModal() {
-  const overlay = document.getElementById('fs-overlay');
-  const fsVideo = document.getElementById('fs-video');
-
-  if (overlay) overlay.style.display = 'none';
-  if (fsVideo) {
-    fsVideo.pause();
-    fsVideo.src = '';
-  }
-
-  // Riprende la riproduzione nei telefoni
-  document.querySelectorAll('.phone-container video').forEach(v => {
-    v.play().catch(()=>{});
-  });
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreenModal(); });
+    console.warn
