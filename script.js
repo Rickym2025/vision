@@ -2,7 +2,7 @@
 // FUNZIONI GLOBALI SU WINDOW
 // ==========================================
 
-// ── FULLSCREEN MODAL VIDEO PLAYER ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (FLUIDO A 60 FPS) ──
 window.openFullscreenModal = function(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -11,7 +11,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti i video della pagina per dedicare la GPU al 100% al video aperto
+  // 1. Mette in PAUSA tutti gli altri video per dedicare la GPU al 100% al video aperto
   document.querySelectorAll('.phone-container video').forEach(v => {
     try { v.pause(); } catch(e) {}
   });
@@ -23,7 +23,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Reset video e imposta caricamento buffer pulito
+  // 3. Reset video e imposta buffering pulito
   fsVideo.pause();
   fsVideo.removeAttribute('src');
   fsVideo.load();
@@ -32,7 +32,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
   fsVideo.volume = 1;
 
-  // Attende che ci siano abbastanza fotogrammi pronti prima del play (Zero scatti)
+  // Attende che ci siano abbastanza fotogrammi pronti prima del play
   const tryPlay = () => {
     fsVideo.play().catch(e => {
       console.warn("Autoplay audio bloccato, riprovo in muted:", e);
@@ -55,7 +55,7 @@ window.closeFullscreenModal = function() {
     fsVideo.src = '';
   }
 
-  // Riprende la riproduzione del video attualmente visibile a schermo
+  // Riprende la riproduzione del video visibile a schermo
   document.querySelectorAll('.phone-container video').forEach(v => {
     try {
       const rect = v.getBoundingClientRect();
@@ -155,50 +155,25 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // ── GESTIONE RIPRODUZIONE FLUIDA AD ANTEPRIMA (MAX 1 VIDEO PER VOLTA) ──
-  const phoneContainers = document.querySelectorAll('.phone-container');
-
-  phoneContainers.forEach(container => {
-    const video = container.querySelector('video');
-    if (!video) return;
-
-    // Riproduzione on-demand al passaggio del mouse (Desktop)
-    container.addEventListener('mouseenter', () => {
-      document.querySelectorAll('.phone-container video').forEach(v => {
-        if (v !== video) v.pause();
-      });
-
-      if (!video.src && video.dataset.src) {
-        video.src = video.dataset.src;
-      }
-      video.play().catch(() => {});
-    });
-
-    container.addEventListener('mouseleave', () => {
-      video.pause();
-    });
-  });
-
-  // IntersectionObserver per Mobile (Avvia solo il video visibile al centro dello schermo)
-  if ('IntersectionObserver' in window) {
+  // ── GESTIONE RIPRODUZIONE INTELLIGENTE A VIDEO SINGOLO ──
+  const phoneVideos = document.querySelectorAll('.phone-container video');
+  if ('IntersectionObserver' in window && phoneVideos.length > 0) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting) {
-          document.querySelectorAll('.phone-container video').forEach(v => {
-            if (v !== video) v.pause();
-          });
-          if (!video.src && video.dataset.src) {
-            video.src = video.dataset.src;
-          }
+          // Mette in pausa gli altri video prima di avviare questo
+          phoneVideos.forEach(v => { if (v !== video) v.pause(); });
           video.play().catch(() => {});
         } else {
           video.pause();
         }
       });
-    }, { threshold: 0.6 });
+    }, { 
+      threshold: 0.5 
+    });
 
-    document.querySelectorAll('.phone-container video').forEach(v => videoObserver.observe(v));
+    phoneVideos.forEach(v => videoObserver.observe(v));
   }
 
   // FORM CONTATTI (Web3Forms + n8n)
