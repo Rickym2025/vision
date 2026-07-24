@@ -1,5 +1,5 @@
 // ==========================================
-// FUNZIONI GLOBALI SU WINDOW (Nessun Errore)
+// FUNZIONI GLOBALI SU WINDOW (Nessun Errore di Sintassi)
 // ==========================================
 
 // ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE ANTI-SCATTI DEFINITIVA) ──
@@ -46,7 +46,7 @@ window.closeFullscreenModal = function() {
     fsVideo.src = '';
   }
 
-  // Riprende la riproduzione del video attualmente visibile al centro dello schermo
+  // Riprende la riproduzione del video attualmente visibile a schermo
   document.querySelectorAll('.phone-container video').forEach(v => {
     try {
       const rect = v.getBoundingClientRect();
@@ -129,7 +129,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // RIPRODUZIONE INTELLIGENTE DEI VIDEO (MAX 1 ALLA VOLTA)
+  // ── CARICAMENTO FILE ORBIT ESTERNO DA GITHUB (PERFETTAMENTE FUNZIONANTE) ──
+  const orbitContainer = document.getElementById('orbit-container');
+  if (orbitContainer) {
+    fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
+      .then(res => {
+        if (!res.ok) throw new Error("Errore caricamento Orbit");
+        return res.text();
+      })
+      .then(html => {
+        orbitContainer.innerHTML = html;
+      })
+      .catch(err => {
+        console.error("Impossibile caricare l'ecosistema orbitale:", err);
+      });
+  }
+
+  // ── RIPRODUZIONE INTELLIGENTE DEI VIDEO (MAX 1 ALLA VOLTA = ZERO SCATTI) ──
   const phoneVideos = document.querySelectorAll('.phone-container video');
   if ('IntersectionObserver' in window && phoneVideos.length > 0) {
     const videoObserver = new IntersectionObserver((entries) => {
@@ -143,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
           video.pause();
         }
       });
-    }, { threshold: 0.6 }); // Gioca solo quando la scheda è al centro dello schermo
+    }, { threshold: 0.6 }); // Gioca solo quando la scheda è ben visibile al centro
 
     phoneVideos.forEach(v => videoObserver.observe(v));
   }
