@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* REGOLA FONT MINIMO 18PX */
+/* REGOLA FONT MINIMO 18PX (GOOGLE MOBILE COMPLIANCE) */
 html, body {
   overflow-x: hidden !important;
   max-width: 100% !important;
@@ -18,7 +18,7 @@ p, label, input, textarea, button {
   font-size: 18px;
 }
 
-/* SFONDO LUMINOSO IN PURO CSS CON BLUR RIDOTTO (ZERO CARICO GPU) */
+/* SFONDO LUMINOSO IN PURO CSS (0% CARICO GPU) */
 @keyframes float-blob1 {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(50px, 30px) scale(1.1); }
@@ -70,7 +70,7 @@ p, label, input, textarea, button {
   pointer-events: none;
 }
 
-/* GLASS PANELS SENZA BACKDROP-FILTER BLUR PER MASSIMA FLUIDITÀ VIDEO */
+/* GLASS PANELS SENZA BACKDROP-FILTER BLUR PER EVITARE SCATTI GRAFICI */
 .glass {
   background: rgba(14, 8, 28, 0.95);
   border: 1px solid rgba(255,255,255,0.08);
@@ -93,7 +93,7 @@ p, label, input, textarea, button {
   backface-visibility: hidden;
 }
 
-/* SMARTPHONE MOCKUPS */
+/* SMARTPHONE MOCKUPS ISOLATI */
 .phone-container {
   position: relative;
   width: 100%;
@@ -103,6 +103,7 @@ p, label, input, textarea, button {
   background: #000;
   box-shadow: 0 15px 35px rgba(124, 58, 237, 0.2);
   cursor: pointer;
+  contain: content;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -193,7 +194,7 @@ p, label, input, textarea, button {
   width: 340px; flex-shrink: 0; text-align: left;
 }
 
-/* ─── CLASSI BASE ED ANIMAZIONE ORBITALE ORARIO + CONTRO-ROTAZIONE ─── */
+/* ─── CLASSI BASE ED ANIMAZIONE ORBITALE ─── */
 @keyframes orbit-rotate {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
