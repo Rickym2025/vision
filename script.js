@@ -2,7 +2,7 @@
 // FUNZIONI GLOBALI SU WINDOW
 // ==========================================
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (SENZA RACE CONDITION CON BUFFERING CANPLAY) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SENZA SCATTI) ──
 window.openFullscreenModal = function(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -11,7 +11,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti gli altri video per liberare la GPU
+  // 1. Mette in PAUSA tutti gli altri video della pagina per dedicare il 100% della GPU al video aperto
   document.querySelectorAll('.phone-container video').forEach(v => {
     try { v.pause(); } catch(e) {}
   });
@@ -19,23 +19,23 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. Apri la modale visivamente
+  // 2. Apri modale visivamente
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Reset sorgente video e preparati al buffering pulito
+  // 3. Reset video e caricamento buffer pulito
   fsVideo.pause();
   fsVideo.removeAttribute('src');
   fsVideo.load();
 
   fsVideo.src = videoSrc;
-  fsVideo.muted = false; // Audio attivo
+  fsVideo.muted = false; // AUDIO COMPLETO ATTIVO
   fsVideo.volume = 1;
 
   // Attende che ci siano abbastanza fotogrammi pronti prima del play
   const tryPlay = () => {
     fsVideo.play().catch(e => {
-      console.warn("Autoplay audio bloccato dal browser, riprovo in muted:", e);
+      console.warn("Autoplay audio bloccato, riprovo in muted:", e);
       fsVideo.muted = true;
       fsVideo.play().catch(() => {});
     });
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // ── INTERSECTION OBSERVER VIDEO CON ROOTMARGIN PER BUFFERING ANTICIPATO ──
+  // ── RIPRODUZIONE INTELLIGENTE A SINGOLO VIDEO (MAX 1 VIDEO ATTIVO ALLA VOLTA) ──
   const phoneVideos = document.querySelectorAll('.phone-container video');
   if ('IntersectionObserver' in window && phoneVideos.length > 0) {
     const videoObserver = new IntersectionObserver((entries) => {
@@ -170,8 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { 
-      threshold: 0.4,
-      rootMargin: '150px 0px'
+      threshold: 0.5
     });
 
     phoneVideos.forEach(v => videoObserver.observe(v));
