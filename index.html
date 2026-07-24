@@ -55,7 +55,7 @@
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- SFONDO MESH NEON LUMINOSO E VIVO IN PURO CSS (0% VIDEO DECODER CARICO) -->
+  <!-- SFONDO AMBIENT NEON MESH LUMINOSO IN PURO CSS (0% CARICO GPU) -->
   <div aria-hidden="true" class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
     <div class="ambient-glow blob-1"></div>
     <div class="ambient-glow blob-2"></div>
@@ -117,18 +117,18 @@
         </div>
       </div>
 
-      <!-- Right Smartphone Mockups con Video Reali PERFETTAMENTE FLUIDI -->
+      <!-- Right Smartphone Mockups -->
       <div id="esempi" class="grid grid-cols-2 gap-4 relative">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/UGC_Lumiere_Completo.mp4', '@lumiere_beauty', 'Trattamento viso rigenerante Lumière ✨🧴 #skincare #beauty')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Lumière • Beauty Skin</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container mt-8" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/Houseboat_Compresso_5.mp4', '@houseboat_chioggia', 'Vacanze uniche in Houseboat a Chioggia! 🚤🌅 #travel #vacanze')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Houseboat • Chioggia</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -167,28 +167,28 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v1.mp4', '@camilla_yoga', 'My morning routine stretch! 🧘‍♀️ #fitness')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v1.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/v1.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Fitness</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/promo_super_bici_completo.mp4', '@kayla_bike', 'Questa bici è pazzesca! Leggerissima! 🚴‍♀️')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/promo_super_bici_completo.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Kayla • E-Bike</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/v5_ita.mp4', '@swatch_review', 'Nuova collezione Swatch! 😍⌚ #unboxing')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/v5_ita.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/v5_ita.mp4" loop muted playsinline preload="metadata"></video>
           <div class="vid-label">Camilla • Tech & Style</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
       </div>
   </section>
 
-  <!-- STRISCIA CONTINUA RECENSIONI (100% CONTINUA SENZA VUOTI) -->
+  <!-- STRISCIA CONTINUA RECENSIONI -->
   <section class="relative z-10 py-14 overflow-hidden bg-black/40 border-y border-white/5">
       <div class="text-center mb-8">
         <h3 class="text-sm font-bold uppercase tracking-widest text-purple-400">Cosa dicono i nostri clienti</h3>
@@ -217,7 +217,6 @@
               </div>
           </div>
           
-          <!-- TRACCIATO DUPLICATO PER ANNULLARE IL VUOTO -->
           <div class="marquee-content" aria-hidden="true">
               <div class="review-card">
                   <div class="text-yellow-400 text-base mb-2">★★★★★</div>
@@ -333,12 +332,12 @@
     </div>
   </section>
 
-  <!-- ECOSISTEMA ORBIT VIA IFRAME ESTERNO CENTRALE (SENZA ERRORE CORS) -->
+  <!-- ECOSISTEMA ORBIT VIA IFRAME ESTERNO CENTRALE (PERFETTAMENTE FUNZIONANTE) -->
   <section id="ecosistema" class="relative z-10 py-20 px-4 max-w-5xl mx-auto text-center border-t border-white/5">
       <h2 class="text-2xl font-bold mb-2">Powered by <span class="grad-text">RM Studio</span></h2>
       <p class="text-xs text-gray-400 mb-8">Sistemi autonomi ed ingegneria software per l'automazione B2B.</p>
       
-      <div class="w-full flex justify-center items-center overflow-hidden">
+      <div class="w-full flex justify-center items-center overflow-hidden min-h-[420px]">
           <iframe src="https://rmstudio.app/public/orbit-template.html" class="w-full h-[420px] border-0 overflow-hidden" loading="lazy"></iframe>
       </div>
   </section>
