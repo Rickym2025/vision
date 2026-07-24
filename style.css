@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* REGOLA FONT MINIMO 18PX (GOOGLE & NEUROSCIENZE) */
+/* FONT MINIMO 18PX PER NEUROSCIENZE & REGOLA GOOGLE MOBILE */
 html, body {
   overflow-x: hidden !important;
   max-width: 100% !important;
@@ -10,7 +10,7 @@ html, body {
   background: #050008;
   color: #f1f0f5;
   font-family: 'Inter', sans-serif;
-  font-size: 18px !important; /* Dimensione minima 18px */
+  font-size: 18px !important;
   line-height: 1.6;
 }
 
@@ -37,7 +37,7 @@ p, label, input, textarea, button {
   pointer-events: none;
 }
 
-/* SMARTPHONE MOCKUPS */
+/* MOCKUP SMARTPHONE */
 .phone-container {
   position: relative;
   width: 100%;
@@ -102,13 +102,13 @@ p, label, input, textarea, button {
   transform: translateX(-50%) scale(1.08);
 }
 
-/* MARQUEE TICKER RECENSIONI SCORREVOLE */
+/* MARQUEE TICKER SCORREVOLE CONTINUO SENZA INTERRUZIONI */
 .marquee-container {
   width: 100%; overflow: hidden; position: relative; padding: 15px 0;
 }
 .marquee-track {
   display: flex; gap: 24px; width: max-content;
-  animation: marquee-scroll 28s linear infinite;
+  animation: marquee-scroll 35s linear infinite;
 }
 .marquee-track:hover { animation-play-state: paused; }
 
@@ -124,7 +124,7 @@ p, label, input, textarea, button {
   width: 340px; flex-shrink: 0; text-align: left;
 }
 
-/* ORBIT NATIVO INLINE (100% IMMUNE DA ERRORI CORS) */
+/* ORBIT NATIVO INLINE IMMUNE A ERRORI CORS */
 .orbit-native-box {
   position: relative; width: 300px; height: 300px; margin: 0 auto;
   display: flex; align-items: center; justify-content: center;
@@ -203,12 +203,19 @@ p, label, input, textarea, button {
 
 .chat-header {
   background: #140520; padding: 14px; display: flex;
-  justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(124,58,237,0.2);
+  justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(124,58,237,0.2); cursor: pointer;
 }
 .chat-messages { flex: 1; padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
 .chat-input-area { padding: 10px; background: #140520; display: flex; gap: 6px; border-top: 1px solid rgba(124,58,237,0.2); }
 .chat-input-area input { flex: 1; background: #000; border: 1px solid #333; border-radius: 8px; padding: 8px; color: #fff; font-size: 15px; }
 .chat-input-area button { background: #7c3aed; color: #fff; border: none; padding: 0 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+.chat-chip {
+  display: inline-block; background: rgba(124,58,237,0.15);
+  border: 1px solid rgba(168,85,247,0.4); color: #c084fc;
+  padding: 6px 12px; border-radius: 15px; font-size: 12px; cursor: pointer; transition: 0.2s;
+}
+.chat-chip:hover { background: #7c3aed; color: #fff; }
 
 .msg { padding: 8px 12px; border-radius: 12px; font-size: 15px; max-width: 85%; }
 .msg.bot { background: #12051c; color: #fff; align-self: flex-start; border: 1px solid rgba(124,58,237,0.2); }
