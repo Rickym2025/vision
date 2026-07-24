@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* REGOLA FONT MINIMO 18PX (GOOGLE MOBILE COMPLIANCE) */
+/* FONT MINIMO 18PX */
 html, body {
   overflow-x: hidden !important;
   max-width: 100% !important;
@@ -18,55 +18,48 @@ p, label, input, textarea, button {
   font-size: 18px;
 }
 
-/* SFONDO VIVO IN PURO CSS CON BLUR RIDOTTO A 50PX ED ISOLAMENTO COMPOSITING */
+/* SFONDO LUMINOSO IN PURO CSS CON BLUR RIDOTTO (ZERO CARICO GPU) */
 @keyframes float-blob1 {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, 40px) scale(1.15); }
-  100% { transform: translate(-30px, 20px) scale(0.92); }
+  50% { transform: translate(50px, 30px) scale(1.1); }
+  100% { transform: translate(-20px, 15px) scale(0.95); }
 }
 
 @keyframes float-blob2 {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-50px, -40px) scale(1.18); }
-  100% { transform: translate(20px, -15px) scale(0.95); }
+  50% { transform: translate(-40px, -30px) scale(1.12); }
+  100% { transform: translate(15px, -10px) scale(0.98); }
 }
 
 .ambient-glow {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(50px); /* Ridotto a 50px per azzerare lo sforzo della GPU */
+  filter: blur(35px); /* Ridotto a 35px per eliminare qualsiasi rallentamento grafico */
   pointer-events: none;
-  opacity: 0.25;
+  opacity: 0.22;
   transform: translateZ(0);
   contain: strict;
 }
 
 .blob-1 {
-  width: 650px; height: 650px;
+  width: 600px; height: 600px;
   background: radial-gradient(circle, #7c3aed 0%, #e040fb 100%);
   top: -100px; left: -100px;
   animation: float-blob1 16s ease-in-out infinite alternate;
 }
 
 .blob-2 {
-  width: 600px; height: 600px;
+  width: 550px; height: 550px;
   background: radial-gradient(circle, #a855f7 0%, #00e5f2 100%);
   bottom: 5%; right: -80px;
   animation: float-blob2 20s ease-in-out infinite alternate;
 }
 
 .blob-3 {
-  width: 450px; height: 450px;
+  width: 400px; height: 400px;
   background: radial-gradient(circle, #e040fb 0%, #6366f1 100%);
   top: 45%; left: 20%;
   animation: float-blob1 22s ease-in-out infinite reverse;
-}
-
-.blob-4 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, #7c3aed 0%, #00e5f2 100%);
-  bottom: -100px; left: 10%;
-  animation: float-blob2 18s ease-in-out infinite;
 }
 
 .ambient-grid-overlay {
@@ -77,10 +70,15 @@ p, label, input, textarea, button {
   pointer-events: none;
 }
 
+/* GLASS PANELS SENZA BACKDROP-FILTER BLUR PER MASSIMA FLUIDITÀ VIDEO */
 .glass {
-  background: rgba(15, 5, 30, 0.90);
-  backdrop-filter: blur(8px);
+  background: rgba(14, 8, 28, 0.95);
   border: 1px solid rgba(255,255,255,0.08);
+}
+
+.site-header {
+  background: rgba(10, 8, 20, 0.96);
+  isolation: isolate;
 }
 
 .grad-text {
@@ -160,7 +158,7 @@ p, label, input, textarea, button {
   transform: translateX(-50%) scale(1.08);
 }
 
-/* MARQUEE TICKER SCORREVOLE CONTINUO */
+/* MARQUEE TICKER SCORREVOLE CONTINUO SENZA GAP */
 .marquee {
   display: flex;
   overflow: hidden;
@@ -195,7 +193,17 @@ p, label, input, textarea, button {
   width: 340px; flex-shrink: 0; text-align: left;
 }
 
-/* ─── CLASSI BASE DELL'ORBIT SYSTEM (Senza di queste il template scaricato risultava sparpagliato) ─── */
+/* ─── CLASSI BASE ED ANIMAZIONE ORBITALE ORARIO + CONTRO-ROTAZIONE ─── */
+@keyframes orbit-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbit-counter-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
 .orbit-area {
   position: relative;
   min-height: 440px;
@@ -209,6 +217,8 @@ p, label, input, textarea, button {
   width: 440px;
   height: 440px;
   margin: 0 auto;
+  animation: orbit-rotate 35s linear infinite;
+  transform-style: preserve-3d;
 }
 
 .orbit-wrapper {
@@ -216,6 +226,16 @@ p, label, input, textarea, button {
   width: 64px;
   height: 64px;
   transform: translate(-50%, -50%);
+  animation: orbit-counter-rotate 35s linear infinite;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* PAUSA DELLA ROTAZIONE AL PASSAGGIO DEL MOUSE */
+.orbit-wrapper:hover,
+.orbit-area:hover .orbit-ring,
+.orbit-area:hover .orbit-wrapper {
+  animation-play-state: paused;
 }
 
 .orbit-item {
