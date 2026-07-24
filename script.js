@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE DEFINITIVA ANTI-SCATTI) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (LIBERA LA GPU PER EVITARE SCATTI) ──
 function openFullscreenModal(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -116,10 +116,8 @@ function openFullscreenModal(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in pausa TUTTI gli altri video per liberare la GPU al 100%
-  document.querySelectorAll('video').forEach(v => {
-    if (v.id !== 'fs-video') v.pause();
-  });
+  // 1. Mette in pausa tutti gli altri video della pagina per liberare la scheda grafica
+  document.querySelectorAll('.phone-container video').forEach(v => v.pause());
 
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
@@ -128,14 +126,14 @@ function openFullscreenModal(videoSrc, handle, caption) {
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Imposta sorgente video con audio attivo
+  // 3. Riproduzione del video selezionato con audio al 100%
   fsVideo.src = videoSrc;
   fsVideo.currentTime = 0;
-  fsVideo.muted = false; // AUDIO ATTIVO COMPLETO
+  fsVideo.muted = false;
   fsVideo.volume = 1;
 
   fsVideo.play().catch(e => {
-    console.warn("Autoplay audio bloccato dal browser, riprovo in muted:", e);
+    console.warn("Autoplay audio bloccato, riprovo in muted:", e);
     fsVideo.muted = true;
     fsVideo.play();
   });
@@ -151,7 +149,7 @@ function closeFullscreenModal() {
     fsVideo.src = '';
   }
 
-  // Riprende la riproduzione dei video nei telefoni
+  // Riprende la riproduzione fluida dei video nei telefoni
   document.querySelectorAll('.phone-container video').forEach(v => {
     v.play().catch(()=>{});
   });
