@@ -2,7 +2,7 @@
 // FUNZIONI GLOBALI SU WINDOW
 // ==========================================
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (FLUIDISSIMO) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER ──
 window.openFullscreenModal = function(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -11,7 +11,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti gli altri video di sfondo per dedicare il 100% della GPU al video aperto
+  // Mette in pausa tutti i video di sfondo per dedicare il 100% della GPU al video aperto
   document.querySelectorAll('.phone-container video').forEach(v => {
     try { v.pause(); } catch(e) {}
   });
@@ -19,11 +19,9 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. Mostra la modale visivamente
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Riproduzione pulita con audio
   fsVideo.src = videoSrc;
   fsVideo.currentTime = 0;
   fsVideo.muted = false;
@@ -32,7 +30,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   const playPromise = fsVideo.play();
   if (playPromise !== undefined) {
     playPromise.catch(e => {
-      console.warn("Autoplay con audio bloccato dal browser, riprovo in muted:", e);
+      console.warn("Autoplay con audio bloccato, riprovo in muted:", e);
       fsVideo.muted = true;
       fsVideo.play().catch(() => {});
     });
@@ -47,10 +45,10 @@ window.closeFullscreenModal = function() {
   if (fsVideo) {
     fsVideo.pause();
     fsVideo.removeAttribute('src');
-    fsVideo.load(); // Libera la memoria della GPU
+    fsVideo.load();
   }
 
-  // Riprende la riproduzione dei soli video attualmente visibili nello schermo
+  // Riprende la riproduzione del video visibile a schermo
   document.querySelectorAll('.phone-container video').forEach(v => {
     try {
       const rect = v.getBoundingClientRect();
@@ -150,35 +148,47 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // ── RIPRODUZIONE INTELLIGENTE ED INDIPENDENTE DEI VIDEO (ZERO SCATTI / STUTTERING) ──
+  // ── RIPRODUZIONE SINGLE-DECODER PER UN FLUIDO A 60 FPS IN CHROME ──
+  const phoneContainers = document.querySelectorAll('.phone-container');
   const phoneVideos = document.querySelectorAll('.phone-container video');
+
+  function playSingleVideo(targetVideo) {
+    phoneVideos.forEach(v => {
+      if (v !== targetVideo) {
+        v.pause();
+      }
+    });
+    if (targetVideo && targetVideo.paused) {
+      targetVideo.play().catch(() => {});
+    }
+  }
+
+  // Passando con il mouse su uno smartphone parte quello e si fermano gli altri
+  phoneContainers.forEach(container => {
+    container.addEventListener('mouseenter', () => {
+      const v = container.querySelector('video');
+      if (v) playSingleVideo(v);
+    });
+  });
+
+  // Durante lo scroll fa girare SOLO il video più visibile al centro dello schermo
   if ('IntersectionObserver' in window && phoneVideos.length > 0) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        const video = entry.target;
         if (entry.isIntersecting) {
-          // Riproduci il video in sicurezza solo se in pausa
-          if (video.paused) {
-            const promise = video.play();
-            if (promise !== undefined) {
-              promise.catch(() => {});
-            }
-          }
+          playSingleVideo(entry.target);
         } else {
-          // Metti in pausa se esce dallo schermo
-          if (!video.paused) {
-            video.pause();
-          }
+          entry.target.pause();
         }
       });
     }, { 
-      threshold: 0.25 
+      threshold: 0.6 
     });
 
     phoneVideos.forEach(v => videoObserver.observe(v));
   }
 
-  // ── FORM CONTATTI (DOPPIO INVIO PARALLELO WEB3FORMS + N8N) ──
+  // ── FORM CONTATTI (WEB3FORMS + N8N) ──
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
