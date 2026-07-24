@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ── FULLSCREEN MODAL VIDEO PLAYER (LIBERA LA GPU PER EVITARE SCATTI) ──
+// ── FULLSCREEN MODAL VIDEO PLAYER (SOLUZIONE DEFINITIVA ANTI-SCATTI) ──
 function openFullscreenModal(videoSrc, handle, caption) {
   const overlay = document.getElementById('fs-overlay');
   const fsVideo = document.getElementById('fs-video');
@@ -116,7 +116,7 @@ function openFullscreenModal(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in pausa tutti gli altri video della pagina per liberare la scheda grafica
+  // 1. Mette in PAUSA tutti i video della pagina per dedicare la GPU al 100% al video aperto
   document.querySelectorAll('.phone-container video').forEach(v => v.pause());
 
   if (fsHandle) fsHandle.textContent = handle;
@@ -149,7 +149,7 @@ function closeFullscreenModal() {
     fsVideo.src = '';
   }
 
-  // Riprende la riproduzione fluida dei video nei telefoni
+  // Riprende la riproduzione nei telefoni
   document.querySelectorAll('.phone-container video').forEach(v => {
     v.play().catch(()=>{});
   });
