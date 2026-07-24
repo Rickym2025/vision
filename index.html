@@ -55,8 +55,8 @@
 
 <body class="antialiased flex flex-col min-h-screen">
 
-  <!-- SFONDO AMBIENT NEON MESH LUMINOSO IN PURO CSS -->
-  <div aria-hidden="true" class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+  <!-- SFONDO AMBIENT NEON MESH CON ISOLAMENTO ISOLATE (0% OVERHEAD GPU) -->
+  <div aria-hidden="true" class="fixed inset-0 z-0 pointer-events-none overflow-hidden" style="isolation: isolate;">
     <div class="ambient-glow blob-1"></div>
     <div class="ambient-glow blob-2"></div>
     <div class="ambient-glow blob-3"></div>
@@ -117,18 +117,18 @@
         </div>
       </div>
 
-      <!-- Right Smartphone Mockups con Video Reali FLUIDISSIMI -->
+      <!-- Right Smartphone Mockups con Video Above-the-fold in Preload Auto -->
       <div id="esempi" class="grid grid-cols-2 gap-4 relative">
         <div class="phone-container" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/UGC_Lumiere_Completo.mp4', '@lumiere_beauty', 'Trattamento viso rigenerante Lumière ✨🧴 #skincare #beauty')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/UGC_Lumiere_Completo.mp4" loop muted playsinline preload="auto"></video>
           <div class="vid-label">Lumière • Beauty Skin</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
 
         <div class="phone-container mt-8" style="aspect-ratio:9/16;" onclick="openFullscreenModal('/public/video/Houseboat_Compresso_5.mp4', '@houseboat_chioggia', 'Vacanze uniche in Houseboat a Chioggia! 🚤🌅 #travel #vacanze')">
           <div class="phone-notch"></div>
-          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" loop muted playsinline preload="metadata"></video>
+          <video class="gpu-video" src="/public/video/Houseboat_Compresso_5.mp4" loop muted playsinline preload="auto"></video>
           <div class="vid-label">Houseboat • Chioggia</div>
           <div class="audio-btn-badge">🔊 GUARDA CON AUDIO</div>
         </div>
@@ -332,12 +332,12 @@
     </div>
   </section>
 
-  <!-- ECOSISTEMA ORBITALE RICHIAMATO DAL FILE ESTERNO UNICO SU GITHUB -->
+  <!-- ECOSISTEMA ORBITALE DA FILE ESTERNO GITHUB -->
   <section id="ecosistema" class="relative z-10 py-20 px-4 max-w-5xl mx-auto text-center border-t border-white/5">
       <h2 class="text-2xl font-bold mb-2">Powered by <span class="grad-text">RM Studio</span></h2>
       <p class="text-xs text-gray-400 mb-8">Sistemi autonomi ed ingegneria software per l'automazione B2B.</p>
       
-      <!-- CONTENITORE DOVE LO SCRIPT INIETTA IL FILE ESTERNO ORBIT-TEMPLATE.HTML -->
+      <!-- CONTENITORE DOVE SCRIPT.JS INIETTA IL FILE ESTERNO -->
       <div id="orbit-container" class="orbit-area relative min-h-[440px] flex items-center justify-center">
           <p class="text-xs text-gray-500 animate-pulse">Caricamento Ecosistema RM Studio...</p>
       </div>
@@ -398,7 +398,7 @@
     </div>
   </footer>
 
-  <!-- FULLSCREEN MODAL PLAYER (Senza filtri sfocatura = 60 FPS Fluidissimo) -->
+  <!-- FULLSCREEN MODAL PLAYER -->
   <div id="fs-overlay" onclick="closeFullscreenModal()" class="fixed inset-0 z-[9999999] bg-black/95 hidden flex-col items-center justify-center p-4">
     <div class="relative w-full max-w-[340px] border-8 border-purple-950 rounded-[36px] overflow-hidden bg-black shadow-2xl" onclick="event.stopPropagation()">
       <div class="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-4 bg-purple-950 rounded-xl z-30"></div>
