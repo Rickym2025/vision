@@ -11,7 +11,7 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
 
   if (!overlay || !fsVideo) return;
 
-  // 1. Mette in PAUSA tutti gli altri video per dedicare la GPU al 100% al video aperto
+  // 1. Mette in PAUSA tutti gli altri video della pagina per dedicare la GPU al 100% al video aperto
   document.querySelectorAll('.phone-container video').forEach(v => {
     try { v.pause(); } catch(e) {}
   });
@@ -19,11 +19,11 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   if (fsHandle) fsHandle.textContent = handle;
   if (fsCaption) fsCaption.textContent = caption;
 
-  // 2. Apri la modale visivamente
+  // 2. Apri modale visivamente
   overlay.style.display = 'flex';
   overlay.classList.remove('hidden');
 
-  // 3. Reset sorgente video e imposta buffering pulito
+  // 3. Reset video e imposta buffering pulito
   fsVideo.pause();
   fsVideo.removeAttribute('src');
   fsVideo.load();
@@ -35,14 +35,14 @@ window.openFullscreenModal = function(videoSrc, handle, caption) {
   // Attende che ci siano abbastanza fotogrammi pronti prima del play
   const tryPlay = () => {
     fsVideo.play().catch(e => {
-      console.warn("Autoplay audio bloccato, riprovo in muted:", e);
+      console.warn("Autoplay audio bloccato dal browser, riprovo in muted:", e);
       fsVideo.muted = true;
       fsVideo.play().catch(() => {});
     });
   };
 
   fsVideo.addEventListener('canplay', tryPlay, { once: true });
-  fsVideo.load();
+  fsVideo.load(); // Forza il buffering anticipato
 };
 
 window.closeFullscreenModal = function() {
@@ -55,7 +55,7 @@ window.closeFullscreenModal = function() {
     fsVideo.src = '';
   }
 
-  // Riprende la riproduzione dei video visibili a schermo
+  // Riprende la riproduzione del video visibile a schermo
   document.querySelectorAll('.phone-container video').forEach(v => {
     try {
       const rect = v.getBoundingClientRect();
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yrEl = document.getElementById('yr');
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-  // ── CARICAMENTO ORBIT ESTERNO DA GITHUB CON FALLBACK ──
+  // ── CARICAMENTO ORBIT ESTERNO DA GITHUB CON FALLBACK VISIBILE ──
   const orbitContainer = document.getElementById('orbit-container');
   if (orbitContainer) {
     fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting) {
-          // Riproduce SOLO il video centrato a schermo e ferma tutti gli altri
+          // Pausa TUTTI gli altri video prima di avviare questo
           phoneVideos.forEach(v => { if (v !== video) v.pause(); });
           video.play().catch(() => {});
         } else {
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { 
-      threshold: 0.5 
+      threshold: 0.6 // Riproduce solo quando è visibile per almeno il 60%
     });
 
     phoneVideos.forEach(v => videoObserver.observe(v));
