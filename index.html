@@ -453,6 +453,18 @@
       </div>
   </div>
 
+  <!-- ⚡ SCRIPT CARICAMENTO ORBITA CENTRALIZZATA GITHUB RAW -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
+        .then((res) => { if (!res.ok) throw new Error("Errore fetch Orbit"); return res.text(); })
+        .then((html) => {
+          const container = document.getElementById("orbit-container");
+          if (container) container.innerHTML = html;
+        })
+        .catch((err) => console.error("Impossibile caricare l'ecosistema orbitale:", err));
+    });
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
